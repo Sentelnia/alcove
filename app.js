@@ -43,18 +43,13 @@ app.use(require('node-sass-middleware')({
   sourceMap: true
 }));
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-
-
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
-
-
 
 //Lien API /REACT
 app.use(
@@ -64,10 +59,9 @@ app.use(
   })
 );
 
-
-
 const index = require('./routes/index');
 app.use('/', index);
-
+const authRoutes = require('./routes/auth');
+app.use('/api', authRoutes)
 
 module.exports = app;

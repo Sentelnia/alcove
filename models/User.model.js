@@ -6,11 +6,9 @@ const {Schema} = mongoose;
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: [true, 'Le prénom est obligatoire.']
   },
   lastName: {
     type: String,
-    required: [true, 'Le nom de famille est obligatoire.']
   },
   email: {
     type: String,
@@ -35,12 +33,10 @@ const userSchema = new Schema({
   },
   civility:{
     type: String,
-    required: true
   },
   adresses:[{
     street: {
       type: String,
-      required: true
     },
     supp: {
       type: String
@@ -54,7 +50,8 @@ const userSchema = new Schema({
       required: true
     }
   }]
-}, {
+}, 
+{
   timestamps: true
 });
 
