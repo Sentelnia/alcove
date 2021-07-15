@@ -43,8 +43,7 @@ const userSchema = new Schema({
       required: true
     },
     supp: {
-      type: String,
-      required: true
+      type: String
     },
     zip:{
       type: Number,
