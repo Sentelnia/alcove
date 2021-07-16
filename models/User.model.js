@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
@@ -16,14 +15,13 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true
   },
-  tel: {
-    type: Number,
-    unique: true,  
+  telephone: {
+    type: String,
   },
   password: {
     type: String,
     required: [true, 'Le mot de passe est obligatoire.'],
-    minlength: 6,
+    // minlength: 6,
     // maxlength: 16,
   },
   role: {
