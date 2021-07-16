@@ -94,3 +94,20 @@ authRoutes.post('/sessions', (req, res, next) => {
 });
 
 module.exports = authRoutes;
+
+//////////////////////////////////// CHECK IF LOGGED IN ////////////////////////////////
+
+authRoutes.get('/session', (req, res, next) => {
+  if (req.isAuthenticated()) {
+      res.status(200).json({ message: req.user.email });
+      return;
+  }
+  res.status(401).json({ message: 'Unauthorized' });
+});
+
+///////////////////////////////////// DELETE SESSION ///////////////////////////////////
+
+authRoutes.delete('/session', (req, res, next) => {
+  req.session.destroy();
+  res.status(204).send();
+});
