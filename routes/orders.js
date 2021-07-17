@@ -15,23 +15,22 @@ ordersRoutes.get('/orders', (req, res, next) => {
     res.status(401).json({ message: 'Accès non authorisé' });
     return;
   }
-  else if (req.user.role === "ADMIN") {
-    Order.find()
-      .then(ordersFromDB => {
-        res.status(201).json(ordersFromDB);
-      })
-      .catch(err => {
-        res.status(400).json({ message: "Une erreur lors de la création du produit s'est produite." });
-      })
-  } else if (req.user.role === "USER") {
-    Order.find({ user_id: req.user._id.toString() })
-      .then(ordersFromDB => {
-        res.status(201).json(ordersFromDB);
-      })
-      .catch(err => {
-        res.status(400).json({ message: "Une erreur lors de la création du produit s'est produite." });
-      })
+
+  let cond;
+
+  if (req.user.role === "ADMIN") {
+    cond = {}
+  } else {
+    cond = { user_id: req.user._id.toString() }
   }
+
+  Order.find(cond)
+      .then(ordersFromDB => {
+        res.status(201).json(ordersFromDB);
+      })
+      .catch(err => {
+        res.status(400).json({ message: "Une erreur lors de la création du produit s'est produite." });
+      })
 });
 
 //////////////////////////////// GET DETAILS OF ORDERS ///////////////////////////////
