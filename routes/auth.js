@@ -125,7 +125,6 @@ authRoutes.put('/user', (req, res, next) => {
         foundUser.civility = req.body.civility;
         foundUser.telephone = req.body.telephone;
         foundUser.adresses = req.body.adresses;
-        foundUser.firstName = req.body.firstName;
 
         foundUser.save()
           .then(() => {
