@@ -20,7 +20,7 @@ authRoutes.post('/users', (req, res, next) => {
   }
 
   const regexEmail = /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
-  
+
   if (!regexEmail.test(email)) {
     res.status(403).json({ message: "L'adresse E-mail saisie n'est pas valide" });
     return;
@@ -56,11 +56,11 @@ authRoutes.post('/users', (req, res, next) => {
           res.status(201).json(aNewUser);
         })
         .catch(err => {
-          res.status(400).json({ message: "Une erreur lors de la création du compte s'est produite."});
+          res.status(400).json({ message: "Une erreur lors de la création du compte s'est produite." });
         });
     })
     .catch(err => {
-      res.status(500).json({ message: "Adresse E-mail non reconnue."});
+      res.status(500).json({ message: "Adresse E-mail non reconnue." });
     });
 })
 
@@ -73,20 +73,20 @@ authRoutes.post('/sessions', (req, res, next) => {
       // Something went wrong authenticating user
       return next(err);
     }
- 
+
     if (!theUser) {
       // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
-      res.status(403).json({ message: "L'adresse E-mail et le mot de passe ne correspondent pas."});
+      res.status(403).json({ message: "L'adresse E-mail et le mot de passe ne correspondent pas." });
       return;
     }
- 
+
     // save user in session: req.user
     req.login(theUser, err => {
       if (err) {
         // Session save went bad
         return next(err);
       }
- 
+
       // All good, we are now logged in and `req.user` is now set
       res.status(201).json(theUser);;
     });
@@ -97,8 +97,8 @@ authRoutes.post('/sessions', (req, res, next) => {
 
 authRoutes.get('/session', (req, res, next) => {
   if (req.isAuthenticated()) {
-      res.status(200).json({ message: req.user.email });
-      return;
+    res.status(200).json({ message: req.user.email });
+    return;
   }
   res.status(401).json({ message: 'Unauthorized' });
 });
@@ -112,7 +112,40 @@ authRoutes.delete('/session', (req, res, next) => {
 
 ////////////////////////////////// UPDATE USER DATA ////////////////////////////////////
 authRoutes.put('/user', (req, res, next) => {
-  
+
+  if (req.isAuthenticated()) {
+
+    console.log('user email', req.user.email)
+    console.log('req.body', req.body)
+
+    User.findOne({ email: req.user.email })
+      .then(foundUser => {
+        console.log(foundUser);
+
+        foundUser.firstName = req.body.firstName;
+        foundUser.lastName = req.body.lastName;
+        foundUser.email = req.body.email;
+        foundUser.civility = req.body.civility;
+        foundUser.telephone = req.body.telephone;
+        foundUser.adresses = req.body.adresses;
+        foundUser.firstName = req.body.firstName;
+
+        foundUser.save()
+          .then(() => {
+            res.status(200).json(foundUser);
+          })
+          .catch(err => {
+            res.status(400).json({ message: "Une erreur lors de la MAJ de l'utilisateur s'est produite." });
+          });
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(400).json({ message: "User non trouvé" });
+      });
+
+    return;
+  }
+  res.status(401).json({ message: 'Unauthorized' });
 });
 
 //////////////////////////////// UPDATE USER PWD ////////////////////////////////////////

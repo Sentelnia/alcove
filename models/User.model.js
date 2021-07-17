@@ -41,11 +41,9 @@ const userSchema = new Schema({
     },
     zip:{
       type: Number,
-      required: true
     },
     city:{
       type: Number,
-      required: true
     }
   }]
 }, 
