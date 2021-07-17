@@ -97,7 +97,7 @@ authRoutes.post('/sessions', (req, res, next) => {
 
 authRoutes.get('/session', (req, res, next) => {
   if (req.isAuthenticated()) {
-    res.status(200).json({ message: req.user.email });
+    res.status(200).json({ user: req.user });
     return;
   }
   res.status(401).json({ message: 'Unauthorized' });
@@ -106,7 +106,7 @@ authRoutes.get('/session', (req, res, next) => {
 ///////////////////////////////////// DELETE SESSION ///////////////////////////////////
 
 authRoutes.delete('/session', (req, res, next) => {
-  req.session.destroy();
+  req.logout();
   res.status(204).send();
 });
 
@@ -114,9 +114,6 @@ authRoutes.delete('/session', (req, res, next) => {
 authRoutes.put('/user', (req, res, next) => {
 
   if (req.isAuthenticated()) {
-
-    console.log('user email', req.user.email)
-    console.log('req.body', req.body)
 
     User.findOne({ email: req.user.email })
       .then(foundUser => {
@@ -150,7 +147,7 @@ authRoutes.put('/user', (req, res, next) => {
 
 //////////////////////////////// UPDATE USER PWD ////////////////////////////////////////
 authRoutes.put('/user/password', (req, res, next) => {
-  
+
 });
 
 module.exports = authRoutes;

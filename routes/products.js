@@ -100,5 +100,4 @@ function checkRoles(role) {
   };
 }
 
-
 module.exports = productsRoutes;
