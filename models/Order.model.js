@@ -4,39 +4,36 @@ const Schema   = mongoose.Schema;
 const orderSchema = new Schema({
   userId: { type : Schema.Types.ObjectId, ref: 'User'},
   orderDate: Date,
-  items: [{
-    productId : { type : Schema.Types.ObjectId, ref: 'Product'},
-    quantity: Number,
-  }],
-  status: {type: String, enum: [ 'En attente de validation', 'Validée', 'Expédiée']},
+  items: {type : Array},
+  status: {type: String, enum: [ 'En attente de validation', 'Validée', 'Expédiée'], default:'En attente de validation'},
   shippingDate:Date,
-  add_delivery:{
+  addDelivery:{
     street: {
       type: String,
       required: true
     },
     supp: String,      
     zip:{
-      type: Number,
+      type: String,
       required: true
     },
     city:{
-      type: Number,
+      type: String,
       required: true
     }
   },
-  add_billing:{
+  addBilling:{
     street: {
       type: String,
       required: true
     },
     supp: String,      
     zip:{
-      type: Number,
+      type: String,
       required: true
     },
     city:{
-      type: Number,
+      type: String,
       required: true
     }
   }
