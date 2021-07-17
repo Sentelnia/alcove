@@ -93,8 +93,6 @@ authRoutes.post('/sessions', (req, res, next) => {
   })(req, res, next);
 });
 
-module.exports = authRoutes;
-
 //////////////////////////////////// CHECK IF LOGGED IN ////////////////////////////////
 
 authRoutes.get('/session', (req, res, next) => {
@@ -121,3 +119,5 @@ authRoutes.put('/user', (req, res, next) => {
 authRoutes.put('/user/password', (req, res, next) => {
   
 });
+
+module.exports = authRoutes;

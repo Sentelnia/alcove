@@ -32,3 +32,4 @@ productsRoutes.delete('/products/:id', (req, res, next) => {
 
 });
 
+module.exports = productsRoutes;

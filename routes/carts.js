@@ -16,3 +16,5 @@ cartsRoutes.get('/cart', (req, res, next) => {
 cartsRoutes.put('/cart/checkout', (req, res, next) => {
 
 });
+
+module.exports = cartsRoutes;

@@ -22,3 +22,5 @@ ordersRoutes.get('/orders/:id', (req, res, next) => {
 ordersRoutes.put('/orders/:id', (req, res, next) => {
 
 });
+
+module.exports = ordersRoutes;
