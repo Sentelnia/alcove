@@ -111,3 +111,13 @@ authRoutes.delete('/session', (req, res, next) => {
   req.session.destroy();
   res.status(204).send();
 });
+
+////////////////////////////////// UPDATE USER DATA ////////////////////////////////////
+authRoutes.put('/user', (req, res, next) => {
+  
+});
+
+//////////////////////////////// UPDATE USER PWD ////////////////////////////////////////
+authRoutes.put('/user/password', (req, res, next) => {
+  
+});
