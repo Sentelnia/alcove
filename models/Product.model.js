@@ -4,8 +4,8 @@ const {Schema} = mongoose;
 
 
 const productSchema = new Schema({
-  unit_price: {
-    type: Number,
+  unitPrice: {
+    type: String,
     required: true
   },
   name: {
@@ -23,6 +23,11 @@ const productSchema = new Schema({
   ingredients: {
     type: String,
     required: true 
+  },
+  category: {
+    type: String,
+    enum: ['NAIL', 'LASH', 'BASIC'],
+    default: 'BASIC',
   }
 }, {
   timestamps: true
