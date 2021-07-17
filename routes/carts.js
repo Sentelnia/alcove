@@ -39,11 +39,7 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
     return;
   }
 
-  
-
   const {addBilling, addDelivery} = req.body
-
-  
   const userId = req.user.id
   const items = []
   const orderDate = Date()

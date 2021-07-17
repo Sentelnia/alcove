@@ -8,6 +8,7 @@
     "dev-windows": "nodemon ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "connect-mongo": "^3.2.0",
@@ -23,6 +24,7 @@
     "node-sass-middleware": "^0.11.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "react-router-dom": "^5.2.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
