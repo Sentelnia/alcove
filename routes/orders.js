@@ -1,6 +1,5 @@
 const express = require('express');
 const ordersRoutes = express.Router();
-const mongoose = require('mongoose');
 
 const bcrypt = require('bcryptjs');
 
@@ -43,9 +42,9 @@ ordersRoutes.get('/orders/:id', (req, res, next) => {
   let cond;
 
   if (req.user.role === "ADMIN") {
-    cond = {}
+    cond = {_id: req.params.id.toString()}
   } else {
-    cond = { _id: req.params.id.toString(), user_id: req.user._id.toString() }
+    cond = {_id: req.params.id.toString(), userId: req.user._id.toString() }
   }
 
   Order.find(cond)
