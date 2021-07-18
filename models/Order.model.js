@@ -1,46 +1,49 @@
 const mongoose = require('mongoose');
-const Schema   = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-  userId: { type : Schema.Types.ObjectId, ref: 'User'},
-  orderDate: Date,
-  items: {type : Array},
-  status: {type: String, enum: [ 'En attente de validation', 'Validée', 'Expédiée'], default:'En attente de validation'},
-  shippingDate:Date,
-  addDelivery:{
+  userId: { type: Schema.Types.ObjectId, ref: 'User' },
+  orderDate: { type: Date, default: Date.now },
+  items: [{
+    product: { type: Schema.Types.Object, ref: 'Product' },
+    quantity: Number
+  }],
+  status: { type: String, enum: ['En attente de validation', 'Validée', 'Expédiée'], default: 'En attente de validation' },
+  shippingDate: Date,
+  addDelivery: {
     street: {
       type: String,
       required: true
     },
-    supp: String,      
-    zip:{
+    supp: String,
+    zip: {
       type: String,
       required: true
     },
-    city:{
+    city: {
       type: String,
       required: true
     }
   },
-  addBilling:{
+  addBilling: {
     street: {
       type: String,
       required: true
     },
-    supp: String,      
-    zip:{
+    supp: String,
+    zip: {
       type: String,
       required: true
     },
-    city:{
+    city: {
       type: String,
       required: true
     }
   }
-}, 
-{
-  timestamps: true
-});
+},
+  {
+    timestamps: true
+  });
 
 const Order = mongoose.model('Order', orderSchema);
 module.exports = Order;

@@ -10,8 +10,8 @@ const passport = require('passport');
 ///////////////////////////////////////////////////// CREATION USER ACCOUNT //////////////////////////////////////////////////
 
 authRoutes.post('/users', (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  
+  const {email, password} = req.body;
 
   // 1. Check username and password are not empty
   if (!email || !password) {
@@ -51,7 +51,7 @@ authRoutes.post('/users', (req, res, next) => {
       aNewUser.save()
         .then(() => {
           // Persist our new user into session
-          // req.session.currentUser = aNewUser
+          req.session.currentUser = aNewUser
 
           res.status(201).json(aNewUser);
         })
@@ -114,10 +114,9 @@ authRoutes.delete('/session', (req, res, next) => {
 authRoutes.put('/user', (req, res, next) => {
 
   if (req.isAuthenticated()) {
-
-    User.findOne({ email: req.user.email })
+    
+    User.findOne(req.user._id)
       .then(foundUser => {
-        console.log(foundUser);
 
         foundUser.firstName = req.body.firstName;
         foundUser.lastName = req.body.lastName;

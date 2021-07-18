@@ -1,34 +1,34 @@
 [{
-  "user_id": "60f173b52fab1d05e75389f7",
-  "order_date": "30/07/2021",
+  "userId": "60f173b52fab1d05e75389f7",
+  "orderDate": "30/07/2021",
   "items":[
     {
-      "product_id": "60f2c7a15f9e400f126910fa",
+      "productId": "60f2c7a15f9e400f126910fa",
       "quantity": 5
     },
     {
-      "product_id": "60f2c846ea21fd0f3ee0b9ce",
+      "productId": "60f2c846ea21fd0f3ee0b9ce",
       "quantity": 2
     }
   ],
   "status": "Validée",
-  "shipping_date": "",
-  "add_delivery": {
+  "shippingDate": "",
+  "addDelivery": {
     "street":"3, rue JavaScript",
     "supp":	"cours de droite",
-    "zip": 93500,
+    "zip": "93500",
     "city":	"Pantin"
   },
-  "add_billing": {
+  "addBilling": {
     "street":	"3, rue JavaScript",
     "supp":	"cours de droite",
-			"zip": 93500,
+			"zip": "93500",
 			"city":	"Pantin"
   }
 },
 {
-  "user_id": "60f173c22fab1d05e75389fa",
-  "order_date": "30/07/2021",
+  "userId": "60f173c22fab1d05e75389fa",
+  "orderDate": "30/07/2021",
   "items":[
     {
       "product_id": "60f2c7a15f9e400f126910fa",
@@ -40,17 +40,17 @@
     }
   ],
   "status": "Validée",
-  "shipping_date": "",
-  "add_delivery": {
+  "shippingDate": "",
+  "addDelivery": {
     "street":"3, rue JavaScript",
     "supp":	"cours de droite",
-    "zip": 93500,
+    "zip": "93500",
     "city":	"Pantin"
   },
-  "add_billing": {
+  "addBilling": {
     "street":	"3, rue JavaScript",
     "supp":	"cours de droite",
-			"zip": 93500,
+			"zip": "93500",
 			"city":	"Pantin"
   }
 }]
