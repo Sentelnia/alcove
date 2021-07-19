@@ -44,7 +44,6 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
   const {addBilling, addDelivery} = req.body
   const userId = req.user.id
   const items = req.session.cart;
-  req.session.cart=[];      //On vide le panier suite à la passation de la commande
 
   Order.create({
     userId,
@@ -53,6 +52,7 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
     addBilling
   })
   .then(newOrder => {    
+    req.session.cart=[];      //On vide le panier suite à la passation de la commande
     res.status(200).json(newOrder)
   })
   .catch(err => res.status(400).json({message:err.message}))
