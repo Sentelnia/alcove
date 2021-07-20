@@ -20,7 +20,7 @@ export default class extends React.Component {
         this.setState({ error: "" });
 
         this.props.updateUser(response);
-        this.props.history.push('/');
+        
       })
       .catch(err => {
         this.setState({ error: err.response.data.message })
@@ -60,6 +60,7 @@ export default class extends React.Component {
         <p>
           <small>
             <Link to="/signup">Créer un compte</Link>
+            <Link to="/profile">Profile</Link>
           </small>
         </p>
       </>

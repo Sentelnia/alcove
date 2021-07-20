@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Signup from './components/auth/Signup';
 import authService from './components/auth/auth-service.js';
 import Login from './components/auth/Login';
+import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
   fetchUser = () => {
     if (!this.state.user._id) {
       authService.loggedin()
-        .then(data => this.setState({ user: data }))
+        .then(data => this.setState({ user: data.user }))
         .catch(err => this.setState({ user: false }))
         ;
     } else {
@@ -27,7 +28,7 @@ class App extends Component {
   };
 
   updateUser = (data) => {
-    this.setState({ user: data });
+    this.setState({ user: data.user });
   };
 
   componentDidMount() {
@@ -49,10 +50,14 @@ class App extends Component {
           {/////////////////////* LOGIN *////////////////////////
           }
           <Route exact path="/login" render={(props) => (
-            <Login updateUser={this.updateUser} history={props.history} />
+            <Login updateUser={this.updateUser} />
           )} />
 
-
+          {/////////////////////*PROFIL *////////////////////////
+          }
+          <Route exact path="/profile" render={(props) => (
+            <Profile user={this.state.user} updateUser={this.updateUser}  />
+          )} />
 
         </Switch>
 

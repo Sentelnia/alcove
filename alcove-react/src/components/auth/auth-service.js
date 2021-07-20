@@ -30,14 +30,17 @@ export default {
     .then(response => response.data)
   },
 
-  edit(firstName, lastName, email, civility, telephone, adresses) {
-    return this.service.post('/user', {
+  edit(firstName, lastName, email, civility, street, supp,  zip, city,telephone ) {
+    return this.service.put('/user', {
       firstName,
       lastName,
       email,
       civility,
-      telephone,
-      adresses
+      adresses:[{street,
+        supp,
+        zip,
+        city,}],
+      telephone
     })
     .then(response => response.data)
   },
