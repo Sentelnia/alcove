@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import authService from './auth-service.js';
-import Navbar from '../Navbar.js';
 
 
 //le commentaire qui suit est pour enlever les petites lignes jaunes sur mon vs code car c'est très desagréable !
@@ -39,7 +38,6 @@ export default class extends React.Component {
   render() {
     return (
       <>
-        <Navbar />
         <form onSubmit={this.handleFormSubmit} className='signup'>
           <label>Adresse email:</label>
           <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
@@ -52,14 +50,12 @@ export default class extends React.Component {
         <button className="btn" onClick={this.handleSubmit}>Je créé mon compte</button>
 
         <p>
-          <Link to={"/sessions"}>J'ai déja un compte </Link>
+          <Link to="/login">J'ai déja un compte </Link>
         </p>
 
         {this.state.error && (
           <p className="error">{this.state.error}</p>
         )}
-
-
       </>
     )
   }

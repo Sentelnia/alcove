@@ -3,8 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import authService from "./auth-service.js";
-import Navbar from '../Navbar.js';
-
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
@@ -38,7 +36,6 @@ export default class extends React.Component {
   render() {
     return (
       <>
-        <Navbar />
         <form onSubmit={this.handleSubmit}>
           <p>
             <label>
@@ -62,7 +59,7 @@ export default class extends React.Component {
         )}
         <p>
           <small>
-            <Link to="/users">Créer un compte</Link>
+            <Link to="/signup">Créer un compte</Link>
           </small>
         </p>
       </>

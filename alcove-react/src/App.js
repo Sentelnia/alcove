@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Signup from './components/auth/Signup';
 import authService from './components/auth/auth-service.js';
 import Login from './components/auth/Login';
+import Navbar from './components/Navbar';
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Navbar />
         <Switch>
           {/////////////////////* SIGNUP *////////////////////////
           }
