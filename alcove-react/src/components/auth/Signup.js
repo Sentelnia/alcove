@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import authService from './auth-service.js';
 
@@ -51,7 +51,7 @@ export default class extends React.Component {
     <button className="btn" onClick={this.handleSubmit}>Je créé mon compte</button>
 
     <p>
-        {/* <Link to={"/"}>J'ai déja un compte </Link> */}
+        <Link to={"/sessions"}>J'ai déja un compte </Link>
     </p>
 
     {this.state.error && (
