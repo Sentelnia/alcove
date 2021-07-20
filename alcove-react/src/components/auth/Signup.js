@@ -24,7 +24,8 @@ export default class extends React.Component {
       .then(() => {
         this.setState({error: ""});
       })
-      .catch(err => this.setState({error: err.response.data.message}))
+      .catch(err => {
+        this.setState({error: err.response.data.message})})
     ;
   }
 
@@ -36,6 +37,8 @@ export default class extends React.Component {
     
   render(){
     return(<>
+
+
     <form onSubmit={this.handleFormSubmit} className='signup'>
       <label>Adresse email:</label>
       <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
@@ -46,9 +49,16 @@ export default class extends React.Component {
     </form>
     
     <button className="btn" onClick={this.handleSubmit}>Je créé mon compte</button>
-        <p>
-          {/* <Link to={"/"}>J'ai déja un compte </Link> */}
-        </p>
+
+    <p>
+        {/* <Link to={"/"}>J'ai déja un compte </Link> */}
+    </p>
+
+    {this.state.error && (
+      <p className="error">{this.state.error}</p>
+    )}
+
+           
     </>)
   }
 }
