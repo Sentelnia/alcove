@@ -39,8 +39,8 @@ class App extends Component {
 
     {/////////////////////* SIGNUP *////////////////////////}
     }
-    <Route exact path="/users" render={(props) => (
-      <Signup updateUser={this.updateUser} history={props.history} />
+    <Route exact path="/users" render={() => (
+      <Signup />
     )} />
 
     </Switch>

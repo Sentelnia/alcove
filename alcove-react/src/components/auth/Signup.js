@@ -23,16 +23,6 @@ export default class extends React.Component {
     authService.signup(this.state.email, this.state.password)
       .then(() => {
         this.setState({error: ""});
-
-        // 2. le update n'est pas encore bien fait
-        // authService.edit(this.state.email)
-        //   .then(response => {
-        //     this.setState({error: ""});
-            
-        //     this.props.updateUser(response);
-        //     this.props.history.push('/');
-        //   })
-        //   .catch(err => this.setState({error: err.response.data.message}))
       })
       .catch(err => this.setState({error: err.response.data.message}))
     ;
