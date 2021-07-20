@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import {Switch, Route} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import Signup from './components/auth/Signup'; 
+import Signup from './components/auth/Signup';
+import Navbar from './components/Navbar';
 
 
 class App extends Component {
@@ -25,29 +26,31 @@ class App extends Component {
   // };
 
   updateUser = (data) => {
-    this.setState({user: data});
+    this.setState({ user: data });
   };
 
   // componentDidMount() {
   //   this.fetchUser();
   // }
-  
-  render(){
-    return(<div className='App'>
-    <p>test</p>
-    <Switch>
 
-    {/////////////////////* SIGNUP *////////////////////////}
-    }
-    <Route exact path="/users" render={() => (
-      <Signup />
-    )} />
+  render() {
+    return (
+      <div className='App'>
+        <Navbar />
+        <Switch>
 
-    </Switch>
-    </div>)
+          {/////////////////////* SIGNUP *////////////////////////}
+          }
+          <Route exact path="/users" render={(props) => (
+            <Signup updateUser={this.updateUser} history={props.history} />
+          )} />
+
+        </Switch>
+      </div>
+    )
   }
 
-  
+
 }
 
 export default App;
