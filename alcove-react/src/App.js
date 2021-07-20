@@ -4,8 +4,8 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
 import Signup from './components/auth/Signup';
-import Navbar from './components/Navbar';
-
+import authService from './components/auth/auth-service.js';
+import Login from './components/auth/Login';
 
 class App extends Component {
 
@@ -13,39 +13,47 @@ class App extends Component {
     user: {}
   }
 
-  ////////////////////////////LOGGEDIN/////////////////////////////
-  // fetchUser = () => {
-  //   if (!this.state.user._id) {
-  //     authService.loggedin()
-  //       .then(data => this.setState({user: data}))
-  //       .catch(err => this.setState({user: false}))
-  //     ;
-  //   } else {
-  //     console.log('user already in the state')
-  //   }
-  // };
+  //////////////////////////LOGGEDIN/////////////////////////////
+  fetchUser = () => {
+    if (!this.state.user._id) {
+      authService.loggedin()
+        .then(data => this.setState({ user: data }))
+        .catch(err => this.setState({ user: false }))
+        ;
+    } else {
+      console.log('user already in the state')
+    }
+  };
 
   updateUser = (data) => {
     this.setState({ user: data });
   };
 
-  // componentDidMount() {
-  //   this.fetchUser();
-  // }
+  componentDidMount() {
+    this.fetchUser();
+  }
 
   render() {
     return (
       <div className='App'>
-        <Navbar />
         <Switch>
-
-          {/////////////////////* SIGNUP *////////////////////////}
+          {/////////////////////* SIGNUP *////////////////////////
           }
-          <Route exact path="/users" render={(props) => (
-            <Signup updateUser={this.updateUser} history={props.history} />
+          <Route exact path="/signup" render={() => (
+            <Signup />
           )} />
 
+
+          {/////////////////////* LOGIN *////////////////////////
+          }
+          <Route exact path="/login" render={(props) => (
+            <Login updateUser={this.updateUser} history={props.history} />
+          )} />
+
+
+
         </Switch>
+
       </div>
     )
   }
