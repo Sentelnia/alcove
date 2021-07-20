@@ -15,6 +15,19 @@ productsRoutes.get('/services', (req, res, next) => {
   
 });
 
+//////////////////////////////// GET LISTING OF Product ///////////////////////////////
+productsRoutes.get('/productlist', (req, res, next) => {
+  Product.find()
+    .then(allProductFromDB => {
+      res.status(200).json({allProductFromDB})
+    })
+    .catch(err => {
+      res.status(400).json({message:err})
+    })
+  
+});
+
+
 ///////////////////////////////// CREATION PRODUCT ////////////////////////////////////////
 productsRoutes.post('/products', checkRoles("ADMIN"), (req, res, next) => {
   if(!req.isAuthenticated()){

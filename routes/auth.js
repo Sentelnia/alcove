@@ -71,7 +71,8 @@ authRoutes.post('/sessions', (req, res, next) => {
   passport.authenticate('local', (err, theUser, failureDetails) => {
     if (err) {
       // Something went wrong authenticating user
-      return next(err);
+      res.status(400).json({ message: err });
+      return;
     }
 
     if (!theUser) {
@@ -84,7 +85,8 @@ authRoutes.post('/sessions', (req, res, next) => {
     req.login(theUser, err => {
       if (err) {
         // Session save went bad
-        return next(err);
+        res.status(400).json({ message: err });
+        return;
       }
 
       // All good, we are now logged in and `req.user` is now set
