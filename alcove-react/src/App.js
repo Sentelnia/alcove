@@ -8,6 +8,10 @@ import authService from './components/auth/auth-service.js';
 import Login from './components/auth/Login';
 import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
+import Homepage from './components/Homepage';
+import Product from './components/products/Product';
+import CreateProduct from './components/products/CreateProduct';
+
 
 class App extends Component {
 
@@ -40,6 +44,12 @@ class App extends Component {
       <div className='App'>
         <Navbar />
         <Switch>
+          {/////////////////////* HOMEPAGE *////////////////////////
+          }
+          <Route exact path="/" render={() => (
+            <Homepage />
+          )} />
+
           {/////////////////////* SIGNUP *////////////////////////
           }
           <Route exact path="/signup" render={() => (
@@ -56,7 +66,13 @@ class App extends Component {
           {/////////////////////*PROFIL *////////////////////////
           }
           <Route exact path="/profile" render={(props) => (
-            <Profile user={this.state.user} updateUser={this.updateUser}  />
+            <Profile user={this.state.user} updateUser={this.updateUser} />
+          )} />
+
+          {/////////////////////*PRODUCTS *////////////////////////
+          }
+          <Route exact path="/new-product" render={(props) => (
+            <CreateProduct user={this.state.user} updateUser={this.updateUser} />
           )} />
 
         </Switch>
