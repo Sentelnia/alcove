@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
 
 export default {
@@ -6,20 +7,27 @@ export default {
     withCredentials: true
   }),
 
-  createProduct(){
-    return this.service.post('/products', {
-      unitPrice,
-      name,
-      description,
-      advice,
-      ingredients,
-      category
-    })
+  // createProduct(productPrice, productName, productDescription, productAdvice, productIngredients, productCategory){
+  //   console.log('param fn:',productPrice, productName, productDescription, productAdvice, productIngredients, productCategory)
+  //   return this.service.post('/products', {
+  //     unitPrice: productPrice,
+  //     name:productName,
+  //     description:productDescription,
+  //     advice:productAdvice,
+  //     ingredients:productIngredients,
+  //     category:productCategory
+  //   })
+  //   .then(response => response.data)
+  // },
+
+  createProduct(productData){
+    console.log('productData:',productData)
+    return this.service.post('/products', productData)
     .then(response => response.data)
   },
 
   getProducts() {
-    return this.service.get('/products')
+    return this.service.get('/productslist')
     .then(response => response.data)
   },
 
@@ -28,14 +36,14 @@ export default {
     .then(response => response.data)
   },
 
-  updateProduct(){
-    return this.service.put('/products/:id',{
-      unitPrice,
-      name,
-      description,
-      advice,
-      ingredients,
-      category
+  updateProduct(productPrice, productName, productDescription, productAdvice, productIngredients, productCategory){
+    return this.service.put('/products/:id', {
+      unitPrice: productPrice,
+      name:productName,
+      description:productDescription,
+      advice:productAdvice,
+      ingredients:productIngredients,
+      category:productCategory
     })
     .then(response => response.data)
   },

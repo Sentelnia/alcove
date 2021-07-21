@@ -9,7 +9,6 @@ import Login from './components/auth/Login';
 import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
-import Product from './components/products/Product';
 import CreateProduct from './components/products/CreateProduct';
 
 
@@ -47,7 +46,7 @@ class App extends Component {
           {/////////////////////* HOMEPAGE *////////////////////////
           }
           <Route exact path="/" render={() => (
-            <Homepage />
+            <Homepage user={this.state.user}/>
           )} />
 
           {/////////////////////* SIGNUP *////////////////////////
@@ -72,7 +71,7 @@ class App extends Component {
           {/////////////////////*PRODUCTS *////////////////////////
           }
           <Route exact path="/new-product" render={(props) => (
-            <CreateProduct user={this.state.user} updateUser={this.updateUser} />
+            <CreateProduct user={this.state.user}/>
           )} />
 
         </Switch>

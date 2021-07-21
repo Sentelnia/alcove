@@ -1,26 +1,60 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import productsService from './products-service';
 
 class Product extends React.Component {
+  state = {
+    products: [],
+    categories: [],
+  }
+  componentDidMount() {
+    productsService.getProducts()
+      .then((response) => {
+        this.setState({
+          products: response.allProductFromDB,
+          categories: [...new Set(response.allProductFromDB.map(product => product.category))] // Récupère les catégories à partir des produits saisis en base puis supp les doublons
+        });
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  }
+
   render() {
     return (
       <>
         <h1>Nos Produits</h1>
-        <Link to="/new-product">Ajouter un produit</Link>
-        {/* 
-        //1. Requête à DB pour obtenir tous les produits
-        //2. Remplir dynamiquement info des produits
-        //3. Gérer l'affichage en fonction du rôle de l'utilisateur
-        */}
-        <div className="product-card">
-          <img src="https://via.placeholder.com/375x250" alt="product-pic" />
-          <h2>Nom du produit</h2>
-          <p>20,00 €</p>
-          <div className="btn-container">
-            <button>Modifier</button>
-            <button>Supprimer</button>
+        {console.log("props user role:", this.props.user.role)}
+        {
+          //Affichage lien vers création produit seulement pour admin
+          this.props.user.role === "ADMIN" && <Link to="/new-product">Ajouter un produit</Link>}
+
+        {this.state.categories.map(category => (
+          <div className="product-cateory" key={category}>
+            <h2>{category}</h2>
+            {this.state.products
+              .filter(product => product.category === category)
+              .map(product => (
+                <>
+                  <div className="product-card" key={product._id}>
+                    <img src="https://via.placeholder.com/375x250" alt="product-pic" />
+                    <h3>{product.name}</h3>
+                    <p>{product.unitPrice} €</p>
+                    {
+                      //Affichage btn-container seulement pour admin
+                      this.props.user.role === "ADMIN" && (
+                        <div className="btn-container">
+                          <Link to="/edit-product">Modifier un produit</Link>
+                          <button>Supprimer</button>
+                        </div>
+                      )}
+                  </div>
+                </>
+              ))
+            }
           </div>
-        </div>
+        ))
+        }
       </>
     )
   }

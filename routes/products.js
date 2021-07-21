@@ -16,7 +16,7 @@ productsRoutes.get('/services', (req, res, next) => {
 });
 
 //////////////////////////////// GET LISTING OF Product ///////////////////////////////
-productsRoutes.get('/productlist', (req, res, next) => {
+productsRoutes.get('/productslist', (req, res, next) => {
   Product.find()
     .then(allProductFromDB => {
       res.status(200).json({allProductFromDB})
