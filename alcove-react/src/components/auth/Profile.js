@@ -14,12 +14,23 @@ export default class extends React.Component {
     email:      this.props.user.email || "",
     telephone:  this.props.user.telephone || "",
     civility:   this.props.user.civility || "",
-    street:     this.props.user.adresses && this.props.user.adresses[0].street || "",
-    supp:       this.props.user.adresses && this.props.user.adresses[0].supp || "",
-    zip:        this.props.user.adresses && this.props.user.adresses[0].zip || "",
-    city:       this.props.user.adresses && this.props.user.adresses[0].city || "",
+    //Verifie si adresse[0] est undefined
+    street:     this.props.user.adresses && this.props.user.adresses[0]?.street || "",
+    supp:       this.props.user.adresses && this.props.user.adresses[0]?.supp || "",
+    zip:        this.props.user.adresses && this.props.user.adresses[0]?.zip || "",
+    city:       this.props.user.adresses && this.props.user.adresses[0]?.city || "",
 
     error: ""
+  }
+  componentDidUpdate(prevProps, prevState) {
+    // executée qd n'importe quelle props + nimporte quel state change !!
+
+    if (prevProps.user !== this.props.user) {
+      // la props user vient de changer
+      this.setState({
+        
+      })
+    }
   }
 
 

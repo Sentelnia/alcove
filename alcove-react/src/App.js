@@ -12,31 +12,35 @@ import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
 import EditProduct from './components/products/EditProduct';
 
+
 class App extends Component {
 
   state = {
-    user: {}
+    user: {},
   }
 
-  //////////////////////////LOGGEDIN/////////////////////////////
-  fetchUser = () => {
-    if (!this.state.user._id) {
+  
+  ///////////////LOGGEDIN/////////////////////////////
+  fetchUser() {
+    if (!this.state.user._id){
       authService.loggedin()
-        .then(data => this.setState({ user: data.user }))
-        .catch(err => this.setState({ user: false }))
-        ;
-    } else {
-      console.log('user already in the state')
+        .then(response => {
+          this.setState({user: response})
+        })
+        .catch(err => {
+          this.setState({user: false}) 
+        })
     }
-  };
+  }
 
-  updateUser = (data) => {
-    this.setState({ user: data.user });
-  };
 
   componentDidMount() {
     this.fetchUser();
   }
+
+  updateUser = (data) => {
+    this.setState({ user: data });
+  };
 
   render() {
     return (

@@ -18,7 +18,7 @@ export default class extends React.Component {
     authService.login(this.state.email, this.state.password)
       .then(response => {
         this.setState({ error: "" });
-
+        
         this.props.updateUser(response);
         
       })
@@ -50,9 +50,9 @@ export default class extends React.Component {
               <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
             </label>
           </p>
+          <input type="submit" value="Je me connecte" />
         </form>
 
-        <button className="btn" onClick={this.handleSubmit}>Je me connecte</button>
 
         {this.state.error && (
           <p className="error">{this.state.error}</p>
