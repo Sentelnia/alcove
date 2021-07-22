@@ -10,7 +10,7 @@ class Product extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    
+    console.log('props',this.props)
     //NOT WORKING YET
     // productsService.deleteProduct()
     //   .then(() => console.log('produit supprimé'))
