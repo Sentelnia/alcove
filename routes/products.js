@@ -8,6 +8,7 @@ const User = require('../models/User.model');
 const Product = require('../models/Product.model')
 
 const passport = require('passport');
+const uploader = require('../cloudinary.js');
 
 //////////////////////////////// GET LISTING OF SERVICES ///////////////////////////////
 productsRoutes.get('/services', (req, res, next) => {
@@ -27,6 +28,19 @@ productsRoutes.get('/productslist', (req, res, next) => {
   
 });
 
+productsRoutes.post('/upload', uploader.single('imageUrl'), (req, res, next) => {
+  console.log('file is: ', req.file)
+ 
+  if (!req.file) {
+    res.status(400).json({message: "No file uploaded!"});
+    return;
+  }
+  // get secure_url from the file object and save it in the
+  // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
+ 
+  res.json({ secure_url: req.file.path });
+});
+
 
 ///////////////////////////////// CREATION PRODUCT ////////////////////////////////////////
 productsRoutes.post('/products', checkRoles("ADMIN"), (req, res, next) => {
@@ -35,14 +49,15 @@ productsRoutes.post('/products', checkRoles("ADMIN"), (req, res, next) => {
     return;
   }
 
-  const {unitPrice, name, description, advice, ingredients, category} = req.body;
+  const {unitPrice, name, description, advice, ingredients, category, imageUrl} = req.body;
   Product.create({
     unitPrice,
     name,
     description,
     advice,
     ingredients,
-    category
+    category,
+    imageUrl
   })
   .then(newproduct => {
     res.status(201).json(newproduct);

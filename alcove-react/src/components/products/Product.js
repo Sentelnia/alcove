@@ -7,6 +7,16 @@ class Product extends React.Component {
     products: [],
     categories: [],
   }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    
+    //NOT WORKING YET
+    // productsService.deleteProduct()
+    //   .then(() => console.log('produit supprimé'))
+    //   .catch(err => console.log('error delete product:', err))
+  }
+
   componentDidMount() {
     productsService.getProducts()
       .then((response) => {
@@ -24,7 +34,6 @@ class Product extends React.Component {
     return (
       <>
         <h1>Nos Produits</h1>
-        {console.log("props user role:", this.props.user.role)}
         {
           //Affichage lien vers création produit seulement pour admin
           this.props.user.role === "ADMIN" && <Link to="/new-product">Ajouter un produit</Link>}
@@ -37,17 +46,20 @@ class Product extends React.Component {
               .map(product => (
                 <>
                   <div className="product-card" key={product._id}>
-                    <img src="https://via.placeholder.com/375x250" alt="product-pic" />
+                    <img src={product.imageUrl || "https://via.placeholder.com/375x250"} alt="product-pic" />
                     <h3>{product.name}</h3>
                     <p>{product.unitPrice} €</p>
-                    {
-                      //Affichage btn-container seulement pour admin
-                      this.props.user.role === "ADMIN" && (
-                        <div className="btn-container">
-                          <Link to="/edit-product">Modifier un produit</Link>
-                          <button>Supprimer</button>
-                        </div>
-                      )}
+                    <div className="btn-container">
+                      <Link to={`/details-product/${product._id}`}>Détails</Link>
+                      {
+                        //Affichage edit et delete seulement pour admin
+                        this.props.user.role === "ADMIN" && (
+                          <>
+                            <Link to={`/edit-product/${product._id}`}>Modifier</Link>
+                            <button className="btn" onClick={this.handleSubmit}>Supprimer</button>
+                          </>
+                        )}
+                    </div>
                   </div>
                 </>
               ))

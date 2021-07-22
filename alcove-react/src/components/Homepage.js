@@ -4,7 +4,6 @@ import Product from './products/Product';
 
 class Homepage extends React.Component {
   render() {
-    console.log("props HP:",this.props)
     return (
       <>
         <h1>L'Alcôve</h1>

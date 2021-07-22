@@ -28,7 +28,8 @@ const productSchema = new Schema({
     type: String,
     enum: ['NAIL', 'LASH', 'BASIC','CARTE'],
     default: 'BASIC',
-  }
+  },
+  imageUrl: { type: String, required: true }
 }, {
   timestamps: true
 });

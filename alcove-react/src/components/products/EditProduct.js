@@ -2,7 +2,7 @@ import React from 'react';
 // import { Link } from 'react-router-dom';
 import productsService from './products-service';
 
-class CreateProduct extends React.Component {
+class EditProduct extends React.Component {
   state = {
     name: "",
     unitPrice: "",
@@ -13,6 +13,14 @@ class CreateProduct extends React.Component {
     imageUrl: ""
   };
 
+  componentDidMount() {
+    productsService.getProduct(this.props.match.params.id)
+      .then(response => this.setState(response))
+      .catch(err => {
+        console.log(err)
+      });
+  }
+
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
@@ -21,13 +29,13 @@ class CreateProduct extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    productsService.createProduct(this.state)
+    productsService.updateProduct(this.state,this.props.match.params.id)
       .then(() => console.log('produit créé'))
       .catch(err => console.log('error:', err))
   }
 
   handleUpload = (event) => {
-    
+
     let formData = new FormData();
     formData.append('imageUrl', event.target.files[0]);
 
@@ -35,8 +43,8 @@ class CreateProduct extends React.Component {
       .then(response => {
         this.setState({ imageUrl: response.secure_url });
       })
-    ;
-  } 
+      ;
+  }
 
   render() {
     return (
@@ -56,7 +64,7 @@ class CreateProduct extends React.Component {
           <input type="text" name="name" value={this.state.name} onChange={e => this.handleChange(e)} />
 
           <label>
-            <img className="product-pict" alt="product-pict" src={this.state.imageUrl || "https://via.placeholder.com/375x250" } />
+            <img className="product-pict" alt="product-pict" src={this.state.imageUrl || "https://via.placeholder.com/375x250"} />
             <input type="file" name="image" onChange={this.handleUpload} />
           </label>
 
@@ -73,10 +81,10 @@ class CreateProduct extends React.Component {
           <textarea name="ingredients" value={this.state.ingredients} onChange={e => this.handleChange(e)} />
         </form>
 
-        <button className="btn" onClick={this.handleSubmit}>Créer produit</button>
+        <button className="btn" onClick={this.handleSubmit}>Enregistrer</button>
       </>
     )
   }
 }
 
-export default CreateProduct;
+export default EditProduct;

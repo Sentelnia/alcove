@@ -7,21 +7,7 @@ export default {
     withCredentials: true
   }),
 
-  // createProduct(productPrice, productName, productDescription, productAdvice, productIngredients, productCategory){
-  //   console.log('param fn:',productPrice, productName, productDescription, productAdvice, productIngredients, productCategory)
-  //   return this.service.post('/products', {
-  //     unitPrice: productPrice,
-  //     name:productName,
-  //     description:productDescription,
-  //     advice:productAdvice,
-  //     ingredients:productIngredients,
-  //     category:productCategory
-  //   })
-  //   .then(response => response.data)
-  // },
-
   createProduct(productData){
-    console.log('productData:',productData)
     return this.service.post('/products', productData)
     .then(response => response.data)
   },
@@ -31,25 +17,24 @@ export default {
     .then(response => response.data)
   },
 
-  getProduct(){
-    return this.service.get('/products/:id')
+  getProduct(id){
+    return this.service.get(`/products/${id}`)
     .then(response => response.data)
   },
 
-  updateProduct(productPrice, productName, productDescription, productAdvice, productIngredients, productCategory){
-    return this.service.put('/products/:id', {
-      unitPrice: productPrice,
-      name:productName,
-      description:productDescription,
-      advice:productAdvice,
-      ingredients:productIngredients,
-      category:productCategory
-    })
+  updateProduct(productData,id){
+    console.log('productData:',productData)
+    return this.service.put(`/products/${id}`, productData)
     .then(response => response.data)
   },
 
-  deleteProduct(){
-    return this.service.delete('/products/:id')
+  deleteProduct(id){
+    return this.service.delete(`/products/${id}`)
     .then(response => response.data)
+  },
+
+  upload(formdata) {
+    return this.service.post('/upload', formdata)
+      .then(response => response.data)
   }
 }

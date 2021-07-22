@@ -10,7 +10,7 @@ import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
-
+import EditProduct from './components/products/EditProduct';
 
 class App extends Component {
 
@@ -46,7 +46,7 @@ class App extends Component {
           {/////////////////////* HOMEPAGE *////////////////////////
           }
           <Route exact path="/" render={() => (
-            <Homepage user={this.state.user}/>
+            <Homepage user={this.state.user} />
           )} />
 
           {/////////////////////* SIGNUP *////////////////////////
@@ -71,7 +71,11 @@ class App extends Component {
           {/////////////////////*PRODUCTS *////////////////////////
           }
           <Route exact path="/new-product" render={(props) => (
-            <CreateProduct user={this.state.user}/>
+            <CreateProduct user={this.state.user} />
+          )} />
+
+          <Route exact path="/edit-product/:id" render={(props) => (
+              <EditProduct {...props} user={this.state.user} />
           )} />
 
         </Switch>
