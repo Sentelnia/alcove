@@ -115,34 +115,19 @@ authRoutes.delete('/session', (req, res, next) => {
 ////////////////////////////////// UPDATE USER DATA ////////////////////////////////////
 authRoutes.put('/user', (req, res, next) => {
 
-  if (req.isAuthenticated()) {
-    
-    User.findOne(req.user._id)
-      .then(foundUser => {
-
-        foundUser.firstName = req.body.firstName;
-        foundUser.lastName = req.body.lastName;
-        foundUser.email = req.body.email;
-        foundUser.civility = req.body.civility;
-        foundUser.telephone = req.body.telephone;
-        foundUser.adresses = req.body.adresses;
-
-        foundUser.save()
-          .then(() => {
-            res.status(200).json(foundUser);
-          })
-          .catch(err => {
-            res.status(400).json({ message: "Une erreur lors de la MAJ de l'utilisateur s'est produite." });
-          });
-      })
-      .catch(err => {
-        console.log(err)
-        res.status(400).json({ message: "User non trouvé" });
-      });
-
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'Unauthorized' });
     return;
   }
-  res.status(401).json({ message: 'Unauthorized' });
+    
+    User.findByIdAndUpdate(req.user._id, req.body)
+    .then(() =>{
+      
+      res.status(200).json({user: req.user})
+    })
+    .catch(error => {
+      res.json(error)
+    });
 });
 
 //////////////////////////////// UPDATE USER PWD ////////////////////////////////////////

@@ -26,7 +26,7 @@ class App extends Component {
     if (!this.state.user._id){
       authService.loggedin()
         .then(response => {
-          this.setState({user: response})
+          this.setState(response)
         })
         .catch(err => {
           this.setState({user: false}) 

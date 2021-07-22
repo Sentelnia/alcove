@@ -14,54 +14,55 @@ export default class extends React.Component {
     email:      this.props.user.email || "",
     telephone:  this.props.user.telephone || "",
     civility:   this.props.user.civility || "",
-    //Verifie si adresse[0] est undefined
-    street:     this.props.user.adresses && this.props.user.adresses[0]?.street || "",
-    supp:       this.props.user.adresses && this.props.user.adresses[0]?.supp || "",
-    zip:        this.props.user.adresses && this.props.user.adresses[0]?.zip || "",
-    city:       this.props.user.adresses && this.props.user.adresses[0]?.city || "",
+    street:     this.props.user.street || "",
+    supp:       this.props.user.supp || "",
+    zip:        this.props.user.zip || "",
+    city:       this.props.user.city || "",
 
     error: ""
   }
+
   componentDidUpdate(prevProps, prevState) {
     // executée qd n'importe quelle props + nimporte quel state change !!
 
     if (prevProps.user !== this.props.user) {
       // la props user vient de changer
       this.setState({
-        
+        email:      this.props.user.email || "",
+        firstName : this.props.user.firstName || "",
+        lastName:   this.props.user.lastName || "",
+        telephone:  this.props.user.telephone || "",
+        civility:   this.props.user.civility || "",
+        street:     this.props.user.street || "",
+        supp:       this.props.user.supp || "",
+        zip:        this.props.user.zip || "",
+        city:       this.props.user.city || "",
       })
     }
   }
 
+
+
+  handleChange = (event) => {
+    const {name, value} = event.target;
+    this.setState({[name]: value});
+  } 
 
   handleSubmit = (event) => {
     event.preventDefault();
 
   /////////////////EDIT/////////////
 
-    authService.edit(
-      this.state.firstName, 
-      this.state.lastName, 
-      this.state.email, 
-      this.state.civility, 
-      this.state.street,
-      this.state.supp,
-      this.state.zip,
-      this.state.city,
-      this.state.telephone 
-    )
+    authService.edit(this.state)
       .then(response => {
         this.setState({error: ""});
-
+        
         this.props.updateUser(response)
       })
-      .catch(err => this.setState({error: err.response.data.message}))
+      .catch(err => this.setState({error:""}))
   }
 
-  handleChange = (event) => {
-    const {name, value} = event.target;
-    this.setState({[name]: value});
-  } 
+ 
 
   render() {
     if (this.props.user === false) return <Redirect to="/" />
@@ -100,7 +101,7 @@ export default class extends React.Component {
           <p>
             <label>
               <em>Civilité</em>
-              <input type="password" name="civility" value={this.state.password} onChange={this.handleChange} />
+              <input type="text" name="civility" value={this.state.password} onChange={this.handleChange} />
             </label>
           </p>
 

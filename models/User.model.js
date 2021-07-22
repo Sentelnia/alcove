@@ -32,20 +32,19 @@ const userSchema = new Schema({
   civility:{
     type: String,
   },
-  adresses:[{
-    street: {
+  street: {
       type: String,
-    },
-    supp: {
+  },
+  supp: {
       type: String
-    },
-    zip:{
-      type: Number,
-    },
-    city:{
-      type: Number,
-    }
-  }]
+  },
+  zip:{
+    type: Number,
+  },
+  city:{
+    type: Number
+  }
+
 }, 
 {
   timestamps: true
