@@ -11,6 +11,7 @@ import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
 import EditProduct from './components/products/EditProduct';
+import DetailsProduct from './components/products/DetailsProduct';
 
 
 class App extends Component {
@@ -79,7 +80,11 @@ class App extends Component {
           )} />
 
           <Route exact path="/edit-product/:id" render={(props) => (
-              <EditProduct {...props} user={this.state.user} />
+            <EditProduct {...props} user={this.state.user} />
+          )} />
+
+          <Route exact path="/details-product/:id" render={(props) => (
+            <DetailsProduct {...props} user={this.state.user} />
           )} />
 
         </Switch>
