@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ExternalLink } from 'react-external-link';
 
 class Footer extends React.Component {
   render() {
@@ -9,7 +10,7 @@ class Footer extends React.Component {
         <div className="contact-container">
           {//https://www.digitalocean.com/community/tutorials/how-to-integrate-the-google-maps-api-into-react-applications
           }
-          <img src="https://via.placeholder.com/100x100" alt="maps"/>
+          <img src="https://via.placeholder.com/100x100" alt="maps" />
           <div className="adress-container">
             <h4>L'Alcôve</h4>
             <p>229, avenue Jean Jaurès</p>
@@ -17,8 +18,12 @@ class Footer extends React.Component {
             <p>01 46 38 11 17</p>
           </div>
           <div className="link-container">
-            <Link to='/facebook'>F</Link>
-            <Link to='/instagram'>I</Link>
+            <ExternalLink href="https://www.facebook.com/lalcove">
+              <span>F</span>
+            </ExternalLink>
+            <ExternalLink href="https://instagram.com/lalcove">
+              <span>I</span>
+            </ExternalLink>
             <Link to='/mentions-legales'>Mentions légales</Link>
           </div>
         </div>
