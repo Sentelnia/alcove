@@ -1,0 +1,30 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+class Footer extends React.Component {
+  render() {
+    return (
+      <footer>
+        <h2>Contact</h2>
+        <div className="contact-container">
+          {//https://www.digitalocean.com/community/tutorials/how-to-integrate-the-google-maps-api-into-react-applications
+          }
+          <img src="https://via.placeholder.com/100x100" alt="maps"/>
+          <div className="adress-container">
+            <h4>L'Alcôve</h4>
+            <p>229, avenue Jean Jaurès</p>
+            <p>92140 Clamart</p>
+            <p>01 46 38 11 17</p>
+          </div>
+          <div className="link-container">
+            <Link to='/facebook'>F</Link>
+            <Link to='/instagram'>I</Link>
+            <Link to='/mentions-legales'>Mentions légales</Link>
+          </div>
+        </div>
+      </footer>
+    )
+  }
+}
+
+export default Footer;

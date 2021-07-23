@@ -12,7 +12,7 @@ import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
 import EditProduct from './components/products/EditProduct';
 import DetailsProduct from './components/products/DetailsProduct';
-
+import Footer from './components/Footer';
 
 class App extends Component {
 
@@ -20,20 +20,19 @@ class App extends Component {
     user: {},
   }
 
-  
+
   ///////////////LOGGEDIN/////////////////////////////
   fetchUser() {
-    if (!this.state.user._id){
+    if (!this.state.user._id) {
       authService.loggedin()
         .then(response => {
           this.setState(response)
         })
         .catch(err => {
-          this.setState({user: false}) 
+          this.setState({ user: false })
         })
     }
   }
-
 
   componentDidMount() {
     this.fetchUser();
@@ -46,7 +45,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Navbar />
+        <Navbar user={this.state.user} />
         <Switch>
           {/////////////////////* HOMEPAGE *////////////////////////
           }
@@ -73,7 +72,7 @@ class App extends Component {
             <Profile user={this.state.user} updateUser={this.updateUser} />
           )} />
 
-          {/////////////////////*PRODUCTS *////////////////////////
+          {/////////////////////* PRODUCTS *////////////////////////
           }
           <Route exact path="/new-product" render={(props) => (
             <CreateProduct user={this.state.user} />
@@ -88,7 +87,7 @@ class App extends Component {
           )} />
 
         </Switch>
-
+        <Footer />
       </div>
     )
   }

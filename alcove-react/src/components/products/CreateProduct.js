@@ -22,12 +22,15 @@ class CreateProduct extends React.Component {
     event.preventDefault();
 
     productsService.createProduct(this.state)
-      .then(() => console.log('produit créé'))
+      .then(() => {
+        this.props.history.push('/')
+        console.log('produit créé')
+      })
       .catch(err => console.log('error:', err))
   }
 
   handleUpload = (event) => {
-    
+
     let formData = new FormData();
     formData.append('imageUrl', event.target.files[0]);
 
@@ -35,8 +38,8 @@ class CreateProduct extends React.Component {
       .then(response => {
         this.setState({ imageUrl: response.secure_url });
       })
-    ;
-  } 
+      ;
+  }
 
   render() {
     return (
@@ -56,7 +59,7 @@ class CreateProduct extends React.Component {
           <input type="text" name="name" value={this.state.name} onChange={e => this.handleChange(e)} />
 
           <label>
-            <img className="product-pict" alt="product-pict" src={this.state.imageUrl || "https://via.placeholder.com/375x250" } />
+            <img className="product-pict" alt="product-pict" src={this.state.imageUrl || "https://via.placeholder.com/375x250"} />
             <input type="file" name="image" onChange={this.handleUpload} />
           </label>
 

@@ -30,7 +30,10 @@ class EditProduct extends React.Component {
     event.preventDefault();
 
     productsService.updateProduct(this.state,this.props.match.params.id)
-      .then(() => console.log('produit créé'))
+      .then(() => {
+        this.props.history.push('/')
+        console.log('produit modifié')
+      })
       .catch(err => console.log('error:', err))
   }
 
