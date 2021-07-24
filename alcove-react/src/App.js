@@ -12,6 +12,7 @@ import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
 import EditProduct from './components/products/EditProduct';
 import DetailsProduct from './components/products/DetailsProduct';
+import Cart from './components/cart/Cart';
 import Footer from './components/Footer';
 
 class App extends Component {
@@ -84,6 +85,12 @@ class App extends Component {
 
           <Route exact path="/details-product/:id" render={(props) => (
             <DetailsProduct {...props} user={this.state.user} />
+          )} />
+
+          {/////////////////////* CART *////////////////////////
+          }
+          <Route exact path="/cart" render={(props) => (
+            <Cart {...props} user={this.state.user} />
           )} />
 
         </Switch>

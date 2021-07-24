@@ -10,7 +10,7 @@ class Product extends React.Component {
 
   handleSubmit = (event, id) => {
     event.preventDefault();
-    
+
     productsService.deleteProduct(id)
       .then(() => {
         this.componentDidMount();
@@ -53,12 +53,15 @@ class Product extends React.Component {
                     <Link to={`/details-product/${product._id}`}>Détails</Link>
                     {
                       //Affichage edit et delete seulement pour admin
-                      this.props.user.role === "ADMIN" && (
+                      this.props.user.role === "ADMIN" ? (
                         <>
                           <Link to={`/edit-product/${product._id}`}>Modifier</Link>
                           <button className="btn" onClick={(e) => this.handleSubmit(e, product._id)}>Supprimer</button>
                         </>
-                      )}
+                      ) : (
+                        <>
+                          <button className="btn">Ajouter au panier</button>
+                        </>)}
                   </div>
                 </div>
               ))
