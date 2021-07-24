@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   updateUser = (data) => {
-    this.setState({ user: data });
+    this.setState(data);
   };
 
   render() {
