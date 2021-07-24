@@ -9,7 +9,9 @@ export default {
 
   login(email, password) {
     return this.service.post('/sessions', {email, password})
-    .then(response => response.data)
+    .then(response => {
+      console.log('response login', response.data)
+       return response.data})
   },
 
   signup(email, password) {
@@ -22,7 +24,9 @@ export default {
 
   loggedin() {
     return this.service.get('/session')
-    .then(response => response.data)
+    .then(response => {
+      console.log('reponse loggedinauth',response.data.user)
+      return response.data.user})
   },
 
   logout() {
@@ -33,7 +37,8 @@ export default {
   edit(userData) {
     console.log('userData:',userData)
     return this.service.put('/user', userData)
-    .then(response => response.data.user)
+    .then(response => {
+      return response.data.user})
   },
 
   

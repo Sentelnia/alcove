@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Signup from './components/auth/Signup';
 import authService from './components/auth/auth-service.js';
 import Login from './components/auth/Login';
-import Profile from './components/auth/Profile';
+import ProfilEdit from './components/auth/ProfilEdit';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
@@ -17,7 +17,7 @@ import Footer from './components/Footer';
 class App extends Component {
 
   state = {
-    user: {},
+    user:  {}
   }
 
 
@@ -26,7 +26,7 @@ class App extends Component {
     if (!this.state.user._id) {
       authService.loggedin()
         .then(response => {
-          this.setState(response)
+          this.setState({user : response})
         })
         .catch(err => {
           this.setState({ user: false })
@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   updateUser = (data) => {
-    this.setState(data);
+    this.setState({user: data});
   };
 
   render() {
@@ -56,7 +56,7 @@ class App extends Component {
           {/////////////////////* SIGNUP *////////////////////////
           }
           <Route exact path="/signup" render={() => (
-            <Signup />
+            <Signup updateUser={this.updateUser}/>
           )} />
 
 
@@ -69,7 +69,7 @@ class App extends Component {
           {/////////////////////*PROFIL *////////////////////////
           }
           <Route exact path="/profile" render={(props) => (
-            <Profile user={this.state.user} updateUser={this.updateUser} />
+            <ProfilEdit user={this.state.user} updateUser={this.updateUser} history={props.history} />
           )} />
 
           {/////////////////////* PRODUCTS *////////////////////////
