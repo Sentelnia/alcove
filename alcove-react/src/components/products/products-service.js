@@ -23,7 +23,6 @@ export default {
   },
 
   updateProduct(productData,id){
-    console.log('productData:',productData)
     return this.service.put(`/products/${id}`, productData)
     .then(response => response.data)
   },
