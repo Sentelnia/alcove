@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import productsService from './products-service';
+import cartService from '../cart/cart-service';
 
 class Product extends React.Component {
   state = {
@@ -8,12 +9,24 @@ class Product extends React.Component {
     categories: [],
   }
 
-  handleSubmit = (event, id) => {
+  handleSubmitDelete = (event, id) => {
     event.preventDefault();
 
     productsService.deleteProduct(id)
       .then(() => {
         this.componentDidMount();
+      })
+      .catch(err => console.log('error delete product:', err))
+  }
+
+  handleSubmitAddToCart = (event, id) => {
+    event.preventDefault();
+
+    cartService.addToCart(id)
+      .then((response) => {
+        console.log("produit ajouté en base au panier", id)
+        console.log('response add to cart',response)
+        this.props.updateCart(response)
       })
       .catch(err => console.log('error delete product:', err))
   }
@@ -32,6 +45,7 @@ class Product extends React.Component {
   }
 
   render() {
+    console.log('props product:',this.props)
     return (
       <>
         <h1>Nos Produits</h1>
@@ -56,11 +70,11 @@ class Product extends React.Component {
                       this.props.user.role === "ADMIN" ? (
                         <>
                           <Link to={`/edit-product/${product._id}`}>Modifier</Link>
-                          <button className="btn" onClick={(e) => this.handleSubmit(e, product._id)}>Supprimer</button>
+                          <button className="btn" onClick={(e) => this.handleSubmitDelete(e, product._id)}>Supprimer</button>
                         </>
                       ) : (
                         <>
-                          <button className="btn">Ajouter au panier</button>
+                          <button className="btn" onClick={(e) => this.handleSubmitAddToCart(e, product._id)}>Ajouter au panier</button>
                         </>)}
                   </div>
                 </div>

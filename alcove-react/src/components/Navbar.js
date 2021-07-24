@@ -14,6 +14,7 @@ class Navbar extends React.Component {
         <div className="navbar-container">
           {this.props.user ? <Link to="/profile"><img src={avatar} alt="avatar" /></Link> : <Link to="/signup"><img src={avatar} alt="avatar" /></Link>}
           <Link to="/cart"><img src={cart} alt="cart" /></Link>
+          {/* {this.props.user ? <Link to="/cart"><img src={cart} alt="cart" /></Link> : <Link to="/signup"><img src={cart} alt="cart" /></Link>} */}
         </div>
       </nav>
     )

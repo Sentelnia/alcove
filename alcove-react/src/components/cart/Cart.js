@@ -1,46 +1,57 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import cartService from './cart-service';
+// import { Link } from 'react-router-dom';
+// import cartService from './cart-service';
 
 class Cart extends React.Component {
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  handleChange = (event, id) => {
+    this.props.updateProductQuantity(id, event.target.value)
   }
 
   render() {
-    console.log('props cart',this.props)
+    console.log('props cart', this.props.cart)
     return (
       <>
         <h1>Panier</h1>
         <div className="cart-recap-container">
           <div className="cart-recap-total">
             <p>Total</p>
-            <p>100 €</p>
+            <p>{//Somme de tous les éléments du panier
+              this.props.cart
+                .map(obj => obj.product.unitPrice * obj.quantity) // Retourne un tableau le montant total par produit [10, 20, 8.99]
+                .reduce((a, b) => a + b, 0) // Retourne la somme totale
+                .toFixed(2) // 2 décimales
+            } €</p>
           </div>
           <div className="cart-recap-detail">
-            <p>X Articles</p>
+            <p>{//Somme de tous les éléments du panier
+              this.props.cart
+                .map(obj => obj.quantity) // Retourne un tableau le montant total par produit [10, 20, 8.99]
+                .reduce((a, b) => a + b, 0) // Retourne la somme totale
+            } Articles</p>
             <p>Hors frais de livraison</p>
           </div>
         </div>
 
         {////////// A maper sur le contenu du panier /////////
         }
-        <div className="cart-container">
-          <img src="https://via.placeholder.com/100x100" alt="product-pict" />
-          <div className="">
-            <h4>Product Name</h4>
-            <label>Quantité</label>
-            <input type="number" name="quantity" onChange={e => this.handleChange(e)} />
+        {this.props.cart.map(item => (
+          <div className="cart-container" key={item.product._id}>
+            <img src="https://via.placeholder.com/100x100" alt="product-pict" />
+            <div className="cart-product">
+              <h4>{item.product.name}</h4>
+              <label>Quantity</label>
+              <input type="text" name="quantity" value={item.quantity} onChange={e => this.handleChange(e, item.product._id)} />
+              <p>{item.quantity * item.product.unitPrice}€</p>
+            </div>
           </div>
-        </div>
+        ))}
         {/////////// A maper sur le contenu du panier /////////
         }
         <h1>Livraison</h1>
         <div className="delivery-option">
           <label>
-            <input type="radio" name="contact" value="shop" onChange={e => this.handleChange(e)}/>
+            <input type="radio" name="contact" value="shop" onChange={e => this.handleChange(e)} />
             Retrait en boutique
           </label>
           <label>
@@ -59,7 +70,7 @@ class Cart extends React.Component {
               <input type="text" name="civility" value="" onChange={e => this.handleChange(e)} />
             </label>
           </p>
-          
+
           <p>
             <label>
               <em>Prénom</em>
