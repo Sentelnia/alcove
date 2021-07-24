@@ -13,7 +13,7 @@ class Navbar extends React.Component {
         <Link to="/"><img src={icon} alt="alcoveIcon" /></Link>
         <div className="navbar-container">
           {this.props.user ? <Link to="/profile"><img src={avatar} alt="avatar" /></Link> : <Link to="/signup"><img src={avatar} alt="avatar" /></Link>}
-          <img src={cart} alt="cart" />
+          <Link to="/cart"><img src={cart} alt="cart" /></Link>
         </div>
       </nav>
     )
