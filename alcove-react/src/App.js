@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Signup from './components/auth/Signup';
 import authService from './components/auth/auth-service.js';
 import Login from './components/auth/Login';
-import ProfilEdit from './components/auth/ProfilEdit';
+import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
 import CreateProduct from './components/products/CreateProduct';
@@ -70,7 +70,7 @@ class App extends Component {
           {/////////////////////*PROFIL *////////////////////////
           }
           <Route exact path="/profile" render={(props) => (
-            <ProfilEdit user={this.state.user} updateUser={this.updateUser} history={props.history} />
+            <Profile user={this.state.user} updateUser={this.updateUser} history={props.history} />
           )} />
 
           {/////////////////////* PRODUCTS *////////////////////////
