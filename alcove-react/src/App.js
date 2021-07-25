@@ -119,7 +119,7 @@ class App extends Component {
           )} />
 
           <Route exact path="/details-product/:id" render={(props) => (
-            <DetailsProduct {...props} user={this.state.user} />
+            <DetailsProduct {...props} user={this.state.user} cart={this.state.cart} updateProductQuantity={this.updateProductQuantity} updateCart={this.updateCart}/>
           )} />
 
           {/////////////////////* CART *////////////////////////

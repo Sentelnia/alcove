@@ -25,12 +25,12 @@ class Product extends React.Component {
     if (this.props.cart
       .map(item => item.product._id)        //Retourne un tableau d'id
       .filter(propsId => propsId === id)    //Retourne un tableau avec l'id passée en paramètre
-      .length > 0) { 
-        console.log(id,' déjà dans le panier')
-        return;                             //On n'ajoute rien dans le panier
+      .length > 0) {
+      console.log(id, ' déjà dans le panier')
+      return;                             //On n'ajoute rien dans le panier
     }
 
-    cartService.addToCart(id)
+    cartService.addToCart(id,1) // Qty de 1 par défaut depuis le component Product
       .then((response) => {
         this.props.updateCart(response)
       })
@@ -55,13 +55,13 @@ class Product extends React.Component {
     return (
       <>
         <h1>Nos Produits</h1>
-        {
-          //Affichage lien vers création produit seulement pour admin
-          this.props.user.role === "ADMIN" && <Link to="/new-product">Ajouter un produit</Link>}
-
+        {/* {Affichage lien vers création produit seulement pour admin} */}
+        {this.props.user.role === "ADMIN" && <Link to="/new-product">Ajouter un produit</Link>}
+        {/* {Affichage des catégories} */}
         {this.state.categories.map(category => (
           <div className="product-cateory" key={category}>
             <h2>{category}</h2>
+            {/* {Affichage des produits de chaque catégorie} */}
             {this.state.products
               .filter(product => product.category === category)
               .map(product => (
@@ -71,17 +71,16 @@ class Product extends React.Component {
                   <p>{product.unitPrice} €</p>
                   <div className="btn-container">
                     <Link to={`/details-product/${product._id}`}>Détails</Link>
-                    {
-                      //Affichage edit et delete seulement pour admin
-                      this.props.user.role === "ADMIN" ? (
-                        <>
-                          <Link to={`/edit-product/${product._id}`}>Modifier</Link>
-                          <button className="btn" onClick={(e) => this.deleteProductFromDB(e, product._id)}>Supprimer</button>
-                        </>
-                      ) : (
-                        <>
-                          <button className="btn" onClick={(e) => this.addToCart(e, product._id)}>Ajouter au panier</button>
-                        </>)}
+                    {/* {Affichage edit et delete seulement pour admin} */}
+                    {this.props.user.role === "ADMIN" ? (
+                      <>
+                        <Link to={`/edit-product/${product._id}`}>Modifier</Link>
+                        <button className="btn" onClick={(e) => this.deleteProductFromDB(e, product._id)}>Supprimer</button>
+                      </>
+                    ) : (
+                      <>
+                        <button className="btn" onClick={(e) => this.addToCart(e, product._id)}>Ajouter au panier</button>
+                      </>)}
                   </div>
                 </div>
               ))

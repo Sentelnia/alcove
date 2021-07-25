@@ -11,10 +11,10 @@ export default {
     .then(response => response.data)
   },
 
-  addToCart(id) {
+  addToCart(id,qty) {
     const body = {
       productId:id,
-      quantity:1
+      quantity:qty
     }
     return this.service.put('/cart/add',body) // Par défaut 1 élément ajouter depuis la page d'accueil
     .then(response => response.data)
