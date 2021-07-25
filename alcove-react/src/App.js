@@ -43,7 +43,6 @@ class App extends Component {
     cartService.getCart()
       .then(response => {
         this.setState({cart:response.cart})
-        console.log('response de get Cart',response.cart)
       })
       .catch(err => {
         console.log(err)
@@ -61,6 +60,7 @@ class App extends Component {
   };
 
   updateCart = (data) => {
+    console.log('data:',data)
     this.setState({ cart: data.cart });
   };
 
@@ -86,7 +86,7 @@ class App extends Component {
           {/////////////////////* HOMEPAGE *////////////////////////
           }
           <Route exact path="/" render={() => (
-            <Homepage user={this.state.user} updateCart={this.updateCart}/>
+            <Homepage user={this.state.user} cart={this.state.cart} updateCart={this.updateCart}/>
           )} />
 
           {/////////////////////* SIGNUP *////////////////////////
@@ -125,7 +125,7 @@ class App extends Component {
           {/////////////////////* CART *////////////////////////
           }
           <Route exact path="/cart" render={(props) => (
-            <Cart user={this.state.user} cart={this.state.cart} updateProductQuantity={this.updateProductQuantity}/>
+            <Cart user={this.state.user} cart={this.state.cart} updateProductQuantity={this.updateProductQuantity} updateCart={this.updateCart}/>
           )} />
 
         </Switch>

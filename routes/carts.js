@@ -34,6 +34,13 @@ cartsRoutes.get('/cart', (req, res, next) => {
   res.status(200).json({cart: req.session.cart})
 });
 
+//////////////////////////////// REMOVE ITEM FROM THE CART ///////////////////////////////
+cartsRoutes.put('/cart/remove', (req, res, next) => {
+  const {productId} = req.body;
+  req.session.cart = req.session.cart.filter(obj => obj.product._id !== productId)
+  res.status(200).json({cart: req.session.cart })
+});
+
 //////////////////////////////// CREATION OF AN ORDER ///////////////////////////////
 cartsRoutes.post('/cart/checkout', (req, res, next) => {
   if(!req.isAuthenticated()){

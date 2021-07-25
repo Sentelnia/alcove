@@ -9,7 +9,7 @@ class Product extends React.Component {
     categories: [],
   }
 
-  handleSubmitDelete = (event, id) => {
+  deleteProductFromDB = (event, id) => {
     event.preventDefault();
 
     productsService.deleteProduct(id)
@@ -19,13 +19,19 @@ class Product extends React.Component {
       .catch(err => console.log('error delete product:', err))
   }
 
-  handleSubmitAddToCart = (event, id) => {
+  addToCart = (event, id) => {
     event.preventDefault();
+
+    if (this.props.cart
+      .map(item => item.product._id)        //Retourne un tableau d'id
+      .filter(propsId => propsId === id)    //Retourne un tableau avec l'id passée en paramètre
+      .length > 0) { 
+        console.log(id,' déjà dans le panier')
+        return;                             //On n'ajoute rien dans le panier
+    }
 
     cartService.addToCart(id)
       .then((response) => {
-        console.log("produit ajouté en base au panier", id)
-        console.log('response add to cart',response)
         this.props.updateCart(response)
       })
       .catch(err => console.log('error delete product:', err))
@@ -45,7 +51,7 @@ class Product extends React.Component {
   }
 
   render() {
-    console.log('props product:',this.props)
+    console.log('props product:', this.props)
     return (
       <>
         <h1>Nos Produits</h1>
@@ -70,11 +76,11 @@ class Product extends React.Component {
                       this.props.user.role === "ADMIN" ? (
                         <>
                           <Link to={`/edit-product/${product._id}`}>Modifier</Link>
-                          <button className="btn" onClick={(e) => this.handleSubmitDelete(e, product._id)}>Supprimer</button>
+                          <button className="btn" onClick={(e) => this.deleteProductFromDB(e, product._id)}>Supprimer</button>
                         </>
                       ) : (
                         <>
-                          <button className="btn" onClick={(e) => this.handleSubmitAddToCart(e, product._id)}>Ajouter au panier</button>
+                          <button className="btn" onClick={(e) => this.addToCart(e, product._id)}>Ajouter au panier</button>
                         </>)}
                   </div>
                 </div>

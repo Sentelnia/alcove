@@ -10,7 +10,7 @@ const orderSchema = new Schema({
   }],
   status: { type: String, enum: ['En attente de validation', 'Validée', 'Expédiée'], default: 'En attente de validation' },
   shippingDate: Date,
-  deliveryMode:{type: String, enum: ['Retrait en boutique', 'Livraison à domicile'], default: 'Livraison à domicile' },
+  deliveryMode:{type: String, enum: ['Retrait en boutique', 'Livraison à domicile']},
   addDelivery: {
     street: {
       type: String,

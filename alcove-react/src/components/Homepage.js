@@ -10,7 +10,7 @@ class Homepage extends React.Component {
         <h1>L'Alcôve</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur viverra id turpis ac rutrum. Interdum et malesuada fames ac ante ipsum primis in faucibus</p>
         <img src="https://via.placeholder.com/375x250" alt="home-pic" />   
-        <Product user={this.props.user}  updateCart={this.props.updateCart}/>
+        <Product user={this.props.user} cart={this.props.cart} updateCart={this.props.updateCart}/>
       </>
     )
   }

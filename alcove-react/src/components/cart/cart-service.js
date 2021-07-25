@@ -12,17 +12,25 @@ export default {
   },
 
   addToCart(id) {
-    const params = {
+    const body = {
       productId:id,
       quantity:1
     }
-    return this.service.put('/cart/add',params) // Par défaut 1 élément ajouter depuis la page d'accueil
+    return this.service.put('/cart/add',body) // Par défaut 1 élément ajouter depuis la page d'accueil
     .then(response => response.data)
   },
 
   validateCart(){
     return this.service.post('/cart/checkout')
     .then(response => response.data)
-  }
+  },
+
+  removeProduct(id) {
+    const body = {
+      productId:id,
+    }
+    return this.service.put(`/cart/remove`,body)
+    .then(response => response.data)
+  },
 
 }

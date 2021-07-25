@@ -23,6 +23,7 @@ class DetailsProduct extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     // Gérer l'ajout au panier
+    // Redirection vers home
   }
 
   componentDidMount() {

@@ -38,7 +38,7 @@ productsRoutes.post('/upload', uploader.single('imageUrl'), (req, res, next) => 
   // get secure_url from the file object and save it in the
   // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
  
-  res.json({ secure_url: req.file.path });
+  res.status(200).json({ secure_url: req.file.path });
 });
 
 
@@ -79,7 +79,7 @@ productsRoutes.get('/products/:id', (req, res, next) => {
     res.status(200).json(product);
   })
   .catch(error => {
-    res.json(error)
+    res.status(400).json(error)
   })
 });
 
@@ -92,10 +92,10 @@ productsRoutes.put('/products/:id', checkRoles("ADMIN"), (req, res, next) => {
 
   Product.findByIdAndUpdate(req.params.id, req.body)
     .then(() =>{
-      res.json({ message: `le produit ${req.params.id} a bien été mis à jour.` })
+      res.status(200).json({ message: `le produit ${req.params.id} a bien été mis à jour.` })
     })
     .catch(error => {
-      res.json(error)
+      res.status(400).json(error)
     });
 
 });
@@ -109,10 +109,10 @@ productsRoutes.delete('/products/:id', checkRoles("ADMIN"),  (req, res, next) =>
  
   Product.findByIdAndRemove(req.params.id)
     .then(() => {
-      res.json({ message: `le produit ${req.params.id} a ben été supprimé` });
+      res.status(204).json({ message: `le produit ${req.params.id} a ben été supprimé` });
     })
     .catch(error => {
-      res.json(error);
+      res.status(400).json(error);
     });
 });
 
