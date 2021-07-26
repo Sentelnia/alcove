@@ -44,7 +44,7 @@ export default class extends React.Component {
           <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
 
           <label>Mot de passe:</label>
-          <input name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
+          <input type ='password' name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
 
         </form>
 

@@ -8,6 +8,7 @@ const Order = require('../models/Order.model')
 
 const passport = require('passport');
 
+
 //////////////////////////////// EDIT THE CART ///////////////////////////////
 cartsRoutes.put('/cart/add', (req, res, next) => {  
   const {productId, quantity} = req.body
@@ -48,15 +49,20 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
     return;
   }
 
+ 
+
   const {addBilling, addDelivery} = req.body
   const userId = req.user.id
   const items = req.session.cart;
+ 
 
+ 
   Order.create({
     userId,
     items,
     addDelivery,
-    addBilling
+    addBilling, 
+    
   })
   .then(newOrder => {    
     req.session.cart=[];      //On vide le panier suite à la passation de la commande

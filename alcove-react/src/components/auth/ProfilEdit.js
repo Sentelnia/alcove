@@ -69,7 +69,8 @@ export default class extends React.Component {
     if (this.props.user === false) return <Redirect to="/" />
 
     return (
-      <>
+      <div className='infoUser'>
+        <h2>Mes informations personnelles</h2>
         <form onSubmit={this.handleSubmit}>
           <p>
             <label>
@@ -135,7 +136,7 @@ export default class extends React.Component {
 
        
 
-      </>
+      </div>
     )
   }
 }
