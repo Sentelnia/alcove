@@ -57,6 +57,7 @@ class App extends Component {
   }
 
   updateUser = (data) => {
+    console.log('data user:',data)
     this.setState({ user: data });
   };
 
