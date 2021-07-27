@@ -36,8 +36,8 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('componentDidUpdate cart prevProps:', prevProps);
-    // console.log('componentDidUpdate cart props:', this.props);
+    console.log('componentDidUpdate cart prevProps:', prevProps);
+    console.log('componentDidUpdate cart props:', this.props);
 
     // console.log('componentDidUpdate cart prevState:', prevState);
     // console.log('componentDidUpdate cart state:', this.state);
