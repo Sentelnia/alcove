@@ -15,7 +15,8 @@ import EditProduct from './components/products/EditProduct';
 import DetailsProduct from './components/products/DetailsProduct';
 import Cart from './components/cart/Cart';
 import Footer from './components/Footer';
-// import Product from './components/products/Product';
+import Services from './components/Services';
+
 
 class App extends Component {
 
@@ -106,6 +107,12 @@ class App extends Component {
           }
           <Route exact path="/profile" render={(props) => (
             <Profile user={this.state.user} updateUser={this.updateUser} history={props.history} />
+          )} />
+
+          {/////////////////////*SERVICES *////////////////////////
+          }
+          <Route exact path="/services" render={(props) => (
+            <Services />
           )} />
 
           {/////////////////////* PRODUCTS *////////////////////////

@@ -12,8 +12,7 @@ const uploader = require('../cloudinary.js');
 
 //////////////////////////////// GET LISTING OF SERVICES ///////////////////////////////
 productsRoutes.get('/services', (req, res, next) => {
-
-  
+  res.status(200)
 });
 
 //////////////////////////////// GET LISTING OF Product ///////////////////////////////
