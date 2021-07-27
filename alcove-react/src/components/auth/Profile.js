@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import authService from './auth-service.js';
+// import authService from './auth-service.js';
 import { Redirect } from 'react-router-dom';
 import ProfilEdit from './ProfilEdit';
 import Order from '../orders/Order'

@@ -1,13 +1,8 @@
 const express = require('express');
 const cartsRoutes = express.Router();
 
-const bcrypt = require('bcryptjs');
-
 const Product = require('../models/Product.model')
 const Order = require('../models/Order.model')
-
-const passport = require('passport');
-
 
 //////////////////////////////// EDIT THE CART ///////////////////////////////
 cartsRoutes.put('/cart/add', (req, res, next) => {  
@@ -49,24 +44,20 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
     return;
   }
 
- 
-
-  const {addBilling, addDelivery} = req.body
+  const {addBilling, addDelivery, deliveryMode} = req.body
   const userId = req.user.id
   const items = req.session.cart;
- 
-
- 
+   
   Order.create({
     userId,
     items,
+    deliveryMode,
     addDelivery,
-    addBilling, 
-    
+    addBilling,     
   })
   .then(newOrder => {    
     req.session.cart=[];      //On vide le panier suite à la passation de la commande
-    res.status(200).json(newOrder)
+    res.status(201).json(newOrder)
   })
   .catch(err => res.status(400).json({message:err.message}))
 });

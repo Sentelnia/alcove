@@ -5,20 +5,66 @@ import cartService from './cart-service';
 
 class Cart extends React.Component {
   state = {
-    firstName: this.props.user.firstName || "",
-    lastName: this.props.user.lastName || "",
-    email: this.props.user.email || "",
-    telephone: this.props.user.telephone || "",
-    civility: this.props.user.civility || "",
+    firstName: this.props.user.firstName || '',
+    lastName: this.props.user.lastName || '',
+    email: this.props.user.email || '',
+    telephone: this.props.user.telephone || '',
+    civility: this.props.user.civility || '',
 
     addDelivery: {
-      street: this.props.user?.street || '',
-      supp: this.props.user?.supp || '',
-      zip: this.props.user?.zip || '',
-      city: this.props.user?.city || '',
+      deliveryStreet: this.props.user?.street || '',
+      deliverySupp: this.props.user?.supp || '',
+      deliveryZip: this.props.user?.zip || '',
+      deliveryCity: this.props.user?.city || '',
     },
 
-    deliveryMode: ''
+    deliveryMode: '',
+    addBillingSameAsDelivery: true,
+
+    billingFirstName: '',
+    billingLastName: '',
+    billingEmail: '',
+    billingTelephone: '',
+    billingCivility: '',
+
+    addBilling: {
+      billingStreet: this.props.user?.street || '',
+      billingSupp: this.props.user?.supp || '',
+      billingZip: this.props.user?.zip || '',
+      billingCity: this.props.user?.city || '',
+    },
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('componentDidUpdate cart prevProps:', prevProps);
+    // console.log('componentDidUpdate cart props:', this.props);
+
+    // console.log('componentDidUpdate cart prevState:', prevState);
+    // console.log('componentDidUpdate cart state:', this.state);
+
+    if (this.props.user !== prevProps.user) {
+      this.setState({
+        firstName: this.props.user.firstName || '',
+        lastName: this.props.user.lastName || '',
+        email: this.props.user.email || '',
+        telephone: this.props.user.telephone || '',
+        civility: this.props.user.civility || '',
+
+        addDelivery: {
+          deliveryStreet: this.props.user?.street || '',
+          deliverySupp: this.props.user?.supp || '',
+          deliveryZip: this.props.user?.zip || '',
+          deliveryCity: this.props.user?.city || '',
+        },
+
+        addBilling: {
+          billingStreet: this.props.user?.street || '',
+          billingSupp: this.props.user?.supp || '',
+          billingZip: this.props.user?.zip || '',
+          billingCity: this.props.user?.city || '',
+        },
+      })
+    }
   }
 
   removeProductFromCart = (event, id) => {
@@ -31,6 +77,17 @@ class Cart extends React.Component {
       .catch(err => console.log('error delete product:', err))
   }
 
+  cartToOrder = (event) => {
+    console.log('cart to Order')
+
+    cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode)
+      .then((response) => {
+        // console.log('response CartToOrder:', response)
+        this.props.updateCart({ cart: [] })
+      })
+      .catch(err => console.log('err:', err))
+  }
+
   handleChangeProductQuantity = (event, id) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
     if (regEx.test(event.target.value) && Number(event.target.value) !== 0) {
@@ -41,11 +98,73 @@ class Cart extends React.Component {
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+
+    if ((name === 'deliveryMode') && (value === 'Livraison à domicile')) {
+      this.setState({
+        addDelivery: {
+          deliveryStreet: this.props.user?.street || '',
+          deliverySupp: this.props.user?.supp || '',
+          deliveryZip: this.props.user?.zip || '',
+          deliveryCity: this.props.user?.city || '',
+        },
+        addBilling: {
+          billingStreet: this.props.user?.street || '',
+          billingSupp: this.props.user?.supp || '',
+          billingZip: this.props.user?.zip || '',
+          billingCity: this.props.user?.city || '',
+        }
+      });
+    } else if ((name === 'deliveryMode') && (value === 'Retrait en boutique')) {
+      this.setState({
+        addDelivery: {
+          deliveryStreet: '229, avenue Jean Jaurès',
+          deliverySupp: '',
+          deliveryZip: '92140',
+          deliveryCity: 'Clamart',
+        },
+        addBilling: {
+          billingStreet: '229, avenue Jean Jaurès',
+          billingSupp: '',
+          billingZip: '92140',
+          billingCity: 'Clamart',
+        }
+      });
+    }
   }
 
-  handleChangeAdress = (event) => {
+  handleChangeCheckbox = (event) => {
+    const { name, checked } = event.target;
+    this.setState({ [name]: checked });
+
+    if (checked) {
+      this.setState({
+        addBilling: {
+          billingStreet: this.state.addDelivery.deliveryStreet,
+          billingSupp: this.state.addDelivery.deliverySupp,
+          billingZip: this.state.addDelivery.deliveryZip,
+          billingCity: this.state.addDelivery.deliveryCity,
+        }
+      })
+    } else {
+      this.setState({
+        addBilling: {
+          billingStreet: '',
+          billingSupp: '',
+          billingZip: '',
+          billingCity: '',
+        }
+      })
+    }
+  }
+
+  handleChangeAdressDelivery = (event) => {
     const { name, value } = event.target;
     this.setState({ addDelivery: { ...this.state.addDelivery, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+  }
+
+  handleChangeAdressBilling = (event) => {
+    const { name, value } = event.target;
+    this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
   }
 
   handleSubmit = (event) => {
@@ -90,11 +209,12 @@ class Cart extends React.Component {
   }
 
   deliveryCost(deliveryMode) {
-    return deliveryMode === "home" ? 3.95 : 0;
+    return deliveryMode === "Livraison à domicile" ? 3.95 : 0;
   }
 
   render() {
     console.log('props cart', this.props)
+    console.log('state cart', this.state)
     return (
       <>
         {/* {Gestion de l'affichage si utilisateur connecté} */}
@@ -135,11 +255,11 @@ class Cart extends React.Component {
                     <h1>Livraison</h1>
                     <div className="delivery-option" onChange={e => this.handleChange(e)}>
                       <label>
-                        <input type="radio" name="deliveryMode" value="shop" />
+                        <input type="radio" name="deliveryMode" value="Retrait en boutique" />
                         Retrait en boutique
                       </label>
                       <label>
-                        <input type="radio" name="deliveryMode" value="home" />
+                        <input type="radio" name="deliveryMode" value="Livraison à domicile" />
                         Livraison à domicile
                       </label>
                     </div>
@@ -147,7 +267,7 @@ class Cart extends React.Component {
                     {/* {Gestion de l'affichage en fonction du mode de livraison choisi} */}
                     {this.state.deliveryMode === '' ?
                       (<p>Selectionner mode de livraison</p>) :
-                      (this.state.deliveryMode === 'home' &&
+                      (this.state.deliveryMode === 'Livraison à domicile' &&
                         (
                           <>
                             <h1>Adresse de livraison</h1>
@@ -176,28 +296,28 @@ class Cart extends React.Component {
                               <p>
                                 <label>
                                   <em>Adresse</em>
-                                  <input type="text" name="street" value={this.state.addDelivery.street} onChange={e => this.handleChangeAdress(e)} />
+                                  <input type="text" name="deliveryStreet" value={this.state.addDelivery.deliveryStreet} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
                               <p>
                                 <label>
                                   <em>Complément d'adresse</em>
-                                  <input type="text" name="supp" value={this.state.addDelivery.supp} onChange={e => this.handleChangeAdress(e)} />
+                                  <input type="text" name="deliverySupp" value={this.state.addDelivery.deliverySupp} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
                               <p>
                                 <label>
                                   <em>Code postal</em>
-                                  <input type="text" name="zip" value={this.state.addDelivery.zip} onChange={e => this.handleChangeAdress(e)} />
+                                  <input type="text" name="deliveryZip" value={this.state.addDelivery.deliveryZip} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
                               <p>
                                 <label>
                                   <em>Ville</em>
-                                  <input type="text" name="city" value={this.state.addDelivery.city} onChange={e => this.handleChangeAdress(e)} />
+                                  <input type="text" name="deliveryCity" value={this.state.addDelivery.deliveryCity} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
@@ -214,17 +334,100 @@ class Cart extends React.Component {
                                   <input type="tel" name="telephone" value={this.state.telephone} onChange={e => this.handleChange(e)} />
                                 </label>
                               </p>
+
+                              <div>
+                                <label>
+                                  <input type="checkbox" name="addBillingSameAsDelivery" onChange={e => this.handleChangeCheckbox(e)} checked={this.state.addBillingSameAsDelivery} />
+                                  Adresse de facturation identique à adresse de livraison
+                                </label>
+                              </div>
                             </form>
                           </>
                         )
                       )
                     }
 
+                    {/* {Gestion de l'affichage en fonction du choix sur l'adresse de facturation} */}
+                    {(this.state.deliveryMode === 'Livraison à domicile' && !this.state.addBillingSameAsDelivery) && (
+                      <>
+                        <h1>Adresse de facturation</h1>
+                        <form>
+                          <p>
+                            <label>
+                              <em>Civilité</em>
+                              <input type="text" name="billingCivility" value={this.state.billingCivility} onChange={e => this.handleChange(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Prénom</em>
+                              <input type="text" name="billingFirstName" value={this.state.billingFirstName} onChange={e => this.handleChange(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Nom de Famille</em>
+                              <input type="text" name="billingLastName" value={this.state.billingLastName} onChange={e => this.handleChange(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Adresse</em>
+                              <input type="text" name="billingStreet" value={this.state.addBilling.billingStreet} onChange={e => this.handleChangeAdressBilling(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Complément d'adresse</em>
+                              <input type="text" name="billingSupp" value={this.state.addBilling.billingSupp} onChange={e => this.handleChangeAdressBilling(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Code postal</em>
+                              <input type="text" name="billingZip" value={this.state.addBilling.billingZip} onChange={e => this.handleChangeAdressBilling(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Ville</em>
+                              <input type="text" name="billingCity" value={this.state.addBilling.billingCity} onChange={e => this.handleChangeAdressBilling(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Email</em>
+                              <input type="email" name="billingEmail" value={this.state.billingEmail} onChange={e => this.handleChange(e)} />
+                            </label>
+                          </p>
+
+                          <p>
+                            <label>
+                              <em>Téléphone</em>
+                              <input type="tel" name="billingTelephone" value={this.state.billingTelephone} onChange={e => this.handleChange(e)} />
+                            </label>
+                          </p>
+                        </form>
+                      </>
+                    )}
+
                     <h1>Ma commande</h1>
                     <p>{this.sumItemsCart()} Articles</p>
-                    <p>Sous-total:<span>{this.sumCart()} €</span></p>
-                    <p>Frais de livraison:<span>{this.deliveryCost(this.state.deliveryMode)}</span></p>
-                    <p>Total à payer TVA incluse:<span>{this.sumCart() + this.deliveryCost(this.state.deliveryMode)}</span></p>
+                    <p>Sous-total:<span> {this.sumCart()} €</span></p>
+                    <p>Frais de livraison:<span> {this.deliveryCost(this.state.deliveryMode)}</span> €</p>
+                    <p>Total à payer TVA incluse:<span> {(this.sumCart() + this.deliveryCost(this.state.deliveryMode)).toFixed(2)}</span> €</p>
+
+                    {/* {Gestion affichage btn valider} */}
+                    {/* {this.state.deliveryMode === 'Retrait en boutique' &&                     */}
+                    
+                    <button className="btn" onClick={(e) => this.cartToOrder(e)}>Valider et payer via Paypal</button>
                   </>
                 )}
             </>
