@@ -8,29 +8,43 @@ export default {
   }),
   getCart() {
     return this.service.get('/cart')
-    .then(response => response.data)
+      .then(response => response.data)
   },
 
-  addToCart(id,qty) {
+  addToCart(id, qty) {
     const body = {
-      productId:id,
-      quantity:qty
+      productId: id,
+      quantity: qty
     }
-    return this.service.put('/cart/add',body) // Par défaut 1 élément ajouter depuis la page d'accueil
-    .then(response => response.data)
+    return this.service.put('/cart/add', body) // Par défaut 1 élément ajouter depuis la page d'accueil
+      .then(response => response.data)
   },
 
-  validateCart(){
-    return this.service.post('/cart/checkout')
-    .then(response => response.data)
+  validateCart(addDelivery, addBilling, deliveryMode) {
+    return this.service.post('/cart/checkout', {
+      addDelivery: {
+        street:addDelivery.deliveryStreet,
+        supp:addDelivery.deliverySupp,
+        zip: addDelivery.deliveryZip,
+        city:addDelivery.deliveryCity,
+      },
+      addBilling: {
+        street:addBilling.billingStreet,
+        supp:addBilling.billingSupp,
+        zip: addBilling.billingZip,
+        city:addBilling.billingCity,
+      },
+      deliveryMode:deliveryMode
+    })
+      .then(response => response.data)
   },
 
   removeProduct(id) {
     const body = {
-      productId:id,
+      productId: id,
     }
-    return this.service.put(`/cart/remove`,body)
-    .then(response => response.data)
+    return this.service.put(`/cart/remove`, body)
+      .then(response => response.data)
   },
 
 }

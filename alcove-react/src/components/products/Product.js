@@ -22,12 +22,9 @@ class Product extends React.Component {
   addToCart = (event, id) => {
     event.preventDefault();
 
-    if (this.props.cart
-      .map(item => item.product._id)        //Retourne un tableau d'id
-      .filter(propsId => propsId === id)    //Retourne un tableau avec l'id passée en paramètre
-      .length > 0) {
+    if (this.isAlreadyInCart(id)) {
       console.log(id, ' déjà dans le panier')
-      return;                             //On n'ajoute rien dans le panier
+      return;                             
     }
 
     cartService.addToCart(id,1) // Qty de 1 par défaut depuis le component Product
@@ -48,6 +45,13 @@ class Product extends React.Component {
       .catch(err => {
         console.log(err)
       });
+  }
+  // Fonctions utilitaires
+  isAlreadyInCart(id){
+    return this.props.cart
+      .map(item => item.product._id)        //Retourne un tableau d'id
+      .filter(propsId => propsId === id)    //Retourne un tableau avec l'id passée en paramètre
+      .length > 0 ? true : false;           //On n'ajoute rien dans le panier
   }
 
   render() {
@@ -79,7 +83,10 @@ class Product extends React.Component {
                       </>
                     ) : (
                       <>
-                        <button className="btn" onClick={(e) => this.addToCart(e, product._id)}>Ajouter au panier</button>
+                        {/* {Masquer btn ajouter au panier si déjà dans le panier} */}
+                        {this.isAlreadyInCart(product._id) ? 
+                        <p>Produit déjà dans le panier</p> : 
+                        <button className="btn" onClick={(e) => this.addToCart(e, product._id)}>Ajouter au panier</button>}
                       </>)}
                   </div>
                 </div>

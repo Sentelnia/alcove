@@ -15,7 +15,7 @@ import EditProduct from './components/products/EditProduct';
 import DetailsProduct from './components/products/DetailsProduct';
 import Cart from './components/cart/Cart';
 import Footer from './components/Footer';
-import Product from './components/products/Product';
+// import Product from './components/products/Product';
 
 class App extends Component {
 
