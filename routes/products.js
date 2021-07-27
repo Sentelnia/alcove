@@ -90,7 +90,7 @@ productsRoutes.put('/products/:id', checkRoles("ADMIN"), (req, res, next) => {
   }
 
   Product.findByIdAndUpdate(req.params.id, req.body)
-    .then(() =>{
+    .then((response) =>{
       res.status(200).json({ message: `le produit ${req.params.id} a bien été mis à jour.` })
     })
     .catch(error => {

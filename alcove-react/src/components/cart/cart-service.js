@@ -20,7 +20,7 @@ export default {
       .then(response => response.data)
   },
 
-  validateCart(addDelivery, addBilling, deliveryMode) {
+  validateCart(addDelivery, addBilling, deliveryMode, orderNumber) {
     return this.service.post('/cart/checkout', {
       addDelivery: {
         street:addDelivery.deliveryStreet,
@@ -34,7 +34,8 @@ export default {
         zip: addBilling.billingZip,
         city:addBilling.billingCity,
       },
-      deliveryMode:deliveryMode
+      deliveryMode:deliveryMode,
+      orderNumber:orderNumber,
     })
       .then(response => response.data)
   },

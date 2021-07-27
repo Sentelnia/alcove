@@ -93,7 +93,7 @@ class App extends Component {
 
           {/////////////////////* SIGNUP *////////////////////////
           }
-          <Route exact path="/signup" render={() => (
+          <Route exact path="/signup" render={(props) => (
             <Signup updateUser={this.updateUser} />
           )} />
 
@@ -107,7 +107,7 @@ class App extends Component {
           {/////////////////////*PROFIL *////////////////////////
           }
           <Route exact path="/profile" render={(props) => (
-            <Profile user={this.state.user} updateUser={this.updateUser} history={props.history} />
+            <Profile user={this.state.user} updateUser={this.updateUser} />
           )} />
 
           {/////////////////////*SERVICES *////////////////////////

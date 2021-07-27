@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component {
+class DetailsOrder extends React.Component {
   state= {
     order: {}
   }
@@ -31,9 +31,9 @@ export default class extends React.Component {
 
     return (
       <div className='orderDetails'>
-        
+        DetailsOrder
       </div>
     )
   }
 }
-   
+export default DetailsOrder;

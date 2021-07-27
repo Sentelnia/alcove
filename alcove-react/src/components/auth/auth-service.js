@@ -8,10 +8,10 @@ export default {
   }),
 
   login(email, password) {
-    return this.service.post('/sessions', {email, password})
-    .then(response => {
-      console.log('response login', response.data)
-       return response.data})
+    return this.service.post('/sessions', { email, password })
+      .then(response => {
+        return response.data
+      })
   },
 
   signup(email, password) {
@@ -19,27 +19,26 @@ export default {
       email,
       password
     })
-    .then(response => response.data)
+      .then(response => response.data)
   },
 
   loggedin() {
     return this.service.get('/session')
-    .then(response => {
-      console.log('reponse loggedinauth',response.data.user)
-      return response.data.user})
+      .then(response => {
+        return response.data.user
+      })
   },
 
   logout() {
     return this.service.delete('/session', {})
-    .then(response => response.data)
+      .then(response => response.data)
   },
 
   edit(userData) {
-    console.log('userData:',userData)
+    console.log('userData:', userData)
     return this.service.put('/user', userData)
-    .then(response => {
-      return response.data.user})
+      .then(response => {
+        return response.data.user
+      })
   },
-
-  
 };

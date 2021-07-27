@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 import cartService from './cart-service';
+import orderService from '../orders/order-service';
 
 class Cart extends React.Component {
   state = {
@@ -23,8 +24,6 @@ class Cart extends React.Component {
 
     billingFirstName: '',
     billingLastName: '',
-    billingEmail: '',
-    billingTelephone: '',
     billingCivility: '',
 
     addBilling: {
@@ -36,8 +35,8 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('componentDidUpdate cart prevProps:', prevProps);
-    console.log('componentDidUpdate cart props:', this.props);
+    // console.log('componentDidUpdate cart prevProps:', prevProps);
+    // console.log('componentDidUpdate cart props:', this.props);
 
     // console.log('componentDidUpdate cart prevState:', prevState);
     // console.log('componentDidUpdate cart state:', this.state);
@@ -80,10 +79,20 @@ class Cart extends React.Component {
   cartToOrder = (event) => {
     console.log('cart to Order')
 
-    cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode)
+    //Génération n° de commande selon logique AAAA-MM-XXXX => Chaque mois le compteur XXXX repart à 0 => v2
+    //Génération n° de commande XXXX => incrémentation
+    orderService.getOrders()
       .then((response) => {
-        // console.log('response CartToOrder:', response)
-        this.props.updateCart({ cart: [] })
+        console.log('userId',this.props.user._id.slice(0,4))
+        let OrderNumber = this.props.user._id.slice(0,4) + '-' + (response.length + 1);
+        console.log('orderNumber:',OrderNumber)
+
+        cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode,OrderNumber)
+          .then((response) => {
+            console.log('response CartToOrder:', response)
+            this.props.updateCart({ cart: [] })
+          })
+          .catch(err => console.log('err:', err))
       })
       .catch(err => console.log('err:', err))
   }
@@ -401,19 +410,6 @@ class Cart extends React.Component {
                             </label>
                           </p>
 
-                          <p>
-                            <label>
-                              <em>Email</em>
-                              <input type="email" name="billingEmail" value={this.state.billingEmail} onChange={e => this.handleChange(e)} />
-                            </label>
-                          </p>
-
-                          <p>
-                            <label>
-                              <em>Téléphone</em>
-                              <input type="tel" name="billingTelephone" value={this.state.billingTelephone} onChange={e => this.handleChange(e)} />
-                            </label>
-                          </p>
                         </form>
                       </>
                     )}
@@ -426,7 +422,7 @@ class Cart extends React.Component {
 
                     {/* {Gestion affichage btn valider} */}
                     {/* {this.state.deliveryMode === 'Retrait en boutique' &&                     */}
-                    
+
                     <button className="btn" onClick={(e) => this.cartToOrder(e)}>Valider et payer via Paypal</button>
                   </>
                 )}

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 //le commentaire qui suit est pour enlever les petites lignes jaunes sur mon vs code car c'est très desagréable !
 // eslint-disable-next-line import/no-anonymous-default-export
