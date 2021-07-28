@@ -9,6 +9,7 @@ const userSchema = new Schema({
   lastName: {
     type: String,
   },
+  userNumber:String,
   email: {
     type: String,
     required: [true, "L'email est obligatoire."],

@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 import cartService from './cart-service';
+import orderService from '../orders/order-service';
 
 class Cart extends React.Component {
   state = {
@@ -23,8 +24,6 @@ class Cart extends React.Component {
 
     billingFirstName: '',
     billingLastName: '',
-    billingEmail: '',
-    billingTelephone: '',
     billingCivility: '',
 
     addBilling: {
@@ -78,12 +77,29 @@ class Cart extends React.Component {
   }
 
   cartToOrder = (event) => {
-    console.log('cart to Order')
-
-    cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode)
+    
+    orderService.getOrders()
       .then((response) => {
-        // console.log('response CartToOrder:', response)
-        this.props.updateCart({ cart: [] })
+        //Génération n° de commande selon logique userNumber + incrémentation du n° de commande par User
+        let fourDigitsUserNumber = this.props.user.userNumber;
+        let fourDigitsOderNumber = response.length + 1;
+
+        while (fourDigitsUserNumber.toString().length < 4){
+          fourDigitsUserNumber = "0" + fourDigitsUserNumber.toString();
+        }
+
+        while (fourDigitsOderNumber.toString().length < 4){
+          fourDigitsOderNumber = "0" + fourDigitsOderNumber.toString();
+        }
+
+        let OrderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
+
+        //Création de la commande
+        cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode,OrderNumber)
+          .then(() => {
+            this.props.updateCart({ cart: [] })
+          })
+          .catch(err => console.log('err:', err))
       })
       .catch(err => console.log('err:', err))
   }
@@ -401,19 +417,6 @@ class Cart extends React.Component {
                             </label>
                           </p>
 
-                          <p>
-                            <label>
-                              <em>Email</em>
-                              <input type="email" name="billingEmail" value={this.state.billingEmail} onChange={e => this.handleChange(e)} />
-                            </label>
-                          </p>
-
-                          <p>
-                            <label>
-                              <em>Téléphone</em>
-                              <input type="tel" name="billingTelephone" value={this.state.billingTelephone} onChange={e => this.handleChange(e)} />
-                            </label>
-                          </p>
                         </form>
                       </>
                     )}
@@ -426,7 +429,7 @@ class Cart extends React.Component {
 
                     {/* {Gestion affichage btn valider} */}
                     {/* {this.state.deliveryMode === 'Retrait en boutique' &&                     */}
-                    
+
                     <button className="btn" onClick={(e) => this.cartToOrder(e)}>Valider et payer via Paypal</button>
                   </>
                 )}

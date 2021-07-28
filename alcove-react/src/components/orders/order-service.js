@@ -10,7 +10,7 @@ export default {
   getOrders() {
     return this.service.get('/orders')
     .then(response => {
-      console.log('liste des commandes',response.data)
+      // console.log('liste des commandes',response.data)
       return response.data})
   },
 

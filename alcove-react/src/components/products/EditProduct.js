@@ -29,7 +29,7 @@ class EditProduct extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    productsService.updateProduct(this.state,this.props.match.params.id)
+    productsService.updateProduct(this.state, this.props.match.params.id)
       .then(() => {
         this.props.history.push('/')
         console.log('produit modifié')
@@ -52,7 +52,7 @@ class EditProduct extends React.Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleFormSubmit} className='createProduct'>
+        <form onSubmit={this.handleSubmit} className='createProduct'>
           <label>
             category:
             <select name="category" value={this.state.category} onChange={e => this.handleChange(e)}>
@@ -63,28 +63,33 @@ class EditProduct extends React.Component {
             </select>
           </label>
 
-          <label>Nom du produit:</label>
+          <label>Nom du produit:
           <input type="text" name="name" value={this.state.name} onChange={e => this.handleChange(e)} />
-
+          </label>
+          
           <label>
             <img className="product-pict" alt="product-pict" src={this.state.imageUrl || "https://via.placeholder.com/375x250"} />
             <input type="file" name="image" onChange={this.handleUpload} />
           </label>
 
-          <label>Prix:</label>
+          <label>Prix:
           <input type="text" name="unitPrice" value={this.state.unitPrice} onChange={e => this.handleChange(e)} />
+          </label>
 
-          <label>Description:</label>
+          <label>Description:
           <textarea name="description" value={this.state.description} onChange={e => this.handleChange(e)} />
+          </label>
 
-          <label>Conseil d'utilisation:</label>
+          <label>Conseil d'utilisation:
           <textarea name="advice" value={this.state.advice} onChange={e => this.handleChange(e)} />
+          </label>
 
-          <label>Ingrédients :</label>
+          <label>Ingrédients :
           <textarea name="ingredients" value={this.state.ingredients} onChange={e => this.handleChange(e)} />
-        </form>
+          </label>
 
-        <button className="btn" onClick={this.handleSubmit}>Enregistrer</button>
+          <button className="btn">Enregistrer</button>
+        </form>
       </>
     )
   }

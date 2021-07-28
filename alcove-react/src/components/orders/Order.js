@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component {
+class Order extends React.Component {
   state= {
     orders: []
   }
@@ -34,9 +34,9 @@ export default class extends React.Component {
         <h2>Mes achats</h2>
         {this.state.orders.map (order => {
           return (
-            <div ClassName='order' key={order._id}>
-              <p>Commande web n°{order._id}</p>
-              <span>{order.orderDate}</span> - <span>{order.status}</span>
+            <div className='order' key={order._id}>
+              <p>Commande web n°{order.orderNumber}</p>
+              <span>{order.orderDate.split("T")[0]}</span> - <span>{order.status}</span>
               <Link to={`orders/${order._id}`}>Voir les détails de la commande</Link>
             </div>
           )
@@ -45,3 +45,4 @@ export default class extends React.Component {
     )
   }
 }
+export default Order;

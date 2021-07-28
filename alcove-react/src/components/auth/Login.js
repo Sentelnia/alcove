@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import authService from "./auth-service.js";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component {
+class Login extends React.Component {
   state = {
     email: "",
     password: "",
@@ -67,3 +67,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Login;

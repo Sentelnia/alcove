@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const orderSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
   orderDate: { type: Date, default: Date.now },
+  orderNumber:String,
   items: [{
     product: { type: Schema.Types.Object, ref: 'Product' },
     quantity: Number

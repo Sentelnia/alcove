@@ -44,12 +44,13 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
     return;
   }
 
-  const {addBilling, addDelivery, deliveryMode} = req.body
+  const {addBilling, addDelivery, deliveryMode,orderNumber} = req.body
   const userId = req.user.id
   const items = req.session.cart;
-   
+
   Order.create({
     userId,
+    orderNumber,
     items,
     deliveryMode,
     addDelivery,
