@@ -77,19 +77,26 @@ class Cart extends React.Component {
   }
 
   cartToOrder = (event) => {
-    console.log('cart to Order')
-
-    //Génération n° de commande selon logique AAAA-MM-XXXX => Chaque mois le compteur XXXX repart à 0 => v2
-    //Génération n° de commande XXXX => incrémentation
+    
     orderService.getOrders()
       .then((response) => {
-        console.log('userId',this.props.user._id.slice(0,4))
-        let OrderNumber = this.props.user._id.slice(0,4) + '-' + (response.length + 1);
-        console.log('orderNumber:',OrderNumber)
+        //Génération n° de commande selon logique userNumber + incrémentation du n° de commande par User
+        let fourDigitsUserNumber = this.props.user.userNumber;
+        let fourDigitsOderNumber = response.length + 1;
 
+        while (fourDigitsUserNumber.toString().length < 4){
+          fourDigitsUserNumber = "0" + fourDigitsUserNumber.toString();
+        }
+
+        while (fourDigitsOderNumber.toString().length < 4){
+          fourDigitsOderNumber = "0" + fourDigitsOderNumber.toString();
+        }
+
+        let OrderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
+
+        //Création de la commande
         cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode,OrderNumber)
-          .then((response) => {
-            console.log('response CartToOrder:', response)
+          .then(() => {
             this.props.updateCart({ cart: [] })
           })
           .catch(err => console.log('err:', err))

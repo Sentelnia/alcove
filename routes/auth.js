@@ -10,8 +10,8 @@ const passport = require('passport');
 ///////////////////////////////////////////////////// CREATION USER ACCOUNT //////////////////////////////////////////////////
 
 authRoutes.post('/users', (req, res, next) => {
-  
-  const {email, password} = req.body;
+
+  const { email, password } = req.body;
 
   // 1. Check username and password are not empty
   if (!email || !password) {
@@ -48,12 +48,21 @@ authRoutes.post('/users', (req, res, next) => {
         password: hashPass
       });
 
-      aNewUser.save()
-        .then(() => {
-          // Persist our new user into session
-          req.session.currentUser = aNewUser
+      // Query sur tous les user pour obtenir le nbr de user en base
+      User.find({})
+        .then(response => {
+          // userNumber pour création n° de commande
+          aNewUser.userNumber = response.length + 1
 
-          res.status(201).json(aNewUser);
+          aNewUser.save()
+            .then(() => {
+              // Persist our new user into session
+              req.session.currentUser = aNewUser
+              res.status(201).json(aNewUser);
+            })
+            .catch(err => {
+              res.status(400).json({ message: "Une erreur lors de la création du compte s'est produite." });
+            });
         })
         .catch(err => {
           res.status(400).json({ message: "Une erreur lors de la création du compte s'est produite." });
@@ -119,11 +128,11 @@ authRoutes.put('/user', (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized' });
     return;
   }
-    
-    User.findByIdAndUpdate(req.user._id, req.body)
-    .then(() =>{
-      
-      res.status(200).json({user: req.user})
+
+  User.findByIdAndUpdate(req.user._id, req.body)
+    .then(() => {
+
+      res.status(200).json({ user: req.user })
     })
     .catch(error => {
       res.json(error)

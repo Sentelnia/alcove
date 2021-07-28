@@ -18,6 +18,7 @@ class Profile extends React.Component {
     supp: this.props.user.supp || "",
     zip: this.props.user.zip || "",
     city: this.props.user.city || "",
+    userNumber: this.props.user.userNumber || "",
 
     error: ""
   }
