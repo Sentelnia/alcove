@@ -1,6 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Product from './products/Product';
+import './Homepage.css';
 
 class Homepage extends React.Component {
   render() {

@@ -1,0 +1,69 @@
+/* TABLET OR MOBILE*/
+
+@media (max-width: 1224px) {
+
+  .navbar {
+    height: 5em
+  }
+
+  .burger,
+  .cart,
+  .avatar {
+    width: 2em;
+    object-fit: contain;
+  }
+
+  .burger,
+  .navbar-container {
+    margin: 0 0.5em
+  }
+
+  .avatar {
+    margin-right: 0.3em
+  }
+
+  .icon {
+    width: 5em;
+    margin-left: 1em
+  }
+
+}
+
+/* DESKTOP */
+
+
+
+
+  .navbar {
+    background-color: #eaacb4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    box-shadow: 0 5px 10px #aaa;
+    height: 6em
+  }
+
+  .burger,
+  .cart,
+  .avatar {
+    width: 3em;
+    object-fit: contain;
+  }
+
+  .burger,
+  .navbar-container {
+    margin: 0 1em
+  }
+
+  .avatar {
+    margin-right: 2em
+  }
+
+  .icon {
+    width: 7em;
+    margin-left: 1em
+  }
+
+  
+
