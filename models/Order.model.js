@@ -13,6 +13,16 @@ const orderSchema = new Schema({
   shippingDate: Date,
   deliveryMode:{type: String, enum: ['Retrait en boutique', 'Livraison à domicile']},
   addDelivery: {
+    civility:{
+      type: String,
+      required: true
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
     street: {
       type: String,
       required: true
@@ -25,9 +35,22 @@ const orderSchema = new Schema({
     city: {
       type: String,
       required: true
+    },
+    telephone: {
+      type: String,
     }
   },
   addBilling: {
+    civility:{
+      type: String,
+      required: true
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
     street: {
       type: String,
       required: true

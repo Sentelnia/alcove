@@ -6,27 +6,25 @@ import orderService from '../orders/order-service';
 
 class Cart extends React.Component {
   state = {
-    firstName: this.props.user.firstName || '',
-    lastName: this.props.user.lastName || '',
-    email: this.props.user.email || '',
-    telephone: this.props.user.telephone || '',
-    civility: this.props.user.civility || '',
 
     addDelivery: {
+      deliveryCivility: this.props.user.civility || '',
+      deliveryFirstName: this.props.user.firstName || '',
+      deliveryLastName: this.props.user.lastName || '',
       deliveryStreet: this.props.user?.street || '',
       deliverySupp: this.props.user?.supp || '',
       deliveryZip: this.props.user?.zip || '',
       deliveryCity: this.props.user?.city || '',
+      deliveryTelephone: this.props.user.telephone || '',
     },
 
     deliveryMode: '',
     addBillingSameAsDelivery: true,
-
-    billingFirstName: '',
-    billingLastName: '',
-    billingCivility: '',
-
+    
     addBilling: {
+      billingCivility: this.props.user.civility || '',
+      billingFirstName: this.props.user.firstName || '',
+      billingLastName:  this.props.user.lastName || '',
       billingStreet: this.props.user?.street || '',
       billingSupp: this.props.user?.supp || '',
       billingZip: this.props.user?.zip || '',
@@ -43,25 +41,27 @@ class Cart extends React.Component {
 
     if (this.props.user !== prevProps.user) {
       this.setState({
-        firstName: this.props.user.firstName || '',
-        lastName: this.props.user.lastName || '',
-        email: this.props.user.email || '',
-        telephone: this.props.user.telephone || '',
-        civility: this.props.user.civility || '',
-
+        
         addDelivery: {
+          deliveryCivility: this.props.user?.civility || '',
+          deliveryFirstName: this.props.user?.firstName || '',
+          deliveryLastName: this.props.user?.lastName || '',
           deliveryStreet: this.props.user?.street || '',
           deliverySupp: this.props.user?.supp || '',
           deliveryZip: this.props.user?.zip || '',
           deliveryCity: this.props.user?.city || '',
+          deliveryTelephone: this.props.user?.telephone || '',
         },
 
         addBilling: {
+          billingCivility: this.props.user?.civility || '',
+          billingFirstName: this.props.user?.firstName || '',
+          billingLastName:  this.props.user?.lastName || '',
           billingStreet: this.props.user?.street || '',
           billingSupp: this.props.user?.supp || '',
           billingZip: this.props.user?.zip || '',
           billingCity: this.props.user?.city || '',
-        },
+        },    
       })
     }
   }
@@ -115,30 +115,45 @@ class Cart extends React.Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
 
+    // Gestion changement de mode de livraison
     if ((name === 'deliveryMode') && (value === 'Livraison à domicile')) {
       this.setState({
         addDelivery: {
+          deliveryCivility: this.props.user?.civility || '',
+          deliveryFirstName: this.props.user?.firstName || '',
+          deliveryLastName: this.props.user?.lastName || '',
           deliveryStreet: this.props.user?.street || '',
           deliverySupp: this.props.user?.supp || '',
           deliveryZip: this.props.user?.zip || '',
           deliveryCity: this.props.user?.city || '',
+          deliveryTelephone: this.props.user.telephone || '',
         },
         addBilling: {
+          billingCivility: this.props.user?.civility || '',
+          billingFirstName: this.props.user?.firstName || '',
+          billingLastName:  this.props.user?.lastName || '',
           billingStreet: this.props.user?.street || '',
           billingSupp: this.props.user?.supp || '',
           billingZip: this.props.user?.zip || '',
           billingCity: this.props.user?.city || '',
-        }
+        },    
       });
     } else if ((name === 'deliveryMode') && (value === 'Retrait en boutique')) {
       this.setState({
         addDelivery: {
+          deliveryCivility: this.props.user?.civility || '',
+          deliveryFirstName: this.props.user?.firstName || '',
+          deliveryLastName: this.props.user?.lastName || '',
           deliveryStreet: '229, avenue Jean Jaurès',
           deliverySupp: '',
           deliveryZip: '92140',
           deliveryCity: 'Clamart',
+          deliveryTelephone:this.props.user.telephone || '0146381117',
         },
         addBilling: {
+          billingCivility: this.props.user?.civility || '',
+          billingFirstName: this.props.user?.firstName || '',
+          billingLastName: this.props.user?.lastName || '',
           billingStreet: '229, avenue Jean Jaurès',
           billingSupp: '',
           billingZip: '92140',
@@ -155,6 +170,9 @@ class Cart extends React.Component {
     if (checked) {
       this.setState({
         addBilling: {
+          billingCivility: this.state.addDelivery.deliveryCivility,
+          billingFirstName: this.state.addDelivery.deliveryFirstName,
+          billingLastName: this.state.addDelivery.deliveryLastName,
           billingStreet: this.state.addDelivery.deliveryStreet,
           billingSupp: this.state.addDelivery.deliverySupp,
           billingZip: this.state.addDelivery.deliveryZip,
@@ -164,6 +182,9 @@ class Cart extends React.Component {
     } else {
       this.setState({
         addBilling: {
+          billingCivility: '',
+          billingFirstName: '',
+          billingLastName: '',
           billingStreet: '',
           billingSupp: '',
           billingZip: '',
@@ -291,21 +312,21 @@ class Cart extends React.Component {
                               <p>
                                 <label>
                                   <em>Civilité</em>
-                                  <input type="text" name="civility" value={this.state.civility} onChange={e => this.handleChange(e)} />
+                                  <input type="text" name="deliveryCivility" value={this.state.addDelivery.deliveryCivility} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
                               <p>
                                 <label>
                                   <em>Prénom</em>
-                                  <input type="text" name="firstName" value={this.state.firstName} onChange={e => this.handleChange(e)} />
+                                  <input type="text" name="deliveryFirstName" value={this.state.addDelivery.deliveryFirstName} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
                               <p>
                                 <label>
                                   <em>Nom de Famille</em>
-                                  <input type="text" name="lastName" value={this.state.lastName} onChange={e => this.handleChange(e)} />
+                                  <input type="text" name="deliveryLastName" value={this.state.addDelivery.deliveryLastName} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
@@ -339,15 +360,8 @@ class Cart extends React.Component {
 
                               <p>
                                 <label>
-                                  <em>Email</em>
-                                  <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
-                                </label>
-                              </p>
-
-                              <p>
-                                <label>
                                   <em>Téléphone</em>
-                                  <input type="tel" name="telephone" value={this.state.telephone} onChange={e => this.handleChange(e)} />
+                                  <input type="tel" name="deliveryTelephone" value={this.state.addDelivery.deliveryTelephone} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
 
@@ -371,21 +385,21 @@ class Cart extends React.Component {
                           <p>
                             <label>
                               <em>Civilité</em>
-                              <input type="text" name="billingCivility" value={this.state.billingCivility} onChange={e => this.handleChange(e)} />
+                              <input type="text" name="billingCivility" value={this.state.addBilling.billingCivility} onChange={e => this.handleChangeAdressBilling(e)} />
                             </label>
                           </p>
 
                           <p>
                             <label>
                               <em>Prénom</em>
-                              <input type="text" name="billingFirstName" value={this.state.billingFirstName} onChange={e => this.handleChange(e)} />
+                              <input type="text" name="billingFirstName" value={this.state.addBilling.billingFirstName} onChange={e => this.handleChangeAdressBilling(e)} />
                             </label>
                           </p>
 
                           <p>
                             <label>
                               <em>Nom de Famille</em>
-                              <input type="text" name="billingLastName" value={this.state.billingLastName} onChange={e => this.handleChange(e)} />
+                              <input type="text" name="billingLastName" value={this.state.addBilling.billingLastName} onChange={e => this.handleChangeAdressBilling(e)} />
                             </label>
                           </p>
 

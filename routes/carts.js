@@ -47,6 +47,7 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
   const {addBilling, addDelivery, deliveryMode,orderNumber} = req.body
   const userId = req.user.id
   const items = req.session.cart;
+  console.log('body:',req.body)
 
   Order.create({
     userId,

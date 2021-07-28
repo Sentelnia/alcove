@@ -20,7 +20,7 @@ class Login extends React.Component {
         this.setState({ error: "" });
         
         this.props.updateUser(response);
-        
+        this.props.history.push('/')
       })
       .catch(err => {
         this.setState({ error: err.response.data.message })

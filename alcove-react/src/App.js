@@ -94,14 +94,14 @@ class App extends Component {
           {/////////////////////* SIGNUP *////////////////////////
           }
           <Route exact path="/signup" render={(props) => (
-            <Signup updateUser={this.updateUser} />
+            <Signup {...props} updateUser={this.updateUser} />
           )} />
 
 
           {/////////////////////* LOGIN *////////////////////////
           }
           <Route exact path="/login" render={(props) => (
-            <Login updateUser={this.updateUser} />
+            <Login {...props} updateUser={this.updateUser} />
           )} />
 
           {/////////////////////*PROFIL *////////////////////////
