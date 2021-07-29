@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-
+import { Redirect } from 'react-router-dom';
 import authService from './auth-service.js';
 
 
@@ -17,17 +17,15 @@ class Signup extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-
     // 1. Signup
     authService.signup(this.state.email, this.state.password)
       .then(() => {
         this.setState({ error: "" });
-        
+        this.props.history.push('/login')
       })
       .catch(err => {
         this.setState({ error: err.response.data.message })
-      })
-      ;
+      });
   }
 
   handleChange = (event) => {
@@ -35,20 +33,22 @@ class Signup extends React.Component {
     this.setState({ [name]: value });
   }
 
-
   render() {
+    if (this.props.user) return <Redirect to="/" />
     return (
       <>
-        <form onSubmit={this.handleFormSubmit} className='signup'>
-          <label>Adresse email:</label>
-          <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
+        <h1>Nouvel utilisateur?</h1>
+        <form onSubmit={this.handleSubmit} className='signup'>
+          <label>Adresse email:
+            <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
+          </label>
 
-          <label>Mot de passe:</label>
-          <input type ='password' name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
-
+          <label>Mot de passe:
+            <input type='password' name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
+          </label>
+          
+          <button className="btn">Je créé mon compte</button>
         </form>
-
-        <button className="btn" onClick={this.handleSubmit}>Je créé mon compte</button>
 
         <p>
           <Link to="/login">J'ai déja un compte </Link>

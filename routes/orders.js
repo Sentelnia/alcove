@@ -49,7 +49,7 @@ ordersRoutes.get('/orders/:id', (req, res, next) => {
 
   Order.find(cond)
     .then(order => {
-      res.status(200).json(order);
+      res.status(200).json(order[0]);
     })
     .catch(err => {
       res.status(400).json({ message: err.message });

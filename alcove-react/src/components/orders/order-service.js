@@ -10,14 +10,12 @@ export default {
   getOrders() {
     return this.service.get('/orders')
     .then(response => {
-      // console.log('liste des commandes',response.data)
       return response.data})
   },
 
   getOrder(id){
     return this.service.get(`/orders/${id}`)
     .then(response => {
-      console.log('detail commande',response)
       return response.data})
   },
   

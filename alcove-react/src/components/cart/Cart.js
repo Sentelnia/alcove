@@ -19,12 +19,13 @@ class Cart extends React.Component {
     },
 
     deliveryMode: '',
+    deliveryCost:0,
     addBillingSameAsDelivery: true,
-    
+
     addBilling: {
       billingCivility: this.props.user.civility || '',
       billingFirstName: this.props.user.firstName || '',
-      billingLastName:  this.props.user.lastName || '',
+      billingLastName: this.props.user.lastName || '',
       billingStreet: this.props.user?.street || '',
       billingSupp: this.props.user?.supp || '',
       billingZip: this.props.user?.zip || '',
@@ -33,15 +34,10 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('componentDidUpdate cart prevProps:', prevProps);
-    // console.log('componentDidUpdate cart props:', this.props);
-
-    // console.log('componentDidUpdate cart prevState:', prevState);
-    // console.log('componentDidUpdate cart state:', this.state);
 
     if (this.props.user !== prevProps.user) {
       this.setState({
-        
+
         addDelivery: {
           deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
@@ -56,12 +52,12 @@ class Cart extends React.Component {
         addBilling: {
           billingCivility: this.props.user?.civility || '',
           billingFirstName: this.props.user?.firstName || '',
-          billingLastName:  this.props.user?.lastName || '',
+          billingLastName: this.props.user?.lastName || '',
           billingStreet: this.props.user?.street || '',
           billingSupp: this.props.user?.supp || '',
           billingZip: this.props.user?.zip || '',
           billingCity: this.props.user?.city || '',
-        },    
+        },
       })
     }
   }
@@ -77,25 +73,25 @@ class Cart extends React.Component {
   }
 
   cartToOrder = (event) => {
-    
+
     orderService.getOrders()
       .then((response) => {
         //Génération n° de commande selon logique userNumber + incrémentation du n° de commande par User
         let fourDigitsUserNumber = this.props.user.userNumber;
         let fourDigitsOderNumber = response.length + 1;
 
-        while (fourDigitsUserNumber.toString().length < 4){
+        while (fourDigitsUserNumber.toString().length < 4) {
           fourDigitsUserNumber = "0" + fourDigitsUserNumber.toString();
         }
 
-        while (fourDigitsOderNumber.toString().length < 4){
+        while (fourDigitsOderNumber.toString().length < 4) {
           fourDigitsOderNumber = "0" + fourDigitsOderNumber.toString();
         }
 
         let OrderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
 
         //Création de la commande
-        cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode,OrderNumber)
+        cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode, this.state.deliveryCost, OrderNumber)
           .then(() => {
             this.props.updateCart({ cart: [] })
           })
@@ -111,13 +107,14 @@ class Cart extends React.Component {
     }
   }
 
-  handleChange = (event) => {
+  handleChangeDeliveryOption = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
 
     // Gestion changement de mode de livraison
     if ((name === 'deliveryMode') && (value === 'Livraison à domicile')) {
       this.setState({
+        deliveryCost:3.95,
         addDelivery: {
           deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
@@ -131,15 +128,16 @@ class Cart extends React.Component {
         addBilling: {
           billingCivility: this.props.user?.civility || '',
           billingFirstName: this.props.user?.firstName || '',
-          billingLastName:  this.props.user?.lastName || '',
+          billingLastName: this.props.user?.lastName || '',
           billingStreet: this.props.user?.street || '',
           billingSupp: this.props.user?.supp || '',
           billingZip: this.props.user?.zip || '',
           billingCity: this.props.user?.city || '',
-        },    
+        },
       });
     } else if ((name === 'deliveryMode') && (value === 'Retrait en boutique')) {
       this.setState({
+        deliveryCost:0,
         addDelivery: {
           deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
@@ -148,7 +146,7 @@ class Cart extends React.Component {
           deliverySupp: '',
           deliveryZip: '92140',
           deliveryCity: 'Clamart',
-          deliveryTelephone:this.props.user.telephone || '0146381117',
+          deliveryTelephone: this.props.user.telephone || '0146381117',
         },
         addBilling: {
           billingCivility: this.props.user?.civility || '',
@@ -204,11 +202,6 @@ class Cart extends React.Component {
     this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('submit event:', event)
-  }
-
   decreaseQty = (event, id) => {
     let qty = this.props.cart
       .map(obj => obj.product._id === id ? obj.quantity - 1 : 0) // -1 sur le produit du panier cliqué - 0 pour les autres
@@ -245,13 +238,42 @@ class Cart extends React.Component {
     )
   }
 
-  deliveryCost(deliveryMode) {
-    return deliveryMode === "Livraison à domicile" ? 3.95 : 0;
+  isReadyToValidate() {
+    //1. si deliveryMode = "" => empêcher validation
+    if (this.state.deliveryMode === "") {
+      return true;
+    }
+    //2. deliveryMode = "Retour en boutique" => autoriser validation
+    if (this.state.deliveryMode === 'Retour en boutique') {
+      return false;
+    }
+    //3. deliveryMode = "Livraison à domicile" && Adresse livraison = adresse facturation
+    if ((this.state.deliveryMode === 'Livraison à domicile') && (this.state.addBillingSameAsDelivery)) {
+      // => check sur les state adress delivery
+      for (let [key, value] of Object.entries(this.state.addDelivery)) {
+        if (key !== "deliverySupp" && value === "") {
+          return true;
+        }
+      }
+    }
+    //4. deliveryMode = "Livraison à domicile" && Adresse livraison != adresse facturation
+    // => check sur les state adress delivery && adress billing
+    if ((this.state.deliveryMode === 'Livraison à domicile') && (!this.state.addBillingSameAsDelivery)) {
+      for (let [key, value] of Object.entries(this.state.addDelivery)) {
+        if (key !== "deliverySupp" && value === "") {
+          return true;
+        }
+      }
+
+      for (let [key, value] of Object.entries(this.state.addBilling)) {
+        if (key !== "billingSupp" && value === "") {
+          return true;
+        }
+      }
+    }
   }
 
   render() {
-    console.log('props cart', this.props)
-    console.log('state cart', this.state)
     return (
       <>
         {/* {Gestion de l'affichage si utilisateur connecté} */}
@@ -290,7 +312,7 @@ class Cart extends React.Component {
                     ))}
 
                     <h1>Livraison</h1>
-                    <div className="delivery-option" onChange={e => this.handleChange(e)}>
+                    <div className="delivery-option" onChange={e => this.handleChangeDeliveryOption(e)}>
                       <label>
                         <input type="radio" name="deliveryMode" value="Retrait en boutique" />
                         Retrait en boutique
@@ -438,13 +460,10 @@ class Cart extends React.Component {
                     <h1>Ma commande</h1>
                     <p>{this.sumItemsCart()} Articles</p>
                     <p>Sous-total:<span> {this.sumCart()} €</span></p>
-                    <p>Frais de livraison:<span> {this.deliveryCost(this.state.deliveryMode)}</span> €</p>
-                    <p>Total à payer TVA incluse:<span> {(this.sumCart() + this.deliveryCost(this.state.deliveryMode)).toFixed(2)}</span> €</p>
+                    <p>Frais de livraison:<span> {this.state.deliveryCost}</span> €</p>
+                    <p>Total à payer TVA incluse:<span> {(this.sumCart() +  this.state.deliveryCost)}</span> €</p>
 
-                    {/* {Gestion affichage btn valider} */}
-                    {/* {this.state.deliveryMode === 'Retrait en boutique' &&                     */}
-
-                    <button className="btn" onClick={(e) => this.cartToOrder(e)}>Valider et payer via Paypal</button>
+                    <button className="btn" disabled={this.isReadyToValidate()} onClick={(e) => this.cartToOrder(e)}>Valider et payer via Paypal</button>
                   </>
                 )}
             </>

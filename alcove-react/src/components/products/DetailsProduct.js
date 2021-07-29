@@ -54,9 +54,7 @@ class DetailsProduct extends React.Component {
         console.log('produit ajouté au panier')
         this.props.history.push('/')      // Redirection vers home
       })
-      .catch(err => console.log('error delete product:', err))
-
-    
+      .catch(err => console.log('error delete product:', err))    
   }
 
   componentDidMount() {

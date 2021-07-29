@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
 
 import authService from "./auth-service.js";
 
@@ -18,7 +19,7 @@ class Login extends React.Component {
     authService.login(this.state.email, this.state.password)
       .then(response => {
         this.setState({ error: "" });
-        
+
         this.props.updateUser(response);
         this.props.history.push('/')
       })
@@ -34,8 +35,11 @@ class Login extends React.Component {
   }
 
   render() {
+    if (this.props.user) return <Redirect to="/" />
+
     return (
       <>
+        <h1>Me connecter à mon compte</h1>
         <form onSubmit={this.handleSubmit}>
           <p>
             <label>
@@ -50,9 +54,9 @@ class Login extends React.Component {
               <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
             </label>
           </p>
+          <Link to="/reset-password">Mot de passe oublié?</Link>
           <input type="submit" value="Je me connecte" />
         </form>
-
 
         {this.state.error && (
           <p className="error">{this.state.error}</p>
@@ -60,7 +64,6 @@ class Login extends React.Component {
         <p>
           <small>
             <Link to="/signup">Créer un compte</Link>
-            <Link to="/profile">Profile</Link>
           </small>
         </p>
       </>

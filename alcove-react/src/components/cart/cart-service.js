@@ -20,7 +20,7 @@ export default {
       .then(response => response.data)
   },
 
-  validateCart(addDelivery, addBilling, deliveryMode, orderNumber) {
+  validateCart(addDelivery, addBilling, deliveryMode, deliveryCost, orderNumber) {
     return this.service.post('/cart/checkout', {
       addDelivery: {
         civility:addDelivery.deliveryCivility,
@@ -42,6 +42,7 @@ export default {
         city:addBilling.billingCity,
       },
       deliveryMode:deliveryMode,
+      deliveryCost:deliveryCost,
       orderNumber:orderNumber,
     })
       .then(response => response.data)

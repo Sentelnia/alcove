@@ -20,6 +20,9 @@ class Profile extends React.Component {
     city: this.props.user.city || "",
     userNumber: this.props.user.userNumber || "",
 
+    currentPassword:'',
+    newPassword:'',
+
     error: ""
   }
 
@@ -61,11 +64,12 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log('props profile:',this.props)
+    console.log('props profile:', this.props)
     if (this.props.user === false) return <Redirect to="/login" />
 
     return (
       <div>
+        <h1>Bonjour {this.props.user.firstName}</h1>
         <Order />
         <div className='infoUser'>
           <h2>Mes informations personnelles</h2>
@@ -125,6 +129,19 @@ class Profile extends React.Component {
               </label>
             </p>
             <button className="btn">Editer mes infos perso</button>
+          </form>
+
+          <h2>Modifier mon mot de passe</h2>
+          <form onSubmit={this.handleSubmitResetPassword} className='signup'>
+            <label>Mot de passe actuel:
+              <input type='password' name="currentPassword" value={this.state.currentPassword} onChange={e => this.handleChange(e)} />
+            </label>
+
+            <label>Nouveeau mot de passe:
+              <input type='password' name="newPassword" value={this.state.newPassword} onChange={e => this.handleChange(e)} />
+            </label>
+
+            <button className="btn">Je créé mon compte</button>
           </form>
         </div>
       </div>
