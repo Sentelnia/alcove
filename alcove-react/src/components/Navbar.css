@@ -3,7 +3,13 @@
 @media (max-width: 1224px) {
 
   .navbar {
-    height: 5em;
+    background-color: #f7c9cf;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    box-shadow: 0 5px 10px #b6b7b8;
+    height: 4em;
     position: fixed;
     top: 0;
     width: 100%;
@@ -25,10 +31,17 @@
   }
 
   .icon {
-    width: 5em;
+    width: 3.5em;
     margin-left: 1em
   }
 
+  .navbar-container {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    
+  }
 
   /* ************ TOGGLE MENU BURGER ****************** */
 
@@ -38,7 +51,8 @@
     transition:all .5s;
     text-align:center;
     color:#256786;
-    font-size:3em;
+    font-size:2em;
+    margin-left:0.2em
   }
 
 
@@ -50,7 +64,7 @@
       border-bottom:1px solid #b6b7b8;
       background:#256786;
       list-style: none;
-      font-size: 1.5em;
+      font-size: 0.8em;
   }
 
 
@@ -66,7 +80,7 @@
   }
 
   #burger.close{
-    font-size:4.5em;
+    font-size:3.5em;
     color:#256786;
 
   }
@@ -76,12 +90,12 @@
   }
 
   #menu{
-    height:12em;
+    height:7em;
     background:#256786;
     transition:transform 0.5s;
     position:absolute;
-    top:6em;
-    width:110%;
+    top:3.5em;
+    width:115%;
     transform:translateX(-100em);
   }
 
@@ -93,9 +107,7 @@
 
 /* DESKTOP */
 
-
-
-
+@media (min-width: 1225px) {
   .navbar {
     background-color: #f7c9cf;
     display: flex;
@@ -150,3 +162,9 @@
 }
 
 
+
+}
+
+
+
+  

@@ -19,8 +19,7 @@ class Navbar extends React.Component {
               <li>
                 <Link
                   to={{ pathname: "https://www.planity.com/" }}
-                  target="_blank"
-                >
+                  target="_blank">
                   <p>Prendre Rendez-vous</p>
                 </Link>
               </li>

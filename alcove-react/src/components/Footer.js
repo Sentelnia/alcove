@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'react-external-link';
+import MediaQuery from "react-responsive";
+import "./Footer.css";
 
 class Footer extends React.Component {
   render() {
     return (
       <footer>
-        <h2>Contact</h2>
+      <MediaQuery maxWidth={1224}>
+        <h2>CONTACT</h2>
         <div className="contact-container">
           {//https://www.digitalocean.com/community/tutorials/how-to-integrate-the-google-maps-api-into-react-applications
           }
@@ -27,6 +30,7 @@ class Footer extends React.Component {
             <Link to='/mentions-legales'>Mentions légales</Link>
           </div>
         </div>
+        </MediaQuery>
       </footer>
     )
   }
