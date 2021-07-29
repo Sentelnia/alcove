@@ -87,16 +87,19 @@ class Cart extends React.Component {
           fourDigitsOderNumber = "0" + fourDigitsOderNumber.toString();
         }
 
-        let OrderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
+        let orderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
 
         //Création de la commande
-        cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode, this.state.deliveryCost, OrderNumber)
+        cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode, this.state.deliveryCost, orderNumber)
           .then((response) => {
             this.props.updateCart({ cart: [] })
             this.props.history.push({
               pathname: '/confirmation-order',
               state: { orderNumber: response.orderNumber }
             })
+            orderService.sendEmailConfirmation(this.props.user.email, orderNumber)
+              .then(response => console.log('response:', response.data.message))
+              .catch(err => console.log('err:', err))
           })
           .catch(err => console.log('err:', err))
       })
@@ -106,7 +109,7 @@ class Cart extends React.Component {
   handleChangeProductQuantity = (event, id) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
     if (regEx.test(event.target.value) && Number(event.target.value) !== 0) {
-      
+
       cartService.updateQtyAlreadyInCart(id, event.target.value)
         .then(response => {
           this.props.updateCart(response)

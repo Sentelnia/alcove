@@ -20,10 +20,19 @@ export default {
   },
   
   updateOrder(orderStatus,id){
-    console.log('orderStatus',orderStatus)
     return this.service.put(`/orders/${id}`,{status:orderStatus})
     .then(response => {
-      console.log('response updateOrder',response)
       return response.data})
   },
+
+  sendEmailConfirmation(emailReceiver, orderNumber){
+    return this.service.post('/email-confirmation',{
+      emailSender: 'lalcove@hotmail.fr',
+      emailReceiver:emailReceiver,
+      subject:`Votre commande n°${orderNumber}`,
+      content: 'Merci pour votre commande'
+    })
+    .then()
+    .catch(err => console.log('err:', err))
+  }
 };
