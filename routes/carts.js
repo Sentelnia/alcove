@@ -4,7 +4,7 @@ const cartsRoutes = express.Router();
 const Product = require('../models/Product.model')
 const Order = require('../models/Order.model')
 
-//////////////////////////////// EDIT THE CART ///////////////////////////////
+//////////////////////////////// ADD PRODUCT THE CART ///////////////////////////////
 cartsRoutes.put('/cart/add', (req, res, next) => {
   const { productId, quantity } = req.body
   if (!productId || Number(quantity) === 0) {
@@ -23,7 +23,21 @@ cartsRoutes.put('/cart/add', (req, res, next) => {
     })
     .catch(err => next(err))
 })
+//////////////////////////////// EDIT QTY OF PRODUCT ALREADY IN THE CART ////////////////////////
+cartsRoutes.put('/cart/updateQty', (req, res, next) => {
+  const { productId, quantity } = req.body
+  console.log('cart ', req.session.cart)
+  
+  req.session.cart = req.session.cart
+  .map(obj => {
+    if (obj.product._id === productId) {
+      obj.quantity = Number(quantity)
+    }
+    return obj;
+  })
 
+  res.status(200).json({ cart: req.session.cart })
+});
 
 //////////////////////////////// GET LISTING OF ITEM IN THE CART ///////////////////////////////
 cartsRoutes.get('/cart', (req, res, next) => {

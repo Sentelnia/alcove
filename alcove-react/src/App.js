@@ -15,6 +15,7 @@ import EditProduct from './components/products/EditProduct';
 import DetailsProduct from './components/products/DetailsProduct';
 import Cart from './components/cart/Cart';
 import DetailsOrder from './components/orders/DetailsOrder';
+import ConfirmedOrder from './components/orders/ConfirmedOrder';
 import Footer from './components/Footer';
 import Services from './components/Services';
 
@@ -58,27 +59,13 @@ class App extends Component {
   }
 
   updateUser = (data) => {
-    console.log('data user:', data)
+    // console.log('data user:', data)
     this.setState({ user: data });
   };
 
   updateCart = (data) => {
     console.log('data:', data)
     this.setState({ cart: data.cart });
-  };
-
-  updateProductQuantity = (id, quantity) => {
-
-    let stateCartCopy = [...this.state.cart]; //copy
-
-    const updatedCart = stateCartCopy.map(obj => {
-      if (obj.product._id === id) {
-        obj.quantity = Number(quantity)
-      }
-      return obj;
-    })
-
-    this.setState({ cart: updatedCart })
   };
 
   render() {
@@ -127,18 +114,21 @@ class App extends Component {
           )} />
 
           <Route exact path="/details-product/:id" render={(props) => (
-            <DetailsProduct {...props} user={this.state.user} cart={this.state.cart} updateProductQuantity={this.updateProductQuantity} updateCart={this.updateCart} />
+            <DetailsProduct {...props} user={this.state.user} cart={this.state.cart} updateCart={this.updateCart} />
           )} />
 
           {/////////////////////* CART *////////////////////////
           }
           <Route exact path="/cart" render={(props) => (
-            <Cart user={this.state.user} cart={this.state.cart} updateProductQuantity={this.updateProductQuantity} updateCart={this.updateCart} />
+            <Cart {...props} user={this.state.user} cart={this.state.cart} updateCart={this.updateCart} />
           )} />
           {/////////////////////* ORDER *////////////////////////
           }
           <Route exact path="/details-order/:id" render={(props) => (
             <DetailsOrder {...props} user={this.state.user} />
+          )} />
+          <Route exact path="/confirmation-order" render={(props) => (
+            <ConfirmedOrder {...props} user={this.state.user} />
           )} />
 
         </Switch>

@@ -64,15 +64,8 @@ ordersRoutes.put('/orders/:id', (req, res, next) => {
 
   Order.findById(req.params.id)
     .then(order => {
-
-      order.addDelivery.street = req.body.addDelivery.street;
-      order.addDelivery.zip = req.body.addDelivery.zip;
-      order.addDelivery.city = req.body.addDelivery.city;
-      order.addBilling.street = req.body.addBilling.street;
-      order.addBilling.zip = req.body.addBilling.zip;
-      order.addBilling.city = req.body.addBilling.city;
       order.status = req.body.status;
-
+      
       order.save()
         .then(() => {
           res.status(200).json(order);

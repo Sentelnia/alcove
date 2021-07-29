@@ -137,11 +137,11 @@ class Profile extends React.Component {
               <input type='password' name="currentPassword" value={this.state.currentPassword} onChange={e => this.handleChange(e)} />
             </label>
 
-            <label>Nouveeau mot de passe:
+            <label>Nouveau mot de passe:
               <input type='password' name="newPassword" value={this.state.newPassword} onChange={e => this.handleChange(e)} />
             </label>
 
-            <button className="btn">Je créé mon compte</button>
+            <button className="btn">Modifier mon mot de passe</button>
           </form>
         </div>
       </div>

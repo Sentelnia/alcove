@@ -20,30 +20,39 @@ export default {
       .then(response => response.data)
   },
 
+  updateQtyAlreadyInCart(id, qty) {
+    const body = {
+      productId: id,
+      quantity: qty
+    }
+    return this.service.put('/cart/updateQty', body)
+    .then(response => response.data)
+  },
+
   validateCart(addDelivery, addBilling, deliveryMode, deliveryCost, orderNumber) {
     return this.service.post('/cart/checkout', {
       addDelivery: {
-        civility:addDelivery.deliveryCivility,
-        firstName:addDelivery.deliveryFirstName,
-        lastName:addDelivery.deliveryLastName,
-        street:addDelivery.deliveryStreet,
-        supp:addDelivery.deliverySupp,
+        civility: addDelivery.deliveryCivility,
+        firstName: addDelivery.deliveryFirstName,
+        lastName: addDelivery.deliveryLastName,
+        street: addDelivery.deliveryStreet,
+        supp: addDelivery.deliverySupp,
         zip: addDelivery.deliveryZip,
-        city:addDelivery.deliveryCity,
-        telephone:addDelivery.deliveryTelephone
+        city: addDelivery.deliveryCity,
+        telephone: addDelivery.deliveryTelephone
       },
       addBilling: {
-        civility:addBilling.billingCivility,
-        firstName:addBilling.billingFirstName,
-        lastName:addBilling.billingLastName,
-        street:addBilling.billingStreet,
-        supp:addBilling.billingSupp,
+        civility: addBilling.billingCivility,
+        firstName: addBilling.billingFirstName,
+        lastName: addBilling.billingLastName,
+        street: addBilling.billingStreet,
+        supp: addBilling.billingSupp,
         zip: addBilling.billingZip,
-        city:addBilling.billingCity,
+        city: addBilling.billingCity,
       },
-      deliveryMode:deliveryMode,
-      deliveryCost:deliveryCost,
-      orderNumber:orderNumber,
+      deliveryMode: deliveryMode,
+      deliveryCost: deliveryCost,
+      orderNumber: orderNumber,
     })
       .then(response => response.data)
   },

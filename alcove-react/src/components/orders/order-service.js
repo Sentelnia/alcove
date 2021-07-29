@@ -19,10 +19,11 @@ export default {
       return response.data})
   },
   
-  updateOrder(orderData,id){
-    return this.service.put(`/orders/${id}`,orderData)
+  updateOrder(orderStatus,id){
+    console.log('orderStatus',orderStatus)
+    return this.service.put(`/orders/${id}`,{status:orderStatus})
     .then(response => {
-      console.log('edit status commande',response)
+      console.log('response updateOrder',response)
       return response.data})
   },
 };
