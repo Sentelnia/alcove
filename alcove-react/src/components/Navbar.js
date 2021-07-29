@@ -13,7 +13,29 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar">
         <MediaQuery maxWidth={1224}>
-          <img className="burger" src={burger} alt="burger" />
+          <div id="burger" className="close"></div>
+          <div id="menu" className="">
+            <ul>
+              <li>
+                <Link
+                  to={{ pathname: "https://www.planity.com/" }}
+                  target="_blank"
+                >
+                  <p>Prendre Rendez-vous</p>
+                </Link>
+              </li>
+              <li>
+                <Link to="/services">
+                  <p>Nos Tarifs</p>
+                </Link>
+              </li>
+              <li>
+                <Link to="/#store">
+                  <p>La Boutique</p>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </MediaQuery>
 
         <Link to="/">
@@ -27,33 +49,37 @@ class Navbar extends React.Component {
                 to={{ pathname: "https://www.planity.com/" }}
                 target="_blank"
               >
-                <p>Prendre rendez-vous</p>
+                <p>Prendre Rendez-vous</p>
               </Link>
             </li>
             <li>
-              <Link to="/services"><p>Nos tarifs</p></Link>
+              <Link to="/services">
+                <p>Nos Tarifs</p>
+              </Link>
             </li>
             <li>
-              <Link to="/#store"><p>La boutique</p></Link>
+              <Link to="/#store">
+                <p>La Boutique</p>
+              </Link>
             </li>
           </MediaQuery>
           <li>
-          {this.props.user ? (
-            <Link to="/profile">
-              <img className="avatar" src={avatar} alt="avatar" />
-            </Link>
-          ) : (
-            <Link to="/signup">
-              <img className="avatar" src={avatar} alt="avatar" />
-            </Link>
-          )}
+            {this.props.user ? (
+              <Link to="/profile">
+                <img className="avatar" src={avatar} alt="avatar" />
+              </Link>
+            ) : (
+              <Link to="/signup">
+                <img className="avatar" src={avatar} alt="avatar" />
+              </Link>
+            )}
           </li>
           <li>
-          <Link to="/cart">
-            <img className="cart" src={cart} alt="cart" />
-          </Link>
+            <Link to="/cart">
+              <img className="cart" src={cart} alt="cart" />
+            </Link>
           </li>
-          
+
           {/* {this.props.user ? <Link to="/cart"><img src={cart} alt="cart" /></Link> : <Link to="/signup"><img src={cart} alt="cart" /></Link>} */}
         </ul>
       </nav>

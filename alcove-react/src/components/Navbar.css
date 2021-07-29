@@ -3,17 +3,19 @@
 @media (max-width: 1224px) {
 
   .navbar {
-    height: 5em
+    height: 5em;
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 
-  .burger,
   .cart,
   .avatar {
     width: 2em;
     object-fit: contain;
   }
 
-  .burger,
+  #burger,
   .navbar-container {
     margin: 0 0.5em
   }
@@ -27,6 +29,66 @@
     margin-left: 1em
   }
 
+
+  /* ************ TOGGLE MENU BURGER ****************** */
+
+  #burger {
+    overflow:hidden;
+    cursor:pointer;
+    transition:all .5s;
+    text-align:center;
+    color:#256786;
+    font-size:3em;
+  }
+
+
+
+  #menu li{
+      height:2em;
+      line-height:1em;
+      padding:0 5em;
+      border-bottom:1px solid #b6b7b8;
+      background:#256786;
+      list-style: none;
+      font-size: 1.5em;
+  }
+
+
+
+  #menu a{
+    text-decoration: none;
+    color:#f7c9cf;
+   
+  }
+
+  #burger::after{
+    content:'x'
+  }
+
+  #burger.close{
+    font-size:4.5em;
+    color:#256786;
+
+  }
+
+  #burger.close::after{
+    content:'≡';
+  }
+
+  #menu{
+    height:12em;
+    background:#256786;
+    transition:transform 0.5s;
+    position:absolute;
+    top:6em;
+    width:110%;
+    transform:translateX(-100em);
+  }
+
+  #menu.show-menu{
+  transform:translateX(-3em);
+  }
+  
 }
 
 /* DESKTOP */
@@ -44,14 +106,14 @@
     height: 6em
   }
 
-  .burger,
+  .burgerImg,
   .cart,
   .avatar {
     width: 3em;
     object-fit: contain;
   }
 
-  .burger,
+  .burgerImg,
   .navbar-container {
     margin: 0 1em
   }
@@ -75,7 +137,11 @@
 
 .navbar-container a{
   text-decoration: none;
-  color:#3a6d85;
+  color:#256786;
+}
+
+.navbar-container a:hover{
+  color:#3ca8da;
 }
 
 .navbar-container p{
