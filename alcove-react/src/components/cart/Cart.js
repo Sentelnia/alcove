@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import cartService from './cart-service';
 import orderService from '../orders/order-service';
 
@@ -19,7 +18,7 @@ class Cart extends React.Component {
     },
 
     deliveryMode: '',
-    deliveryCost:0,
+    deliveryCost: 0,
     addBillingSameAsDelivery: true,
 
     addBilling: {
@@ -92,8 +91,12 @@ class Cart extends React.Component {
 
         //Création de la commande
         cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode, this.state.deliveryCost, OrderNumber)
-          .then(() => {
+          .then((response) => {
             this.props.updateCart({ cart: [] })
+            this.props.history.push({
+              pathname: '/confirmation-order',
+              state: { orderNumber: response.orderNumber }
+            })
           })
           .catch(err => console.log('err:', err))
       })
@@ -103,7 +106,12 @@ class Cart extends React.Component {
   handleChangeProductQuantity = (event, id) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
     if (regEx.test(event.target.value) && Number(event.target.value) !== 0) {
-      this.props.updateProductQuantity(id, event.target.value);
+      
+      cartService.updateQtyAlreadyInCart(id, event.target.value)
+        .then(response => {
+          this.props.updateCart(response)
+        })
+        .catch(err => console.log('err:', err))
     }
   }
 
@@ -114,7 +122,7 @@ class Cart extends React.Component {
     // Gestion changement de mode de livraison
     if ((name === 'deliveryMode') && (value === 'Livraison à domicile')) {
       this.setState({
-        deliveryCost:3.95,
+        deliveryCost: 3.95,
         addDelivery: {
           deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
@@ -137,7 +145,7 @@ class Cart extends React.Component {
       });
     } else if ((name === 'deliveryMode') && (value === 'Retrait en boutique')) {
       this.setState({
-        deliveryCost:0,
+        deliveryCost: 0,
         addDelivery: {
           deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
@@ -207,7 +215,11 @@ class Cart extends React.Component {
       .map(obj => obj.product._id === id ? obj.quantity - 1 : 0) // -1 sur le produit du panier cliqué - 0 pour les autres
       .reduce((a, b) => a + b, 0);                               // somme de chaque valeur du tableau
 
-    this.props.updateProductQuantity(id, qty);
+    cartService.updateQtyAlreadyInCart(id, qty)
+      .then(response => {
+        this.props.updateCart(response)
+      })
+      .catch(err => console.log('err:', err))
   }
 
   increaseQty = (event, id) => {
@@ -215,7 +227,11 @@ class Cart extends React.Component {
       .map(obj => obj.product._id === id ? obj.quantity + 1 : 0) // +1 sur le produit du panier cliqué - 0 pour les autres
       .reduce((a, b) => a + b, 0);                               // somme de chaque valeur du tableau
 
-    this.props.updateProductQuantity(id, qty);
+    cartService.updateQtyAlreadyInCart(id, qty)
+      .then(response => {
+        this.props.updateCart(response)
+      })
+      .catch(err => console.log('err:', err))
   }
 
   // Fonctions utilitaires
@@ -461,7 +477,7 @@ class Cart extends React.Component {
                     <p>{this.sumItemsCart()} Articles</p>
                     <p>Sous-total:<span> {this.sumCart()} €</span></p>
                     <p>Frais de livraison:<span> {this.state.deliveryCost}</span> €</p>
-                    <p>Total à payer TVA incluse:<span> {(this.sumCart() +  this.state.deliveryCost)}</span> €</p>
+                    <p>Total à payer TVA incluse:<span> {(this.sumCart() + this.state.deliveryCost)}</span> €</p>
 
                     <button className="btn" disabled={this.isReadyToValidate()} onClick={(e) => this.cartToOrder(e)}>Valider et payer via Paypal</button>
                   </>
