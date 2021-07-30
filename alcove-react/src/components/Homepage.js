@@ -16,7 +16,7 @@ class Homepage extends React.Component {
          Interdum et malesuada fames
          ac ante ipsum primis 
          in faucibus</p>
-        <img src="https://via.placeholder.com/375x250" alt="home-pic" />
+        
         <div id='store'>
         <Product user={this.props.user} cart={this.props.cart} updateCart={this.props.updateCart}/>
         </div>

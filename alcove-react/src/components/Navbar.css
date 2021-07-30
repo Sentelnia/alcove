@@ -3,7 +3,7 @@
 @media (max-width: 1224px) {
 
   .navbar {
-    background-color: #f7c9cf;
+    background-color: #FDD7D3;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -71,7 +71,7 @@
 
   #menu a{
     text-decoration: none;
-    color:#f7c9cf;
+    color:#FDD7D3;
    
   }
 
@@ -109,7 +109,7 @@
 
 @media (min-width: 1225px) {
   .navbar {
-    background-color: #f7c9cf;
+    background-color: #FDD7D3;
     display: flex;
     align-items: center;
     justify-content: space-between;
