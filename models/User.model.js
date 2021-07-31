@@ -42,7 +42,9 @@ const userSchema = new Schema({
     type: String,
     enum: ['USER', 'ADMIN'],
     default: 'USER',
-  }
+  },
+  token:String,
+  isValid:{type:Boolean, default: false}
 },
   {
     timestamps: true

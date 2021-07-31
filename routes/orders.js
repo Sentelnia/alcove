@@ -84,10 +84,6 @@ ordersRoutes.put('/orders/:id', (req, res, next) => {
 ordersRoutes.post('/email-confirmation', (req, res, next) => {
 
   let { emailSender, emailReceiver, subject, content } = req.body;
-  // console.log('email',emailSender)
-  // console.log('email',emailReceiver)
-  // console.log('subject',subject)
-  // console.log('message',content)
 
   transporter.sendMail({
     from: emailSender, // sender address

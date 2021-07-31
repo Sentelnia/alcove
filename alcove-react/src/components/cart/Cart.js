@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 import cartService from './cart-service';
 import orderService from '../orders/order-service';
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 class Cart extends React.Component {
   state = {
 
@@ -399,12 +402,20 @@ class Cart extends React.Component {
                                 </label>
                               </p>
 
-                              <p>
+                              {/* <p>
                                 <label>
                                   <em>Téléphone</em>
                                   <input type="tel" name="deliveryTelephone" value={this.state.addDelivery.deliveryTelephone} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
-                              </p>
+                              </p> */}
+
+                              <PhoneInput
+                                country={'fr'}
+                                onlyCountries={['fr']}
+                                value={this.state.addDelivery.deliveryTelephone}
+                                onChange={telephone => this.setState({ addDelivery: { ...this.state.addDelivery, deliveryTelephone: telephone } })}
+                                placeholder="+33 6 12 34 56 78"
+                              />
 
                               <div>
                                 <label>
