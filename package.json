@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "maildev": "maildev ./bin/www",
     "dev": "DEBUG=lalcove:* nodemon ./bin/www",
-    "dev-windows": "nodemon ./bin/www"
+    "dev-windows": "nodemon ./bin/www",
+    "build": "cd alcove-react && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^0.21.1",

@@ -132,4 +132,14 @@ app.use('/api', ordersRoutes);
 const cartsRoutes = require('./routes/carts');
 app.use('/api', cartsRoutes);
 
+// Serve static files from client/build folder
+app.use(express.static('alcove-react/build'));
+
+// For any other routes: serve client/build/index.html SPA
+app.use((req, res, next) => {
+  res.sendFile(`${__dirname}/alcove-react/build/index.html`, err => {
+    if (err) next(err)
+  })
+});
+
 module.exports = app;

@@ -21,7 +21,7 @@ footer{
 }
 
 .map{
-  width: 10em;
+  width: 8em;
   height: 10em;
   object-fit: contain;
   margin: 0 0.5em;
@@ -30,7 +30,7 @@ footer{
 }
 
 .adress-container{
-  line-height: 0.4em;
+  line-height: 0.5em;
   padding-bottom:0.4em;
 }
 
