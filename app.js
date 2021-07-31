@@ -121,8 +121,7 @@ app.use(
   })
 );
 
-const index = require('./routes/index');
-app.use('/api', index);
+
 const authRoutes = require('./routes/auth');
 app.use('/api', authRoutes);
 const productsRoutes = require('./routes/products');
