@@ -48,10 +48,28 @@ class Profile extends React.Component {
   }
 
   handleChange = (event) => {
+    let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+
+    if (name !== 'zip') {
+      this.setState({ [name]: value });
+      return;
+    }
+
+    if ((name === 'zip') && (regEx.test(event.target.value) && value.length < 6)) {
+      this.setState({ [name]: value });
+      return;
+    }
   }
 
+  logout = (event) => {
+    authService.logout()
+      .then(response => {
+        this.props.updateUser(false);
+      })
+    ;
+  }
+  
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -72,6 +90,7 @@ class Profile extends React.Component {
     return (
       <div>
         <h1>Bonjour {this.props.user.firstName}</h1>
+        <button className="btn logout" onClick={(e) => this.logout(e)}>Logout</button>
         <Order />
         <div className='infoUser'>
           <h2>Mes informations personnelles</h2>
@@ -109,7 +128,7 @@ class Profile extends React.Component {
 
             <PhoneInput
               country={'fr'}
-              onlyCountries = {['fr']}
+              onlyCountries={['fr']}
               value={this.state.telephone}
               onChange={telephone => this.setState({ telephone })}
               placeholder="+33 6 12 34 56 78"

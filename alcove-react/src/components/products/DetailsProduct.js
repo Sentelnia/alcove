@@ -22,19 +22,19 @@ class DetailsProduct extends React.Component {
 
   handleChangeProductQuantity = (event) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
-    if (regEx.test(event.target.value) && Number(event.target.value) !== 0) {
-      this.setState({ quantity: event.target.value });
+    if (regEx.test(event.target.value) && Number(event.target.value) !== 0 && event.target.value.length <3) {
+      this.setState({ quantity: Number(event.target.value) });
     }
   }
 
   decreaseQty = (event) => {
-    let qty = this.state.quantity - 1;
+    let qty = Number(this.state.quantity) - 1;
     this.setState({ quantity: qty });
   }
 
   increaseQty = (event) => {
-    let qty = this.state.quantity + 1;
-    this.setState({ quantity: qty });
+    let qty = Number(this.state.quantity) + 1;
+    qty <= 99 && this.setState({ quantity: qty });
   }
 
   addToCart = (event, id) => {

@@ -111,7 +111,7 @@ class Cart extends React.Component {
 
   handleChangeProductQuantity = (event, id) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
-    if (regEx.test(event.target.value) && Number(event.target.value) !== 0) {
+    if (regEx.test(event.target.value) && Number(event.target.value) !== 0 && event.target.value.length <3) {
 
       cartService.updateQtyAlreadyInCart(id, event.target.value)
         .then(response => {
@@ -207,13 +207,33 @@ class Cart extends React.Component {
   }
 
   handleChangeAdressDelivery = (event) => {
+    let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ
     const { name, value } = event.target;
-    this.setState({ addDelivery: { ...this.state.addDelivery, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+
+    if (name !== 'deliveryZip'){
+      this.setState({ addDelivery: { ...this.state.addDelivery, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+      return;
+    }
+
+    if ((name === 'deliveryZip') && (regEx.test(event.target.value) && value.length < 6)){
+      this.setState({ addDelivery: { ...this.state.addDelivery, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+      return;
+    }     
   }
 
   handleChangeAdressBilling = (event) => {
+    let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ
     const { name, value } = event.target;
-    this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+
+    if (name !== 'billingZip'){
+      this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+      return;
+    }
+
+    if ((name === 'billingZip') && (regEx.test(event.target.value) && value.length < 6)){
+      this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
+      return;
+    }    
   }
 
   decreaseQty = (event, id) => {
@@ -230,7 +250,7 @@ class Cart extends React.Component {
 
   increaseQty = (event, id) => {
     let qty = this.props.cart
-      .map(obj => obj.product._id === id ? obj.quantity + 1 : 0) // +1 sur le produit du panier cliqué - 0 pour les autres
+      .map(obj => obj.product._id === id && obj.quantity < 99 ? obj.quantity + 1 : obj.quantity) // +1 sur le produit du panier cliqué - 0 pour les autres
       .reduce((a, b) => a + b, 0);                               // somme de chaque valeur du tableau
 
     cartService.updateQtyAlreadyInCart(id, qty)
