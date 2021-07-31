@@ -12,11 +12,20 @@ ReactDOM.render(<Router><App /></Router>, document.getElementById('root'));
 ////////////MENU BURGER//////////////////////
 
 let menuBurger = document.querySelector('#burger');
+let closeMenu = document.querySelectorAll('.closeMenu');
 let menu = document.querySelector('#menu');
+
 
 if(menuBurger){
   menuBurger.addEventListener('click', ()=>{
     menu.classList.toggle('show-menu');
-    menuBurger.classList.toggle('close');
-})
+  })
+}
+
+if(closeMenu){
+  closeMenu.forEach((el) =>{
+    el.addEventListener('click', ()=>{
+      menu.classList.remove('show-menu');
+    })
+  })
 }

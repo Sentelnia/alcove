@@ -1,5 +1,5 @@
 import React from "react";
-import burger from "../images/menu_burger.png";
+import burger from "../images/menu_burger.png"
 import icon from "../images/logo_alcove.svg";
 import avatar from "../images/profil.png";
 import cart from "../images/shopping-bag.svg";
@@ -13,22 +13,23 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar">
         <MediaQuery maxWidth={1224}>
-          <div id="burger" className="close"></div>
-          <div id="menu" className="">
+          <div id="burger" className="close">≡</div>
+          <div id="menu" className="hidden-menu">
+          <div className="closeMenu iconCloseMenu">X</div>
             <ul>
-              <li>
+              <li className="closeMenu">
                 <Link
                   to={{ pathname: "https://www.planity.com/" }}
                   target="_blank">
                   <p>Prendre Rendez-vous</p>
                 </Link>
               </li>
-              <li>
+              <li className="closeMenu">
                 <Link to="/services">
                   <p>Nos Tarifs</p>
                 </Link>
               </li>
-              <li>
+              <li className="closeMenu">
                 <Link to="/#store">
                   <p>La Boutique</p>
                 </Link>
