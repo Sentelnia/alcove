@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ExternalLink } from 'react-external-link';
 import MediaQuery from "react-responsive";
 import "./Footer.css";
+import facebook from '../images/facebook.svg'
+import instagram from '../images/instagram.svg'
 
 class Footer extends React.Component {
   render() {
@@ -31,10 +33,10 @@ class Footer extends React.Component {
           </div>
           <div className="link-container">
             <ExternalLink href="https://www.facebook.com/lalcove">
-              <span>F</span>
+              <img src={facebook} alt='logoFacebook'/>
             </ExternalLink>
             <ExternalLink href="https://instagram.com/lalcove">
-              <span>I</span>
+             <img src={instagram} alt='logoInstagram'/>
             </ExternalLink>
             <Link to='/mentions-legales'>Mentions légales</Link>
           </div>

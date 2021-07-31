@@ -70,7 +70,7 @@ class Product extends React.Component {
               .filter(product => product.category === category)
               .map(product => (
                 <div className="product-card" key={product._id}>
-                  <img src={product.imageUrl || "https://via.placeholder.com/375x250"} alt="product-pic" />
+                  <img src={product.imageUrl || "https://via.placeholder.com/320x250"} alt="product-pic" />
                   <h3>{product.name}</h3>
                   <p>{product.unitPrice} €</p>
                   <div className="btn-container">
