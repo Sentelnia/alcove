@@ -66,7 +66,7 @@ class App extends Component {
   updateCart = (data) => {
     console.log('data:', data)
     this.setState({ cart: data.cart });
-  };
+  };  
 
   render() {
     return (

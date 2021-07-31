@@ -1,9 +1,11 @@
 import React from 'react';
-
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 import authService from './auth-service.js';
 import { Redirect } from 'react-router-dom';
-import Order from '../orders/Order.js'
+import Order from '../orders/Order.js';
+
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -20,8 +22,8 @@ class Profile extends React.Component {
     city: this.props.user.city || "",
     userNumber: this.props.user.userNumber || "",
 
-    currentPassword:'',
-    newPassword:'',
+    currentPassword: '',
+    newPassword: '',
 
     error: ""
   }
@@ -98,12 +100,21 @@ class Profile extends React.Component {
                 <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
               </label>
             </p>
-            <p>
+            {/* <p>
               <label>
                 <em>Téléphone</em>
                 <input type="tel" name="telephone" value={this.state.telephone} onChange={this.handleChange} />
               </label>
-            </p>
+            </p> */}
+
+            <PhoneInput
+              country={'fr'}
+              onlyCountries = {['fr']}
+              value={this.state.telephone}
+              onChange={telephone => this.setState({ telephone })}
+              placeholder="+33 6 12 34 56 78"
+            />
+
             <p>
               <label>
                 <em>Adresse</em>

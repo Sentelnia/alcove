@@ -34,7 +34,8 @@ class Signup extends React.Component {
   }
 
   render() {
-    if (this.props.user) return <Redirect to="/" />
+    if (this.props.user._id) return <Redirect to="/" />
+
     return (
       <>
         <h1>Nouvel utilisateur?</h1>
