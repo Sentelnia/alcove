@@ -22,9 +22,10 @@ ordersRoutes.get('/orders', (req, res, next) => {
   } else {
     cond = { userId: req.user._id.toString() }
   }
-  
+  console.log('condition user:',cond)
   Order.find(cond)
   .then(ordersFromDB => {
+    console.log('orderst touvées en base:',ordersFromDB)
     res.status(201).json(ordersFromDB);
   })
   .catch(err => {

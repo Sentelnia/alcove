@@ -75,7 +75,7 @@ class Cart extends React.Component {
   }
 
   cartToOrder = (event) => {
-
+    console.log('event:',event)
     orderService.getOrders()
       .then((response) => {
         //Génération n° de commande selon logique userNumber + incrémentation du n° de commande par User
@@ -102,11 +102,11 @@ class Cart extends React.Component {
             })
             orderService.sendEmailConfirmation(this.props.user.email, orderNumber)
               .then(response => console.log('response:', response.data.message))
-              .catch(err => console.log('err:', err))
+              .catch(err => console.log('err sendEmail:', err))
           })
-          .catch(err => console.log('err:', err))
+          .catch(err => console.log('errValidateCart:', err))
       })
-      .catch(err => console.log('err:', err))
+      .catch(err => console.log('err getOrders:', err))
   }
 
   handleChangeProductQuantity = (event, id) => {

@@ -23,6 +23,7 @@ class Order extends React.Component {
         orders: allOrders
       })
     })
+    .catch(err => console.log('err getOrders:', err))
   }
 
   render() {
