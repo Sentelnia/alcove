@@ -100,7 +100,12 @@ class Cart extends React.Component {
               pathname: '/confirmation-order',
               state: { orderNumber: response.orderNumber }
             })
-            orderService.sendEmailConfirmation(this.props.user.email, orderNumber)
+            let content =
+            orderService.sendEmailConfirmation(
+              this.props.user.email,
+              orderNumber,
+              'En attente de validation',
+              'Merci pour votre commande')
               .then(response => console.log('response:', response.data.message))
               .catch(err => console.log('err sendEmail:', err))
           })

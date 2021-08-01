@@ -42,7 +42,17 @@ class DetailsOrder extends React.Component {
 
     //Update status de la commande
     orderService.updateOrder(value,this.props.match.params.id)
-    .then()
+    .then(()=> {
+
+      orderService.sendEmailConfirmation(
+        this.props.user.email, 
+        this.state.orderNumber, 
+        this.state.status,
+        `Le status de votre commande a été mis à jour:${this.state.status}`
+        )
+      .then(response => console.log('response:', response.data.message))
+      .catch(err => console.log('err sendEmail:', err))
+    })
     .catch(err => {
       console.log(err)
     });

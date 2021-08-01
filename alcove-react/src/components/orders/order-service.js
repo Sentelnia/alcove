@@ -3,8 +3,8 @@ import axios from 'axios';
 
 export default {
   service: axios.create({
-    baseURL: `${process.env.REACT_APP_APIURL || ""} /api`,
-    // baseURL: `http://localhost:5000/api`,
+    // baseURL: `${process.env.REACT_APP_APIURL || ""} /api`,
+    baseURL: `http://localhost:5000/api`,
     withCredentials: true
   }),
 
@@ -27,12 +27,12 @@ export default {
       return response.data})
   },
 
-  sendEmailConfirmation(emailReceiver, orderNumber){
+  sendEmailConfirmation(emailReceiver, orderNumber,status, content){
     return this.service.post('/email-confirmation',{
       emailSender: 'lalcove@hotmail.fr',
       emailReceiver:emailReceiver,
-      subject:`Votre commande n°${orderNumber}`,
-      content: 'Bonjour Merci pour votre commande'
+      subject:`Votre commande n°${orderNumber} - ${status}`,
+      content: `Bonjour, ${content}`
     })
     .then()
     .catch(err => console.log('err:', err))
