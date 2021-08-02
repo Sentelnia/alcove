@@ -10,6 +10,22 @@
   margin: 0 0.5em
 }
 
+.productStore h2{
+  padding:1em 0 0.5em;
+  font-weight: bold;
+}
+
+
+hr{
+  margin-top: 1.5em;
+  width :30%;
+}
+
+.hrFirst{
+  margin-top: 0;
+  width :45%;
+}
+
 .carousel-items{
   display: flex;
   overflow-x: scroll;
@@ -41,8 +57,58 @@
   border-radius: 3px;
 }
 
+h3{
+  margin-bottom:0
+}
+
 .product-card img{
-  width: 50%;
+  width: 60%;
   object-fit: contain;
+  border-radius: 3px;
+}
+
+
+
+/* BUTTON */
+
+.btn-container button {
+  padding: 1em 1em;
+  margin: 0 0.2em 1em;
+  width: 11em;
+  border: 1px solid rgb(235, 235, 235);
+  font-weight: bold;
+  font-size: 0.8em
+}
+
+.btn-container a {
+  color:#dfbcb8;
+  text-decoration: none;
+}
+
+.btn{
+  color:#256786;
+  background-color: white;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1); 
+}
+
+.details{
+  background-color: white;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1);
+}
+
+.btn:active{
+  color:white;
+  background-color: #256786;
+  
+}
+
+.details:active{
+  color:white;
+  background-color: #dfbcb8;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1); 
+}
+
+.hidden{
+  visibility: hidden;
 }
 

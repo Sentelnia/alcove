@@ -70,6 +70,7 @@ class Product extends React.Component {
     
     return (
       <div className='productStore'>
+        <hr className='hrFirst'/>
         <h2>NOS PRODUITS</h2>
         {/* {Affichage lien vers création produit seulement pour admin} */}
         {this.props.user.role === "ADMIN" && (
@@ -78,10 +79,10 @@ class Product extends React.Component {
         {/* {Affichage des catégories} */}
         {this.state.categories.map((category) => (
           <div className="product-category" key={category}>
-            {category === "CARTE" && <h2>NOS CARTES CADEAUX</h2> }
-            {category === "LASH" && <h2>NOS SOINS DES CILS</h2>}
-            {category === "NAIL" && <h2>NOS SOINS DES ONGLES</h2>}
-            {category === "BASIC" && <h2>NOS BASIQUES</h2>}
+            {category === "CARTE" && <h3>NOS CARTES CADEAUX</h3> }
+            {category === "LASH" && <h3>NOS SOINS DES CILS</h3>}
+            {category === "NAIL" && <h3>NOS SOINS DES ONGLES</h3>}
+            {category === "BASIC" && <h3>NOS BASIQUES</h3>}
 
             <ul className="carousel-items">
           
@@ -104,14 +105,17 @@ class Product extends React.Component {
                       <p>Offrez un moment de détente </p>
                     ) : (
                       <>
-                        <h3>{product.name}</h3>
+                        <h4>{product.name}</h4>
                         <p>{product.unitPrice} €</p>
                       </>
                     )}
                     <div className="btn-container">
+                      <button className='details'>
                       <Link to={`/details-product/${product._id}`}>
                         Détails
                       </Link>
+                      </button>
+                    
                       {/* {Affichage edit et delete seulement pour admin} */}
                       {this.props.user.role === "ADMIN" ? (
                         <>
@@ -132,20 +136,22 @@ class Product extends React.Component {
                           {/* {Masquer btn ajouter au panier si déjà dans le panier} */}
                           {this.isAlreadyInCart(product._id) ? (
                             <p>Produit déjà dans le panier</p>
-                          ) : (
+                          ) : (<>
                             <button
                               className="btn"
                               onClick={(e) => this.addToCart(e, product._id)}
                             >
                               Ajouter au panier
                             </button>
+                            <p className='hidden'>Produit déjà dans le panier</p>
+                            </>
                           )}
                         </>
                       )}
                   
                     </div>
                   
-                  
+                  <hr/>
                 </li>
                 
               ))}
