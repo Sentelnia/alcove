@@ -54,8 +54,8 @@
 
   .iconCloseMenu{
     position:absolute;
-    top:2em;
-    left:17em;
+    top:20%;
+    left:80%;
     font-size:1.5em;
     color:#256786;
   }
@@ -88,25 +88,23 @@
 
 
   .hidden-menu{
-    height:0px;
+    height:100vh;
     background:white;
     position:absolute;
-    top:-100px;
-    left:-100px;
+    top:0;
+    left:0px;
     align-items: center;
-    width:0px;
+    width:100vw;
     justify-content:space-evenly;
     display:flex;
     opacity:0;
     transition: opacity 0.3s;
+    pointer-events:none;
   }
 
 .show-menu{
-    top:0;
-    left:0;
-    height:100vh;
-    width:100vw;
-    opacity:1 !important;
+    pointer-events:initial;
+    opacity:1 ;
   }
   
 }

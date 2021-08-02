@@ -58,7 +58,7 @@ class Product extends React.Component {
     console.log('props product:', this.props)
     return (
       <>
-        <h1>Nos Produits</h1>
+        <h2>Nos Produits</h2>
         {/* {Affichage lien vers création produit seulement pour admin} */}
         {this.props.user.role === "ADMIN" && <Link to="/new-product">Ajouter un produit</Link>}
         {/* {Affichage des catégories} */}

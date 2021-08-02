@@ -1,0 +1,31 @@
+.homepage{
+  margin: 5em 1.5em 0;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  text-align: center;
+  font-size:1em
+}
+
+.homepage h1{
+  font-size: 2.5em;
+  margin-bottom: 0.3em
+}
+
+.imgIntro{
+  margin: 1.5em;
+  object-fit: contain;
+  width:90%;
+  box-shadow:
+  0 2.8px 15.2px rgba(0, 0, 0, 0.050),
+  0 6.7px 18.3px rgba(0, 0, 0, 0.060),
+  0 12.5px 23px rgba(0, 0, 0, 0.070),
+  0 22.3px 30.9px rgba(0, 0, 0, 0.080),
+  0 41.8px 46.4px rgba(0, 0, 0, 0.090),
+  0 80px 80px rgba(0, 0, 0, 0.080);
+  border-radius: 5px;
+}
+
+#store{
+  margin-top: 4em
+}
