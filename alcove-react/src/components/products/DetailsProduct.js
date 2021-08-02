@@ -22,7 +22,7 @@ class DetailsProduct extends React.Component {
 
   handleChangeProductQuantity = (event) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
-    if (regEx.test(event.target.value) && Number(event.target.value) !== 0 && event.target.value.length <3) {
+    if (regEx.test(event.target.value) && Number(event.target.value) !== 0 && event.target.value.length < 3) {
       this.setState({ quantity: Number(event.target.value) });
     }
   }
@@ -34,27 +34,24 @@ class DetailsProduct extends React.Component {
 
   increaseQty = (event) => {
     let qty = Number(this.state.quantity) + 1;
-    qty <= 99 && this.setState({ quantity: qty });
+    this.setState({ quantity: qty });
   }
 
   addToCart = (event, id) => {
     event.preventDefault();
 
-    if (this.props.cart
-      .map(item => item.product._id)        //Retourne un tableau d'id
-      .filter(propsId => propsId === id)    //Retourne un tableau avec l'id passée en paramètre
-      .length > 0) {
+    if (this.isAlreadyInCart(id)) {
       console.log(id, ' déjà dans le panier')
-      return;                               //On n'ajoute rien dans le panier
+      return;
     }
 
-    cartService.addToCart(id,this.state.quantity)
+    cartService.addToCart(id, this.state.quantity)
       .then((response) => {
         this.props.updateCart(response)
         console.log('produit ajouté au panier')
         this.props.history.push('/')      // Redirection vers home
       })
-      .catch(err => console.log('error delete product:', err))    
+      .catch(err => console.log('error delete product:', err))
   }
 
   componentDidMount() {
@@ -65,29 +62,59 @@ class DetailsProduct extends React.Component {
       });
   }
 
+  handleFocus = (event) => {
+    event.target.select();
+  }
+
+  // Fonctions utilitaires
+  isAlreadyInCart(id) {
+    return this.props.cart
+      .map(item => item.product._id)        //Retourne un tableau d'id
+      .filter(propsId => propsId === id)    //Retourne un tableau avec l'id passée en paramètre
+      .length > 0 ? true : false;           //On n'ajoute rien dans le panier
+  }
+
   render() {
     return (
       <>
         <Link to="/">Retour aux produits</Link>
         <img src={this.state.imageUrl || "https://via.placeholder.com/375x250"} alt="product_pict" />
         <h1>{this.state.name}</h1>
-        {/* {Affichage quantité seulement pour USER} */}
-        {this.props.user.role !== "ADMIN" && (
+        {/* {Affichage quantité seulement pour USER si pas déja dans le panier} */}
+        {this.props.user.role !== "ADMIN" && !this.isAlreadyInCart(this.props.match.params.id) && (
           <>
             <label>Quantity:</label>
-            <button className="btn" disabled={(this.state.quantity === 1 || this.state.quantity === 0) && true} onClick={e => this.decreaseQty(e)}>-</button>
-            <input type="text" name="quantity" value={this.state.quantity} onChange={e => this.handleChangeProductQuantity(e)} />
-            <button className="btn" onClick={e => this.increaseQty(e)}>+</button>
+            <button
+              className="btn"
+              disabled={(this.state.quantity === 1 || this.state.quantity === 0) && true}
+              onClick={e => this.decreaseQty(e)}>-</button>
+            <input
+              type="text"
+              name="quantity"
+              value={this.state.quantity}
+              onFocus={this.handleFocus}
+              onChange={e => this.handleChangeProductQuantity(e)} />
+            <button
+              className="btn"
+              disabled={this.state.quantity === 99 && true}
+              onClick={e => this.increaseQty(e)}>+</button>
           </>
         )}
         <div>
           <span>{this.state.unitPrice * this.state.quantity} €</span>
           {/* {Affichage du btn en fn du role} */}
-          {this.props.user.role !== "ADMIN" ?
-            (<button className="btn" onClick={e => this.addToCart(e,this.props.match.params.id)}>Ajouter au panier</button>) :
+          {this.props.user.role === "USER" && !this.isAlreadyInCart(this.props.match.params.id) ?
+            (<button
+              className="btn"
+              onClick={e => this.addToCart(e, this.props.match.params.id)}>Ajouter au panier</button>):
+              (<p>Produit déjà dans le panier</p>)}
+
+          {this.props.user.role === "ADMIN" &&
             (<>
               <Link to={`/edit-product/${this.props.match.params.id}`}>Modifier</Link>
-              <button className="btn" onClick={(e) => this.deleteProductFromDB(e, this.props.match.params.id)}>Supprimer</button>
+              <button
+                className="btn"
+                onClick={(e) => this.deleteProductFromDB(e, this.props.match.params.id)}>Supprimer</button>
             </>)}
         </div>
         <div className="info-container">

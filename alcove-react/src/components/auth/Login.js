@@ -35,7 +35,7 @@ class Login extends React.Component {
   }
 
   render() {
-    
+
     if (this.props.user._id) return <Redirect to="/" />
 
     return (
@@ -55,7 +55,7 @@ class Login extends React.Component {
               <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
             </label>
           </p>
-          <Link to="/reset-password">Mot de passe oublié?</Link>
+          <Link to="/reset-password">Mot de passe oublié?</Link> {/* https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7*/}
           <input type="submit" value="Je me connecte" />
         </form>
 

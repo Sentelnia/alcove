@@ -76,7 +76,6 @@ class Profile extends React.Component {
     authService.edit(this.state)
       .then(response => {
         this.setState({ error: "" });
-        console.log('response edit profile', response)
         this.props.updateUser(this.state)
       })
       .catch(err => this.setState({ error: "" }))

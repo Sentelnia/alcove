@@ -80,7 +80,7 @@ class Cart extends React.Component {
     console.log('event:', event)
     orderService.getOrders()
       .then((response) => {
-        console.log('response getOrders:',response)
+        console.log('response getOrders:', response)
         //Génération n° de commande selon logique userNumber + incrémentation du n° de commande par User
         let fourDigitsUserNumber = this.props.user.userNumber;
         let fourDigitsOderNumber = response.length + 1;
@@ -94,7 +94,7 @@ class Cart extends React.Component {
         }
 
         let orderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
-        console.log('orderNumber',orderNumber)
+        console.log('orderNumber', orderNumber)
         //Création de la commande
         cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode, this.state.deliveryCost, orderNumber)
           .then((response) => {
@@ -103,13 +103,13 @@ class Cart extends React.Component {
               pathname: '/confirmation-order',
               state: { orderNumber: response.orderNumber }
             })
-              orderService.sendEmailConfirmation(
-                this.props.user.email,
-                orderNumber,
-                'En attente de validation',
-                'Merci pour votre commande')
-                .then(response => console.log('response:', response.data.message))
-                .catch(err => console.log('err sendEmail:', err))
+            orderService.sendEmailConfirmation(
+              this.props.user.email,
+              orderNumber,
+              'En attente de validation',
+              'Merci pour votre commande')
+              .then(response => console.log('response:', response.data.message))
+              .catch(err => console.log('err sendEmail:', err))
           })
           .catch(err => console.log('errValidateCart:', err))
       })
@@ -245,6 +245,10 @@ class Cart extends React.Component {
     }
   }
 
+  handleFocus = (event) => {
+    event.target.select();
+  }
+
   decreaseQty = (event, id) => {
     let qty = this.props.cart
       .map(obj => obj.product._id === id ? obj.quantity - 1 : 0) // -1 sur le produit du panier cliqué - 0 pour les autres
@@ -259,10 +263,10 @@ class Cart extends React.Component {
 
   increaseQty = (event, id) => {
     let qty = this.props.cart
-      .map(obj => obj.product._id === id && obj.quantity < 99 ? obj.quantity + 1 : obj.quantity) // +1 sur le produit du panier cliqué - 0 pour les autres
-      .reduce((a, b) => a + b, 0);                               // somme de chaque valeur du tableau
+      .map(obj => obj.product._id === id ? obj.quantity + 1 : 0) // +1 sur le produit du panier cliqué - 0 pour les autres
+      .reduce((a, b) => a + b, 0);                                                               // somme de chaque valeur du tableau
 
-    cartService.updateQtyAlreadyInCart(id, qty)
+      cartService.updateQtyAlreadyInCart(id, qty)
       .then(response => {
         this.props.updateCart(response)
       })
@@ -383,10 +387,23 @@ class Cart extends React.Component {
                         <Link to={`/details-product/${item.product._id}`}><img src="https://via.placeholder.com/100x100" alt="product-pict" /></Link>
                         <div className="cart-product">
                           <h4><Link to={`/details-product/${item.product._id}`}>{item.product.name}</Link></h4>
-                          <button className="btn" disabled={(item.quantity === 1 || item.quantity === 0) && true} onClick={e => this.decreaseQty(e, item.product._id)}>-</button>
-                          <input type="text" name="quantity" value={item.quantity} onChange={e => this.handleChangeProductQuantity(e, item.product._id)} />
-                          <button className="btn" onClick={e => this.increaseQty(e, item.product._id)}>+</button>
-                          <button className="btn" onClick={(e) => this.removeProductFromCart(e, item.product._id)}>Supprimer</button>
+                          <button
+                            className="btn"
+                            disabled={(item.quantity === 1 || item.quantity === 0) && true}
+                            onClick={e => this.decreaseQty(e, item.product._id)}>-</button>
+                          <input
+                            type="text"
+                            name="quantity"
+                            value={item.quantity}
+                            onFocus={this.handleFocus}
+                            onChange={e => this.handleChangeProductQuantity(e, item.product._id)} />
+                          <button
+                            className="btn"
+                            disabled={item.quantity === 99 && true}
+                            onClick={e => this.increaseQty(e, item.product._id)}>+</button>
+                          <button
+                            className="btn"
+                            onClick={(e) => this.removeProductFromCart(e, item.product._id)}>Supprimer</button>
                           <p>{item.quantity * item.product.unitPrice}€</p>
                         </div>
                       </div>
