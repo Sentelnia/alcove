@@ -9,13 +9,13 @@ const passport = require('passport');
 const transporter = require('../mailer');
 
 // Fonction utilitaire
-function generate_token(length){
+function generate_token(length) {
   //edit the token allowed characters
   var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-  var b = [];  
-  for (var i=0; i<length; i++) {
-      var j = (Math.random() * (a.length-1)).toFixed(0);
-      b[i] = a[j];
+  var b = [];
+  for (var i = 0; i < length; i++) {
+    var j = (Math.random() * (a.length - 1)).toFixed(0);
+    b[i] = a[j];
   }
   return b.join("");
 }
@@ -25,11 +25,16 @@ function generate_token(length){
 
 authRoutes.post('/users', (req, res, next) => {
 
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
   // 1. Check username and password are not empty
   if (!email || !password) {
     res.status(400).json({ message: 'Merci de saisir une adresse E-mail et un mot de passe' });
+    return;
+  }
+
+  if (!firstName || !lastName) {
+    res.status(400).json({ message: 'Merci de saisir votre nom et votre prénom' });
     return;
   }
 
@@ -60,14 +65,16 @@ authRoutes.post('/users', (req, res, next) => {
       const aNewUser = new User({
         email: email,
         password: hashPass,
-        token:token
+        firstName: firstName,
+        lastName:lastName,
+        token: token
       });
 
       // Query sur tous les user pour obtenir le nbr de user en base
       User.find({})
         .then(response => {
           // userNumber pour création n° de commande
-          const userNumbers = response.map(user => user.userNumber)          
+          const userNumbers = response.map(user => user.userNumber)
           aNewUser.userNumber = Math.max(...userNumbers) + 1
 
           aNewUser.save()
@@ -83,8 +90,8 @@ authRoutes.post('/users', (req, res, next) => {
                 subject: "Validation de votre adresse E-mail", // Subject line
                 html: `Bienvenue, cliquez sur le lien suivant pour valider votre adresse E-Mail <a href=http://localhost:5000/api/verify/${token}> Valider </a>`
               })
-              .then()
-              .catch(err => next(err))
+                .then()
+                .catch(err => next(err))
 
               res.status(201).json(aNewUser);
             })
@@ -103,19 +110,18 @@ authRoutes.post('/users', (req, res, next) => {
 //////////////////////////////////////////////////// VERIFY EMAIL ADRESS //////////////////////////////////////////////////
 authRoutes.get('/verify/:token', (req, res, next) => {
   const token = req.params.token
-  console.log('token',token)
 
   User.findOne({ token })
-  .then(foundUser => {
-    console.log('foundUser',foundUser)
-    foundUser.isValid = true;
-    foundUser.save()
-    .then((foundUser)=> res.redirect('http://localhost:3000/login'))
-    .catch(err => next(err))
-  })
-  .catch(err => {
-    res.status(500).json({ message: "Token non reconnue." });
-  });
+    .then(foundUser => {
+      console.log('foundUser', foundUser)
+      foundUser.isValid = true;
+      foundUser.save()
+        .then((foundUser) => res.redirect('http://localhost:3000/login'))
+        .catch(err => next(err))
+    })
+    .catch(err => {
+      res.status(500).json({ message: "Token non reconnue." });
+    });
 })
 
 ///////////////////////////////////////////////////// CREATION SESSION //////////////////////////////////////////////////
@@ -133,7 +139,7 @@ authRoutes.post('/sessions', (req, res, next) => {
       res.status(403).json({ message: "L'adresse E-mail et le mot de passe ne correspondent pas." });
       return;
     }
-    
+
     if (!theUser.isValid) {
       // Unauthorized, `failureDetails` contains the error messages from our logic in "LocalStrategy" {message: '…'}.
       res.status(403).json({ message: "L'adresse E-mail n'a pas été validée." });
@@ -192,6 +198,17 @@ authRoutes.put('/user', (req, res, next) => {
 //////////////////////////////// UPDATE USER PWD ////////////////////////////////////////
 authRoutes.put('/user/password', (req, res, next) => {
 
+});
+
+//////////////////////////////// DELETE USER ACCOUNT ////////////////////////////////////////
+authRoutes.delete('/user', (req, res, next) => {
+  console.log('req.session:', req.session.passport.user)
+  User.findByIdAndRemove(req.session.passport.user)
+    .then(() => {
+      req.logout();
+      res.status(204).send();
+    })
+    .catch(err => next(err));
 });
 
 module.exports = authRoutes;

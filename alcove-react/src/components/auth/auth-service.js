@@ -15,10 +15,12 @@ export default {
       })
   },
 
-  signup(email, password) {
+  signup(email, password,firstName,lastName) {
     return this.service.post('/users', {
       email,
-      password
+      password,
+      firstName,
+      lastName
     })
       .then(response => response.data)
   },
@@ -32,6 +34,11 @@ export default {
 
   logout() {
     return this.service.delete('/session', {})
+      .then(response => response.data)
+  },
+
+  deleteAccount() {
+    return this.service.delete('/user', {})
       .then(response => response.data)
   },
 

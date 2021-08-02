@@ -23,9 +23,11 @@ ordersRoutes.get('/orders', (req, res, next) => {
     cond = { userId: req.user._id.toString() }
   }
   console.log('condition user:',cond)
-  Order.find(cond)
+  Order
+  .find(cond)
+  .sort({createdAt:-1})
   .then(ordersFromDB => {
-    console.log('orderst touvées en base:',ordersFromDB)
+    console.log('orders touvées en base:',ordersFromDB)
     res.status(201).json(ordersFromDB);
   })
   .catch(err => {

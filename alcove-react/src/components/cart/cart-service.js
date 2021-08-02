@@ -33,17 +33,19 @@ export default {
   validateCart(addDelivery, addBilling, deliveryMode, deliveryCost, orderNumber) {
     return this.service.post('/cart/checkout', {
       addDelivery: {
-        civility: addDelivery.deliveryCivility,
+        // civility: addDelivery.deliveryCivility,
         firstName: addDelivery.deliveryFirstName,
         lastName: addDelivery.deliveryLastName,
         street: addDelivery.deliveryStreet,
         supp: addDelivery.deliverySupp,
         zip: addDelivery.deliveryZip,
         city: addDelivery.deliveryCity,
-        telephone: addDelivery.deliveryTelephone
+        telephone: addDelivery.deliveryTelephone,
+        email: addDelivery.deliveryEmail
+
       },
       addBilling: {
-        civility: addBilling.billingCivility,
+        // civility: addBilling.billingCivility,
         firstName: addBilling.billingFirstName,
         lastName: addBilling.billingLastName,
         street: addBilling.billingStreet,

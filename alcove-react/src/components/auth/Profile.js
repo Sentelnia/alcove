@@ -15,7 +15,7 @@ class Profile extends React.Component {
     lastName: this.props.user.lastName || "",
     email: this.props.user.email || "",
     telephone: this.props.user.telephone || "",
-    civility: this.props.user.civility || "",
+    // civility: this.props.user.civility || "",
     street: this.props.user.street || "",
     supp: this.props.user.supp || "",
     zip: this.props.user.zip || "",
@@ -38,7 +38,7 @@ class Profile extends React.Component {
         firstName: this.props.user.firstName || "",
         lastName: this.props.user.lastName || "",
         telephone: this.props.user.telephone || "",
-        civility: this.props.user.civility || "",
+        // civility: this.props.user.civility || "",
         street: this.props.user.street || "",
         supp: this.props.user.supp || "",
         zip: this.props.user.zip || "",
@@ -64,12 +64,11 @@ class Profile extends React.Component {
 
   logout = (event) => {
     authService.logout()
-      .then(response => {
+      .then(() => {
         this.props.updateUser(false);
-      })
-    ;
+      });
   }
-  
+
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -77,10 +76,16 @@ class Profile extends React.Component {
     authService.edit(this.state)
       .then(response => {
         this.setState({ error: "" });
-        console.log('response edit profile', response)
         this.props.updateUser(this.state)
       })
       .catch(err => this.setState({ error: "" }))
+  }
+
+  deleteAccount = (event) => {
+    authService.deleteAccount()
+    .then(() => {
+      this.props.updateUser(false);
+    });
   }
 
   render() {
@@ -95,12 +100,12 @@ class Profile extends React.Component {
         <div className='infoUser'>
           <h2>Mes informations personnelles</h2>
           <form onSubmit={this.handleSubmit}>
-            <p>
+            {/* <p>
               <label>
                 <em>Civilité</em>
                 <input type="text" name="civility" value={this.state.civility} onChange={this.handleChange} />
               </label>
-            </p>
+            </p> */}
             <p>
               <label>
                 <em>Prénom</em>
@@ -109,7 +114,7 @@ class Profile extends React.Component {
             </p>
             <p>
               <label>
-                <em>Nom de Famille</em>
+                <em>Nom</em>
                 <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
               </label>
             </p>
@@ -173,6 +178,9 @@ class Profile extends React.Component {
 
             <button className="btn">Modifier mon mot de passe</button>
           </form>
+
+          <button className="btn" onClick={e => this.deleteAccount(e)}>Supprimer mon compte</button>
+
         </div>
       </div>
     )

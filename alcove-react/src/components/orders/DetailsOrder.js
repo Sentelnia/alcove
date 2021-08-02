@@ -14,6 +14,7 @@ class DetailsOrder extends React.Component {
       supp: '',
       zip: '',
       city: '',
+      email:'',
     },
     addBilling: {
       firstName: '',
@@ -45,7 +46,7 @@ class DetailsOrder extends React.Component {
     .then(()=> {
 
       orderService.sendEmailConfirmation(
-        this.props.user.email, 
+        this.state.addDelivery.email, 
         this.state.orderNumber, 
         this.state.status,
         `Le status de votre commande a été mis à jour:${this.state.status}`
