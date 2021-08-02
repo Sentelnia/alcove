@@ -25,11 +25,16 @@ function generate_token(length) {
 
 authRoutes.post('/users', (req, res, next) => {
 
-  const { email, password } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
   // 1. Check username and password are not empty
   if (!email || !password) {
     res.status(400).json({ message: 'Merci de saisir une adresse E-mail et un mot de passe' });
+    return;
+  }
+
+  if (!firstName || !lastName) {
+    res.status(400).json({ message: 'Merci de saisir votre nom et votre prénom' });
     return;
   }
 
@@ -60,6 +65,8 @@ authRoutes.post('/users', (req, res, next) => {
       const aNewUser = new User({
         email: email,
         password: hashPass,
+        firstName: firstName,
+        lastName:lastName,
         token: token
       });
 

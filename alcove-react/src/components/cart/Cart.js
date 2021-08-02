@@ -10,7 +10,7 @@ class Cart extends React.Component {
   state = {
 
     addDelivery: {
-      deliveryCivility: this.props.user?.civility || '',
+      // deliveryCivility: this.props.user?.civility || '',
       deliveryFirstName: this.props.user?.firstName || '',
       deliveryLastName: this.props.user?.lastName || '',
       deliveryStreet: this.props.user?.street || '',
@@ -26,7 +26,7 @@ class Cart extends React.Component {
     addBillingSameAsDelivery: true,
 
     addBilling: {
-      billingCivility: this.props.user.civility || '',
+      // billingCivility: this.props.user.civility || '',
       billingFirstName: this.props.user.firstName || '',
       billingLastName: this.props.user.lastName || '',
       billingStreet: this.props.user?.street || '',
@@ -42,7 +42,7 @@ class Cart extends React.Component {
       this.setState({
 
         addDelivery: {
-          deliveryCivility: this.props.user?.civility || '',
+          // deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
           deliveryLastName: this.props.user?.lastName || '',
           deliveryStreet: this.props.user?.street || '',
@@ -54,7 +54,7 @@ class Cart extends React.Component {
         },
 
         addBilling: {
-          billingCivility: this.props.user?.civility || '',
+          // billingCivility: this.props.user?.civility || '',
           billingFirstName: this.props.user?.firstName || '',
           billingLastName: this.props.user?.lastName || '',
           billingStreet: this.props.user?.street || '',
@@ -137,7 +137,7 @@ class Cart extends React.Component {
       this.setState({
         deliveryCost: 3.95,
         addDelivery: {
-          deliveryCivility: this.props.user?.civility || '',
+          // deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
           deliveryLastName: this.props.user?.lastName || '',
           deliveryStreet: this.props.user?.street || '',
@@ -148,7 +148,7 @@ class Cart extends React.Component {
           deliveryEmail: this.props?.user.email || '',
         },
         addBilling: {
-          billingCivility: this.props.user?.civility || '',
+          // billingCivility: this.props.user?.civility || '',
           billingFirstName: this.props.user?.firstName || '',
           billingLastName: this.props.user?.lastName || '',
           billingStreet: this.props.user?.street || '',
@@ -161,7 +161,7 @@ class Cart extends React.Component {
       this.setState({
         deliveryCost: 0,
         addDelivery: {
-          deliveryCivility: this.props.user?.civility || '',
+          // deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || '',
           deliveryLastName: this.props.user?.lastName || '',
           deliveryStreet: '229, avenue Jean Jaurès',
@@ -172,7 +172,7 @@ class Cart extends React.Component {
           deliveryEmail: this.props?.user.email || '',
         },
         addBilling: {
-          billingCivility: this.props.user?.civility || '',
+          // billingCivility: this.props.user?.civility || '',
           billingFirstName: this.props.user?.firstName || '',
           billingLastName: this.props.user?.lastName || '',
           billingStreet: '229, avenue Jean Jaurès',
@@ -191,7 +191,7 @@ class Cart extends React.Component {
     if (checked) {
       this.setState({
         addBilling: {
-          billingCivility: this.state.addDelivery.deliveryCivility,
+          // billingCivility: this.state.addDelivery.deliveryCivility,
           billingFirstName: this.state.addDelivery.deliveryFirstName,
           billingLastName: this.state.addDelivery.deliveryLastName,
           billingStreet: this.state.addDelivery.deliveryStreet,
@@ -203,7 +203,7 @@ class Cart extends React.Component {
     } else {
       this.setState({
         addBilling: {
-          billingCivility: '',
+          // billingCivility: '',
           billingFirstName: '',
           billingLastName: '',
           billingStreet: '',
@@ -412,12 +412,12 @@ class Cart extends React.Component {
                           <>
                             <h1>Adresse de livraison</h1>
                             <form>
-                              <p>
+                              {/* <p>
                                 <label>
                                   <em>Civilité</em>
                                   <input type="text" name="deliveryCivility" value={this.state.addDelivery.deliveryCivility} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
-                              </p>
+                              </p> */}
 
                               <p>
                                 <label>
@@ -428,7 +428,7 @@ class Cart extends React.Component {
 
                               <p>
                                 <label>
-                                  <em>Nom de Famille</em>
+                                  <em>Nom</em>
                                   <input type="text" name="deliveryLastName" value={this.state.addDelivery.deliveryLastName} onChange={e => this.handleChangeAdressDelivery(e)} />
                                 </label>
                               </p>
@@ -493,12 +493,12 @@ class Cart extends React.Component {
                       <>
                         <h1>Adresse de facturation</h1>
                         <form>
-                          <p>
+                          {/* <p>
                             <label>
                               <em>Civilité</em>
                               <input type="text" name="billingCivility" value={this.state.addBilling.billingCivility} onChange={e => this.handleChangeAdressBilling(e)} />
                             </label>
-                          </p>
+                          </p> */}
 
                           <p>
                             <label>
@@ -509,7 +509,7 @@ class Cart extends React.Component {
 
                           <p>
                             <label>
-                              <em>Nom de Famille</em>
+                              <em>Nom</em>
                               <input type="text" name="billingLastName" value={this.state.addBilling.billingLastName} onChange={e => this.handleChangeAdressBilling(e)} />
                             </label>
                           </p>

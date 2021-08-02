@@ -14,14 +14,16 @@ const userSchema = new Schema({
     required: [true, 'Le mot de passe est obligatoire.'],
   },
   userNumber: String,
-  civility: {
-    type: String,
-  },
+  // civility: {
+  //   type: String,
+  // },
   firstName: {
     type: String,
+    required: [true, "Le prénom est obligatoire."],
   },
   lastName: {
     type: String,
+    required: [true, "Le nom est obligatoire."],
   },
   street: {
     type: String,

@@ -15,10 +15,12 @@ export default {
       })
   },
 
-  signup(email, password) {
+  signup(email, password,firstName,lastName) {
     return this.service.post('/users', {
       email,
-      password
+      password,
+      firstName,
+      lastName
     })
       .then(response => response.data)
   },

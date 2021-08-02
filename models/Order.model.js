@@ -14,10 +14,10 @@ const orderSchema = new Schema({
   deliveryMode: { type: String, enum: ['Retrait en boutique', 'Livraison à domicile'] },
   deliveryCost: Number,
   addDelivery: {
-    civility: {
-      type: String,
-      required: true
-    },
+    // civility: {
+    //   type: String,
+    //   required: true
+    // },
     firstName: {
       type: String,
     },
@@ -45,10 +45,10 @@ const orderSchema = new Schema({
     }
   },
   addBilling: {
-    civility: {
-      type: String,
-      required: true
-    },
+    // civility: {
+    //   type: String,
+    //   required: true
+    // },
     firstName: {
       type: String,
     },

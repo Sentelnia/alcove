@@ -9,8 +9,10 @@ import authService from './auth-service.js';
 // eslint-disable-next-line import/no-anonymous-default-export
 class Signup extends React.Component {
   state = {
-    email: "",
+    email: '',
     password: '',
+    firstName: '',
+    lastName: '',
     error: ''
   }
 
@@ -18,7 +20,7 @@ class Signup extends React.Component {
     event.preventDefault();
 
     // 1. Signup
-    authService.signup(this.state.email, this.state.password)
+    authService.signup(this.state.email, this.state.password, this.state.firstName, this.state.lastName)
       .then(() => {
         this.setState({ error: "" });
         this.props.history.push('/login')
@@ -47,7 +49,18 @@ class Signup extends React.Component {
           <label>Mot de passe:
             <input type='password' name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
           </label>
-          
+
+          <label>
+            Prénom:
+            <input type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} />
+          </label>
+
+          <label>
+            Nom:
+            <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
+          </label>
+
+
           <button className="btn">Je créé mon compte</button>
         </form>
 

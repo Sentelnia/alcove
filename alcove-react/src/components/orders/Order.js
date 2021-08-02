@@ -26,6 +26,12 @@ class Order extends React.Component {
     .catch(err => console.log('err getOrders:', err))
   }
 
+  //fonction utilitaire
+  formatDate(myDate){
+    let formatDate = myDate.split("T")[0] // => AAAA-MM-JJ
+    return formatDate.slice(8,10) + '.' + formatDate.slice(5,7) + '.' + formatDate.slice(0,4);    
+  }
+
   render() {
     return (
       <div className='orderList'>
@@ -34,7 +40,7 @@ class Order extends React.Component {
           return (
             <div className='order' key={order._id}>
               <p>Commande web n°{order.orderNumber}</p>
-              <span>{order.orderDate.split("T")[0]}</span> - <span>{order.status}</span>
+              <span>{this.formatDate(order.orderDate)}</span> - <span>{order.status}</span>
               <Link to={`details-order/${order._id}`}>Voir les détails de la commande</Link>
             </div>
           )

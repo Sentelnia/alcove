@@ -15,7 +15,7 @@ class Profile extends React.Component {
     lastName: this.props.user.lastName || "",
     email: this.props.user.email || "",
     telephone: this.props.user.telephone || "",
-    civility: this.props.user.civility || "",
+    // civility: this.props.user.civility || "",
     street: this.props.user.street || "",
     supp: this.props.user.supp || "",
     zip: this.props.user.zip || "",
@@ -38,7 +38,7 @@ class Profile extends React.Component {
         firstName: this.props.user.firstName || "",
         lastName: this.props.user.lastName || "",
         telephone: this.props.user.telephone || "",
-        civility: this.props.user.civility || "",
+        // civility: this.props.user.civility || "",
         street: this.props.user.street || "",
         supp: this.props.user.supp || "",
         zip: this.props.user.zip || "",
@@ -83,7 +83,6 @@ class Profile extends React.Component {
   }
 
   deleteAccount = (event) => {
-    console.log("compte en cours de suppression")
     authService.deleteAccount()
     .then(() => {
       this.props.updateUser(false);
@@ -102,12 +101,12 @@ class Profile extends React.Component {
         <div className='infoUser'>
           <h2>Mes informations personnelles</h2>
           <form onSubmit={this.handleSubmit}>
-            <p>
+            {/* <p>
               <label>
                 <em>Civilité</em>
                 <input type="text" name="civility" value={this.state.civility} onChange={this.handleChange} />
               </label>
-            </p>
+            </p> */}
             <p>
               <label>
                 <em>Prénom</em>
@@ -116,7 +115,7 @@ class Profile extends React.Component {
             </p>
             <p>
               <label>
-                <em>Nom de Famille</em>
+                <em>Nom</em>
                 <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
               </label>
             </p>
