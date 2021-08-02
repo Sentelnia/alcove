@@ -103,9 +103,12 @@ h3{
 }
 
 .details:active{
-  color:white;
   background-color: #dfbcb8;
   box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1); 
+}
+
+.details a:active{
+  color:white;
 }
 
 .hidden{
