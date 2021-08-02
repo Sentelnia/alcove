@@ -78,7 +78,7 @@ class Product extends React.Component {
         {/* {Affichage des catégories} */}
         {this.state.categories.map((category) => (
           <div className="product-category" key={category}>
-            {category === "CARTE" && <h2>NOS CARTES CADEAUX</h2>}
+            {category === "CARTE" && <h2>NOS CARTES CADEAUX</h2> }
             {category === "LASH" && <h2>NOS SOINS DES CILS</h2>}
             {category === "NAIL" && <h2>NOS SOINS DES ONGLES</h2>}
             {category === "BASIC" && <h2>NOS BASIQUES</h2>}
