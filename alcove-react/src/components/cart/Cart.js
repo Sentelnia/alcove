@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import cartService from './cart-service';
 import orderService from '../orders/order-service';
-
+import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -10,14 +10,15 @@ class Cart extends React.Component {
   state = {
 
     addDelivery: {
-      deliveryCivility: this.props.user.civility || '',
-      deliveryFirstName: this.props.user.firstName || '',
-      deliveryLastName: this.props.user.lastName || '',
+      deliveryCivility: this.props.user?.civility || '',
+      deliveryFirstName: this.props.user?.firstName || '',
+      deliveryLastName: this.props.user?.lastName || '',
       deliveryStreet: this.props.user?.street || '',
       deliverySupp: this.props.user?.supp || '',
       deliveryZip: this.props.user?.zip || '',
       deliveryCity: this.props.user?.city || '',
-      deliveryTelephone: this.props.user.telephone || '',
+      deliveryTelephone: this.props?.user.telephone || '',
+      deliveryEmail: this.props?.user.email || '',
     },
 
     deliveryMode: '',
@@ -49,6 +50,7 @@ class Cart extends React.Component {
           deliveryZip: this.props.user?.zip || '',
           deliveryCity: this.props.user?.city || '',
           deliveryTelephone: this.props.user?.telephone || '',
+          deliveryEmail: this.props?.user.email || '',
         },
 
         addBilling: {
@@ -75,9 +77,10 @@ class Cart extends React.Component {
   }
 
   cartToOrder = (event) => {
-    console.log('event:',event)
+    console.log('event:', event)
     orderService.getOrders()
       .then((response) => {
+        console.log('response getOrders:',response)
         //Génération n° de commande selon logique userNumber + incrémentation du n° de commande par User
         let fourDigitsUserNumber = this.props.user.userNumber;
         let fourDigitsOderNumber = response.length + 1;
@@ -91,7 +94,7 @@ class Cart extends React.Component {
         }
 
         let orderNumber = fourDigitsUserNumber + '-' + fourDigitsOderNumber;
-
+        console.log('orderNumber',orderNumber)
         //Création de la commande
         cartService.validateCart(this.state.addDelivery, this.state.addBilling, this.state.deliveryMode, this.state.deliveryCost, orderNumber)
           .then((response) => {
@@ -100,14 +103,13 @@ class Cart extends React.Component {
               pathname: '/confirmation-order',
               state: { orderNumber: response.orderNumber }
             })
-            let content =
-            orderService.sendEmailConfirmation(
-              this.props.user.email,
-              orderNumber,
-              'En attente de validation',
-              'Merci pour votre commande')
-              .then(response => console.log('response:', response.data.message))
-              .catch(err => console.log('err sendEmail:', err))
+              orderService.sendEmailConfirmation(
+                this.props.user.email,
+                orderNumber,
+                'En attente de validation',
+                'Merci pour votre commande')
+                .then(response => console.log('response:', response.data.message))
+                .catch(err => console.log('err sendEmail:', err))
           })
           .catch(err => console.log('errValidateCart:', err))
       })
@@ -116,7 +118,7 @@ class Cart extends React.Component {
 
   handleChangeProductQuantity = (event, id) => {
     let regEx = /^[0-9\b]+$/; //autorise chiffre de 0 à 9
-    if (regEx.test(event.target.value) && Number(event.target.value) !== 0 && event.target.value.length <3) {
+    if (regEx.test(event.target.value) && Number(event.target.value) !== 0 && event.target.value.length < 3) {
 
       cartService.updateQtyAlreadyInCart(id, event.target.value)
         .then(response => {
@@ -142,7 +144,8 @@ class Cart extends React.Component {
           deliverySupp: this.props.user?.supp || '',
           deliveryZip: this.props.user?.zip || '',
           deliveryCity: this.props.user?.city || '',
-          deliveryTelephone: this.props.user.telephone || '',
+          deliveryTelephone: this.props?.user.telephone || '',
+          deliveryEmail: this.props?.user.email || '',
         },
         addBilling: {
           billingCivility: this.props.user?.civility || '',
@@ -166,6 +169,7 @@ class Cart extends React.Component {
           deliveryZip: '92140',
           deliveryCity: 'Clamart',
           deliveryTelephone: this.props.user.telephone || '0146381117',
+          deliveryEmail: this.props?.user.email || '',
         },
         addBilling: {
           billingCivility: this.props.user?.civility || '',
@@ -215,30 +219,30 @@ class Cart extends React.Component {
     let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ
     const { name, value } = event.target;
 
-    if (name !== 'deliveryZip'){
+    if (name !== 'deliveryZip') {
       this.setState({ addDelivery: { ...this.state.addDelivery, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
       return;
     }
 
-    if ((name === 'deliveryZip') && (regEx.test(event.target.value) && value.length < 6)){
+    if ((name === 'deliveryZip') && (regEx.test(event.target.value) && value.length < 6)) {
       this.setState({ addDelivery: { ...this.state.addDelivery, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
       return;
-    }     
+    }
   }
 
   handleChangeAdressBilling = (event) => {
     let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ
     const { name, value } = event.target;
 
-    if (name !== 'billingZip'){
+    if (name !== 'billingZip') {
       this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
       return;
     }
 
-    if ((name === 'billingZip') && (regEx.test(event.target.value) && value.length < 6)){
+    if ((name === 'billingZip') && (regEx.test(event.target.value) && value.length < 6)) {
       this.setState({ addBilling: { ...this.state.addBilling, [name]: value } });  //https://www.geeksforgeeks.org/how-to-update-nested-state-properties-in-reactjs/
       return;
-    }    
+    }
   }
 
   decreaseQty = (event, id) => {
@@ -298,7 +302,19 @@ class Cart extends React.Component {
     if ((this.state.deliveryMode === 'Livraison à domicile') && (this.state.addBillingSameAsDelivery)) {
       // => check sur les state adress delivery
       for (let [key, value] of Object.entries(this.state.addDelivery)) {
+
+        //Vérification que tous les champs sauf delivery supp sont remplis
         if (key !== "deliverySupp" && value === "") {
+          return true;
+        }
+
+        //Vérification sur n° de téléphone
+        if (key === 'deliveryTelephone' && value.length !== 11) {
+          return true;
+        }
+
+        //Vérification sur zip code
+        if (key === 'deliveryZip' && value.length !== 5) {
           return true;
         }
       }
@@ -306,14 +322,32 @@ class Cart extends React.Component {
     //4. deliveryMode = "Livraison à domicile" && Adresse livraison != adresse facturation
     // => check sur les state adress delivery && adress billing
     if ((this.state.deliveryMode === 'Livraison à domicile') && (!this.state.addBillingSameAsDelivery)) {
+      // => check sur les state adress delivery
       for (let [key, value] of Object.entries(this.state.addDelivery)) {
+        //Vérification que tous les champs sauf delivery supp sont remplis
         if (key !== "deliverySupp" && value === "") {
+          return true;
+        }
+
+        //Vérification sur n° de téléphone
+        if (key === 'deliveryTelephone' && value.length !== 11) {
+          return true;
+        }
+
+        //Vérification sur zip code
+        if (key === 'deliveryZip' && value.length !== 5) {
           return true;
         }
       }
 
+      // => check sur les state adress billing
       for (let [key, value] of Object.entries(this.state.addBilling)) {
+        //Vérification que tous les champs sauf billing supp sont remplis
         if (key !== "billingSupp" && value === "") {
+          return true;
+        }
+        //Vérification sur zip code
+        if (key === 'billingZip' && value.length !== 5) {
           return true;
         }
       }
@@ -346,9 +380,9 @@ class Cart extends React.Component {
 
                     {this.props.cart.map(item => (
                       <div className="cart-container" key={item.product._id}>
-                        <img src="https://via.placeholder.com/100x100" alt="product-pict" />
+                        <Link to={`/details-product/${item.product._id}`}><img src="https://via.placeholder.com/100x100" alt="product-pict" /></Link>
                         <div className="cart-product">
-                          <h4>{item.product.name}</h4>
+                          <h4><Link to={`/details-product/${item.product._id}`}>{item.product.name}</Link></h4>
                           <button className="btn" disabled={(item.quantity === 1 || item.quantity === 0) && true} onClick={e => this.decreaseQty(e, item.product._id)}>-</button>
                           <input type="text" name="quantity" value={item.quantity} onChange={e => this.handleChangeProductQuantity(e, item.product._id)} />
                           <button className="btn" onClick={e => this.increaseQty(e, item.product._id)}>+</button>

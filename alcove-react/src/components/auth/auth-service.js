@@ -35,6 +35,11 @@ export default {
       .then(response => response.data)
   },
 
+  deleteAccount() {
+    return this.service.delete('/user', {})
+      .then(response => response.data)
+  },
+
   edit(userData) {
     console.log('userData:', userData)
     return this.service.put('/user', userData)

@@ -4,17 +4,17 @@ const Schema = mongoose.Schema;
 const orderSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: 'User' },
   orderDate: { type: Date, default: Date.now },
-  orderNumber:String,
+  orderNumber: String,
   items: [{
     product: { type: Schema.Types.Object, ref: 'Product' },
     quantity: Number
   }],
   status: { type: String, enum: ['En attente de validation', 'Validée', 'Expédiée'], default: 'En attente de validation' },
   shippingDate: Date,
-  deliveryMode:{type: String, enum: ['Retrait en boutique', 'Livraison à domicile']},
+  deliveryMode: { type: String, enum: ['Retrait en boutique', 'Livraison à domicile'] },
   deliveryCost: Number,
   addDelivery: {
-    civility:{
+    civility: {
       type: String,
       required: true
     },
@@ -39,10 +39,13 @@ const orderSchema = new Schema({
     },
     telephone: {
       type: String,
+    },
+    email: {
+      type: String,
     }
   },
   addBilling: {
-    civility:{
+    civility: {
       type: String,
       required: true
     },

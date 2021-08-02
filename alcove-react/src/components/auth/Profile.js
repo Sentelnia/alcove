@@ -64,12 +64,11 @@ class Profile extends React.Component {
 
   logout = (event) => {
     authService.logout()
-      .then(response => {
+      .then(() => {
         this.props.updateUser(false);
-      })
-    ;
+      });
   }
-  
+
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -81,6 +80,14 @@ class Profile extends React.Component {
         this.props.updateUser(this.state)
       })
       .catch(err => this.setState({ error: "" }))
+  }
+
+  deleteAccount = (event) => {
+    console.log("compte en cours de suppression")
+    authService.deleteAccount()
+    .then(() => {
+      this.props.updateUser(false);
+    });
   }
 
   render() {
@@ -173,6 +180,9 @@ class Profile extends React.Component {
 
             <button className="btn">Modifier mon mot de passe</button>
           </form>
+
+          <button className="btn" onClick={e => this.deleteAccount(e)}>Supprimer mon compte</button>
+
         </div>
       </div>
     )

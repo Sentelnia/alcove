@@ -40,7 +40,9 @@ export default {
         supp: addDelivery.deliverySupp,
         zip: addDelivery.deliveryZip,
         city: addDelivery.deliveryCity,
-        telephone: addDelivery.deliveryTelephone
+        telephone: addDelivery.deliveryTelephone,
+        email: addDelivery.deliveryEmail
+
       },
       addBilling: {
         civility: addBilling.billingCivility,

@@ -25,7 +25,7 @@ ordersRoutes.get('/orders', (req, res, next) => {
   console.log('condition user:',cond)
   Order.find(cond)
   .then(ordersFromDB => {
-    console.log('orderst touvées en base:',ordersFromDB)
+    console.log('orders touvées en base:',ordersFromDB)
     res.status(201).json(ordersFromDB);
   })
   .catch(err => {
