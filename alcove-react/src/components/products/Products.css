@@ -1,0 +1,48 @@
+.product-category{
+  display:flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.product-card{
+  width: 80%;
+  height: 50%;
+  margin: 0 0.5em
+}
+
+.carousel-items{
+  display: flex;
+  overflow-x: scroll;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+  list-style: none;
+}
+
+.product-card{
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 450px;
+  scroll-snap-align: center;
+  margin-left: 1rem;
+  
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  height: 0px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3d4852;
+  border-radius: 3px;
+}
+
+.product-card img{
+  width: 50%;
+  object-fit: contain;
+}
+
