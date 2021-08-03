@@ -55,8 +55,12 @@ export default {
       newPassword: newPassword
     })
       .then(response => {
-        console.log('respnse from service:', response.data)
         return response.data.user
       })
+  },
+
+  resetPassword(email){
+    return this.service.put('/user/reset-password',{email:email})
+    .then()
   }
 };

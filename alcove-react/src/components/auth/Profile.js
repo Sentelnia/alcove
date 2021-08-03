@@ -24,7 +24,7 @@ class Profile extends React.Component {
     currentPassword: '',
     newPassword: '',
 
-    error: ''
+    msg: ''
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -74,10 +74,10 @@ class Profile extends React.Component {
     /////////////////EDIT/////////////
     authService.edit(this.state)
       .then(response => {
-        this.setState({ error: "" });
+        this.setState({ msg: "" });
         this.props.updateUser(this.state)
       })
-      .catch(err => this.setState({ error: err.response.data.message }))
+      .catch(err => this.setState({ msg: err.response.data.message }))
   }
 
   handleSubmitUpdatePassword = (event) => {
@@ -85,12 +85,12 @@ class Profile extends React.Component {
     authService.updatePassword(this.state.currentPassword, this.state.newPassword)
       .then(() => {
         this.setState({
-          error: 'Mot de passe modifié avec succès', //Nom de variable à modifier
+          msg: 'Mot de passe modifié avec succès',
           currentPassword: '',
           newPassword: ''
         });
       })
-      .catch(err => this.setState({ error: err.response.data.message }))
+      .catch(err => this.setState({ msg: err.response.data.message }))
   }
 
   deleteAccount = (event) => {
@@ -191,8 +191,8 @@ class Profile extends React.Component {
             <button className="btn">Modifier mon mot de passe</button>
           </form>
 
-          {this.state.error && (
-            <p className="error">{this.state.error}</p>
+          {this.state.msg && (
+            <p className="msg">{this.state.msg}</p>
           )}
 
           <button className="btn" onClick={e => this.deleteAccount(e)}>Supprimer mon compte</button>

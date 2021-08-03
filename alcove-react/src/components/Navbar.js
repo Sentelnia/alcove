@@ -1,5 +1,5 @@
 import React from "react";
-import burger from "../images/menu_burger.png"
+// import burger from "../images/menu_burger.png"
 import icon from "../images/logo_alcove.svg";
 import avatar from "../images/profil.png";
 import cart from "../images/shopping-bag.svg";

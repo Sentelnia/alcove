@@ -8,6 +8,12 @@ const User = require('../models/User.model');
 const passport = require('passport');
 const transporter = require('../mailer');
 
+/* Documentations:
+https://alto-palo.com/blogs/nodejs-authentication-with-passportjs-passport-local-mongoose/
+https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
+https://stackoverflow.com/questions/46044678/passport-local-mongoose-changepassword-function
+*/
+
 // Fonction utilitaire
 function generate_token(length) {
   //edit the token allowed characters
@@ -19,7 +25,6 @@ function generate_token(length) {
   }
   return b.join("");
 }
-
 
 ///////////////////////////////////////////////////// CREATION USER ACCOUNT //////////////////////////////////////////////////
 
@@ -195,11 +200,9 @@ authRoutes.put('/user', (req, res, next) => {
 
 //////////////////////////////// UPDATE USER PWD ////////////////////////////////////////
 authRoutes.put('/user/update-password', (req, res, next) => {
-  
+
   const { currentPassword, newPassword } = req.body;
-  console.log('req body',req.body)
-  console.log('current',currentPassword,'new',newPassword)
-  
+
   // Check currentPassword and newPassword are not empty
   if (!currentPassword || !newPassword) {
     res.status(400).json({ message: 'Merci de saisir votre mot de passe actuel et votre nouveau mot de passe' });
@@ -215,9 +218,7 @@ authRoutes.put('/user/update-password', (req, res, next) => {
 
   User.findById(req.user._id)
     .then(foundUser => {
-      console.log('foundUser', foundUser)
       let pwdFromDb = foundUser.password;
-      console.log('pwds:', currentPassword, pwdFromDb);
 
       bcrypt.compare(currentPassword, pwdFromDb, function (err, isMatch) {
         console.log('bcrypt compare:', currentPassword, pwdFromDb, err, isMatch)
@@ -231,13 +232,12 @@ authRoutes.put('/user/update-password', (req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(newPassword, salt);
         foundUser.password = hashPass;
-        console.log('foundUser after change password:',foundUser)
         foundUser.save()
           .then(() => {
             res.status(200).json(foundUser);
           })
           .catch(err => {
-            console.log('err:',err)
+            console.log('err:', err)
             res.status(400).json({ message: "Une erreur lors de la modification du mot de passe s'est produite." });
           });
       });
@@ -247,9 +247,39 @@ authRoutes.put('/user/update-password', (req, res, next) => {
     });
 });
 
+//////////////////////////////////// RESET PWD /////////////////////////////////////////////
+authRoutes.put('/user/reset-password', (req, res, next) => {
+  const { email } = req.body;
+
+  console.log('email',email)
+  if (!email) {
+    res.status(400).json({ message: 'Merci de saisir une adresse E-mail' });
+    return;
+  }
+
+  const regexEmail = /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
+
+  if (!regexEmail.test(email)) {
+    res.status(403).json({ message: "L'adresse E-mail saisie n'est pas valide" });
+    return;
+  }
+
+  User.findOne({ email })
+    .then(foundUser => {
+      if (!foundUser) {
+        res.status(400).json({ message: 'Adresse E-mail non reconnue.' });  
+      }
+      
+      // foundUser.resetPasswordToken = generate_token(32);
+      // foundUser.resetPasswordExpires = Date.now() + 360000;
+    })
+    .catch(err => {
+      res.status(400).json({ message: "Adresse E-mail non reconnue." });
+    });
+});
+
 //////////////////////////////// DELETE USER ACCOUNT ////////////////////////////////////////
 authRoutes.delete('/user', (req, res, next) => {
-  console.log('req.session:', req.session.passport.user)
   User.findByIdAndRemove(req.session.passport.user)
     .then(() => {
       req.logout();
