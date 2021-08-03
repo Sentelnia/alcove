@@ -85,7 +85,6 @@ h3{
 }
 
 .btn{
-  color:#256786;
   background-color: white;
   box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1); 
   font-weight: bold;
@@ -94,6 +93,10 @@ h3{
 .details{
   background-color: white;
   box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1);
+}
+
+.btncart{
+  color:#256786;;
 }
 
 .btncart:active{

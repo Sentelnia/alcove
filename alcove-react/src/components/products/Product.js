@@ -115,6 +115,7 @@ class Product extends React.Component {
                         Détails
                       </Link>
                       </button>
+                      
                     
                       {/* {Affichage edit et delete seulement pour admin} */}
                       {this.props.user.role === "ADMIN" ? (

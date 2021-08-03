@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
-
+import "./Login.css";
 import authService from "./auth-service.js";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -38,35 +38,34 @@ class Login extends React.Component {
     if (this.props.user._id) return <Redirect to="/" />
 
     return (
-      <>
-        <h1>Me connecter à mon compte</h1>
+      <div className='login'>
+        <h3>JE ME CONNECTE</h3>
         <form onSubmit={this.handleSubmit}>
           <p>
             <label>
-              <em>Email</em>
+              <em>Email:</em>
               <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
             </label>
           </p>
 
           <p>
             <label>
-              <em>Mot de passe</em>
+              <em>Mot de passe:</em>
               <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
             </label>
           </p>
-          <Link to="/reset-password">Mot de passe oublié?</Link> {/* https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7*/}
-          <button className="btn">Je me connecte</button>
+         
+          <button className="btn btnconnect">Je me connecte</button>
+          <button className="btn btncreate" onClick={()=> {this.props.history.replace('/signup')}}>Créer un compte</button>
         </form>
 
         {this.state.error && (
           <p className="error">{this.state.error}</p>
         )}
-        <p>
-          <small>
-            <Link to="/signup">Créer un compte</Link>
-          </small>
-        </p>
-      </>
+  
+        <Link to="/reset-password">Mot de passe oublié?</Link> {/* https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7*/}
+        
+      </div>
     );
   }
 }

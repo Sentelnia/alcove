@@ -1,19 +1,20 @@
-.signup{
+.login{
   margin: 7.5em 1.5em 0;
   font-size:0.9em;
   text-align: center;
 }
 
-.signup form{
+.login form{
   margin-top: 2em;
   display:flex;
   flex-direction: column;
-  height: 40em;
+  height: 20em;
   justify-content: space-evenly;
-  align-items: center
+  align-items: center;
+  margin-bottom:2em
 }
 
-.signup input{ 
+.login input{ 
   border:none;
   padding:0.4em 0.6em;
   width: 80vw;
@@ -23,41 +24,46 @@
   margin-top:0.3em 0
 }
 
-.signup label{
+.login label{
   display:flex;
   flex-direction: column;
   color:#cfa5a1;
   text-align: start;
 }
 
-.signup .btn{
+.login .btn{
   width: 20em;
   border: 1px solid rgb(235, 235, 235);
   font-weight: bold;
   font-size: 0.8em;
   padding: 1em 0em;
+  margin-top: 2em;
 }
 
-.btnsignup:active{
+.btnconnect:active{
   color:white;
   background-color: #256786;
 }
 
-.signup a{
-  text-decoration: none;
-  color: #dfbcb8;
+.btnconnect{
+  color:#256786;
 }
 
-.btnsignup{
-  color: #256786;
+.btncreate{
+  color:#dfbcb8;
 }
 
-.btnlogin:active{
+.btncreate:active{
   background-color: #dfbcb8;
 }
 
-.btnlogin:active a{
+.btncreate:active {
   color:white;
+}
+
+.login a{
+  text-decoration: none;
+  color:#256786;
 }
 
 
