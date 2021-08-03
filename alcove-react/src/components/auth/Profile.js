@@ -7,7 +7,6 @@ import { Redirect } from 'react-router-dom';
 import Order from '../orders/Order.js';
 
 
-
 // eslint-disable-next-line import/no-anonymous-default-export
 class Profile extends React.Component {
   state = {
@@ -25,7 +24,7 @@ class Profile extends React.Component {
     currentPassword: '',
     newPassword: '',
 
-    error: ""
+    error: ''
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -78,14 +77,27 @@ class Profile extends React.Component {
         this.setState({ error: "" });
         this.props.updateUser(this.state)
       })
-      .catch(err => this.setState({ error: "" }))
+      .catch(err => this.setState({ error: err.response.data.message }))
+  }
+
+  handleSubmitUpdatePassword = (event) => {
+    event.preventDefault();
+    authService.updatePassword(this.state.currentPassword, this.state.newPassword)
+      .then(() => {
+        this.setState({
+          error: 'Mot de passe modifié avec succès', //Nom de variable à modifier
+          currentPassword: '',
+          newPassword: ''
+        });
+      })
+      .catch(err => this.setState({ error: err.response.data.message }))
   }
 
   deleteAccount = (event) => {
     authService.deleteAccount()
-    .then(() => {
-      this.props.updateUser(false);
-    });
+      .then(() => {
+        this.props.updateUser(false);
+      });
   }
 
   render() {
@@ -167,7 +179,7 @@ class Profile extends React.Component {
           </form>
 
           <h2>Modifier mon mot de passe</h2>
-          <form onSubmit={this.handleSubmitResetPassword} className='signup'>
+          <form onSubmit={this.handleSubmitUpdatePassword} className='signup'>
             <label>Mot de passe actuel:
               <input type='password' name="currentPassword" value={this.state.currentPassword} onChange={e => this.handleChange(e)} />
             </label>
@@ -178,6 +190,10 @@ class Profile extends React.Component {
 
             <button className="btn">Modifier mon mot de passe</button>
           </form>
+
+          {this.state.error && (
+            <p className="error">{this.state.error}</p>
+          )}
 
           <button className="btn" onClick={e => this.deleteAccount(e)}>Supprimer mon compte</button>
 

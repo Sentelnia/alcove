@@ -66,7 +66,7 @@ authRoutes.post('/users', (req, res, next) => {
         email: email,
         password: hashPass,
         firstName: firstName,
-        lastName:lastName,
+        lastName: lastName,
         token: token
       });
 
@@ -113,7 +113,6 @@ authRoutes.get('/verify/:token', (req, res, next) => {
 
   User.findOne({ token })
     .then(foundUser => {
-      console.log('foundUser', foundUser)
       foundUser.isValid = true;
       foundUser.save()
         .then((foundUser) => res.redirect('http://localhost:3000/login'))
@@ -187,7 +186,6 @@ authRoutes.put('/user', (req, res, next) => {
 
   User.findByIdAndUpdate(req.user._id, req.body)
     .then(() => {
-
       res.status(200).json({ user: req.user })
     })
     .catch(error => {
@@ -196,8 +194,57 @@ authRoutes.put('/user', (req, res, next) => {
 });
 
 //////////////////////////////// UPDATE USER PWD ////////////////////////////////////////
-authRoutes.put('/user/password', (req, res, next) => {
+authRoutes.put('/user/update-password', (req, res, next) => {
+  
+  const { currentPassword, newPassword } = req.body;
+  console.log('req body',req.body)
+  console.log('current',currentPassword,'new',newPassword)
+  
+  // Check currentPassword and newPassword are not empty
+  if (!currentPassword || !newPassword) {
+    res.status(400).json({ message: 'Merci de saisir votre mot de passe actuel et votre nouveau mot de passe' });
+    return;
+  }
 
+  const regexPassword = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+  if (!regexPassword.test(newPassword)) {
+    res.status(403).json({ message: 'Le mot de passe doit contenir au moins 6 charactères, un chiffre et une minuscule et une majuscule' });
+    return;
+  }
+
+  User.findById(req.user._id)
+    .then(foundUser => {
+      console.log('foundUser', foundUser)
+      let pwdFromDb = foundUser.password;
+      console.log('pwds:', currentPassword, pwdFromDb);
+
+      bcrypt.compare(currentPassword, pwdFromDb, function (err, isMatch) {
+        console.log('bcrypt compare:', currentPassword, pwdFromDb, err, isMatch)
+
+        if (!isMatch) {
+          // Unauthorized
+          res.status(403).json({ message: "Ancien mot de passe ne correspond pas." });
+          return;
+        }
+
+        const salt = bcrypt.genSaltSync(10);
+        const hashPass = bcrypt.hashSync(newPassword, salt);
+        foundUser.password = hashPass;
+        console.log('foundUser after change password:',foundUser)
+        foundUser.save()
+          .then(() => {
+            res.status(200).json(foundUser);
+          })
+          .catch(err => {
+            console.log('err:',err)
+            res.status(400).json({ message: "Une erreur lors de la modification du mot de passe s'est produite." });
+          });
+      });
+    })
+    .catch(error => {
+      res.json(error)
+    });
 });
 
 //////////////////////////////// DELETE USER ACCOUNT ////////////////////////////////////////
