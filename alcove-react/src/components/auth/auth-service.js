@@ -15,7 +15,7 @@ export default {
       })
   },
 
-  signup(email, password,firstName,lastName) {
+  signup(email, password, firstName, lastName) {
     return this.service.post('/users', {
       email,
       password,
@@ -43,10 +43,20 @@ export default {
   },
 
   edit(userData) {
-    console.log('userData:', userData)
     return this.service.put('/user', userData)
       .then(response => {
         return response.data.user
       })
   },
+
+  updatePassword(currentPassword, newPassword) {
+    return this.service.put('/user/update-password', {
+      currentPassword: currentPassword,
+      newPassword: newPassword
+    })
+      .then(response => {
+        console.log('respnse from service:', response.data)
+        return response.data.user
+      })
+  }
 };
