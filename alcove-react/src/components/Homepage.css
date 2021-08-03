@@ -1,5 +1,5 @@
 .homepage{
-  margin: 5em 1.5em 0;
+  margin: 5em 1.5em 2em;
   display:flex;
   flex-direction:column;
   align-items: center;
@@ -29,3 +29,47 @@
 #store{
   margin-top: 4em
 }
+
+article{
+  display:flex;
+  font-size: 0.8em;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 0 3em ;
+  height: 5em;
+  background-color:rgba(37, 103, 134, 0.80);
+  border-radius: 2px;
+  width: 100vw;
+  color:white;
+  
+}
+
+article p{
+  text-align: start;
+  width: 60%
+}
+
+.articleBox{
+  display:flex;
+  flex-direction: column;
+  margin-top: 1em;
+  height: 10em;
+  justify-content: space-evenly;
+}
+
+.servicesShort a{
+  display:block;
+  text-decoration: none;
+  color: #256786;
+  font-size: 0.7em;
+  text-align: end;
+  padding-right: 2em
+}
+
+.servicesShort hr{
+  width: 35%;
+  margin-top: 2em
+}
+
+
+

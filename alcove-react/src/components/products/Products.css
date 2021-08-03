@@ -17,7 +17,7 @@
 
 
 hr{
-  margin-top: 1.5em;
+  margin-bottom:2em;
   width :30%;
 }
 
@@ -29,7 +29,7 @@ hr{
 .carousel-items{
   display: flex;
   overflow-x: scroll;
-  padding: 1rem 0;
+  padding: 1rem 0 0;
   scroll-snap-type: x mandatory;
   list-style: none;
 }
@@ -62,7 +62,7 @@ h3{
 }
 
 .product-card img{
-  width: 60%;
+  width: 50%;
   object-fit: contain;
   border-radius: 3px;
 }
@@ -104,14 +104,19 @@ h3{
 
 .details:active{
   background-color: #dfbcb8;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1); 
 }
 
-.details a:active{
+.details:active a{
   color:white;
 }
+
+
 
 .hidden{
   visibility: hidden;
 }
 
+.btn-container p{
+  padding-bottom:0;
+  margin-bottom:0
+}

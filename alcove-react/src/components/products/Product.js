@@ -151,12 +151,13 @@ class Product extends React.Component {
                   
                     </div>
                   
-                  <hr/>
+                  
                 </li>
                 
               ))}
             
             </ul>
+            <hr/>
           </div>
         ))}
       </div>

@@ -8,7 +8,7 @@ export default class extends React.Component {
   render() {
     return (
       <div className="services">
-        <section className="servicesCategory">
+        <section className="servicesCategory" id="servicesLash">
           <h1>BEAUTÉ DES CILS</h1>
 
           <div className="servicesBox">
@@ -69,7 +69,7 @@ export default class extends React.Component {
           </div>
         </section>
 
-        <section className="servicesCategory">
+        <section className="servicesCategory" id="servicesNail">
           <h1>BEAUTÉ DES ONGLES // MAINS</h1>
 
           <div className="servicesBox">
