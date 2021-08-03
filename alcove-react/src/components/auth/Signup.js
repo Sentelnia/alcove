@@ -41,7 +41,7 @@ class Signup extends React.Component {
 
     return (
       <div className='signup'>
-        <h3>NOUVEL UTILISATEUR ?</h3>
+        <h3>NOUVEL UTILISATEUR</h3>
         <form onSubmit={this.handleSubmit} className='signup'>
           <label>Adresse email:
             <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
@@ -62,7 +62,7 @@ class Signup extends React.Component {
           </label>
 
           <button className="btn btnsignup">Je créé mon compte</button>
-          <button className="btn login"><Link to="/login">J'ai déja un compte </Link></button>
+          <button className="btn btncreate" onClick={()=> {this.props.history.replace('/login')}}>J'ai déjà un compte</button>
         </form>
 
 
