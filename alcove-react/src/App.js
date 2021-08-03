@@ -113,7 +113,7 @@ class App extends Component {
           {/////////////////////* PRODUCTS *////////////////////////
           }
           <Route exact path="/new-product" render={(props) => (
-            <CreateProduct user={this.state.user} />
+            <CreateProduct {...props} user={this.state.user} />
           )} />
 
           <Route exact path="/edit-product/:id" render={(props) => (
