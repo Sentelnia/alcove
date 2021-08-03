@@ -10,7 +10,8 @@
   flex-direction: column;
   height: 20em;
   justify-content: space-evenly;
-  align-items: center
+  align-items: center;
+  margin-bottom:2em
 }
 
 .login input{ 
@@ -36,6 +37,7 @@
   font-weight: bold;
   font-size: 0.8em;
   padding: 1em 0em;
+  margin-top: 2em;
 }
 
 .btnconnect:active{
@@ -57,6 +59,11 @@
 
 .btncreate:active {
   color:white;
+}
+
+.login a{
+  text-decoration: none;
+  color:#256786;
 }
 
 
