@@ -1,0 +1,16 @@
+.detailsPdt{
+  margin-top: 6em;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailsPdt img{
+  width: 75vw;
+  object-fit: contain;
+  margin: 3em 0 ;
+}
+
+.qty input{
+  border: none
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import productsService from './products-service';
 import cartService from '../cart/cart-service';
+import "./DetailsProduct.css"
 
 class DetailsProduct extends React.Component {
   state = {
@@ -76,14 +77,14 @@ class DetailsProduct extends React.Component {
 
   render() {
     return (
-      <>
-        <Link to="/">Retour aux produits</Link>
+      <div className='detailsPdt'>
+        <h3>{this.state.name}</h3>
         <img src={this.state.imageUrl || "https://via.placeholder.com/375x250"} alt="product_pict" />
-        <h1>{this.state.name}</h1>
+        
         {/* {Affichage quantité seulement pour USER si pas déja dans le panier} */}
         {this.props.user.role !== "ADMIN" && !this.isAlreadyInCart(this.props.match.params.id) && (
-          <>
-            <label>Quantity:</label>
+          <div className='qty'>
+            <label>Quantitée</label>
             <button
               className="btn"
               disabled={(this.state.quantity === 1 || this.state.quantity === 0) && true}
@@ -98,10 +99,11 @@ class DetailsProduct extends React.Component {
               className="btn"
               disabled={this.state.quantity === 99 && true}
               onClick={e => this.increaseQty(e)}>+</button>
-          </>
+          </div>
         )}
         <div>
           <span>{this.state.unitPrice * this.state.quantity} €</span>
+          <Link to="/">Retour aux produits</Link>
           {/* {Affichage du btn en fn du role} */}
           {this.props.user.role === "USER" && !this.isAlreadyInCart(this.props.match.params.id) ?
             (<button
@@ -129,7 +131,7 @@ class DetailsProduct extends React.Component {
           <h2>Ingrédients</h2>
           <p>{this.state.ingredients}</p>
         </div>
-      </>
+      </div>
     )
   }
 }
