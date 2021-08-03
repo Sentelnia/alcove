@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import authService from './auth-service.js';
+import "./Signup.css";
 
 
 //le commentaire qui suit est pour enlever les petites lignes jaunes sur mon vs code car c'est très desagréable !
@@ -39,8 +40,8 @@ class Signup extends React.Component {
     if (this.props.user._id) return <Redirect to="/" />
 
     return (
-      <>
-        <h1>Nouvel utilisateur?</h1>
+      <div className='signup'>
+        <h3>NOUVEL UTILISATEUR ?</h3>
         <form onSubmit={this.handleSubmit} className='signup'>
           <label>Adresse email:
             <input type="email" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
@@ -60,18 +61,15 @@ class Signup extends React.Component {
             <input type="text" name="lastName" value={this.state.lastName} onChange={this.handleChange} />
           </label>
 
-
-          <button className="btn">Je créé mon compte</button>
+          <button className="btn btnsignup">Je créé mon compte</button>
+          <button className="btn login"><Link to="/login">J'ai déja un compte </Link></button>
         </form>
 
-        <p>
-          <Link to="/login">J'ai déja un compte </Link>
-        </p>
 
         {this.state.error && (
           <p className="error">{this.state.error}</p>
         )}
-      </>
+      </div>
     )
   }
 }

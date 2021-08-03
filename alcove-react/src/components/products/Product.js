@@ -138,7 +138,7 @@ class Product extends React.Component {
                             <p>Produit déjà dans le panier</p>
                           ) : (<>
                             <button
-                              className="btn"
+                              className="btn btncart"
                               onClick={(e) => this.addToCart(e, product._id)}
                             >
                               Ajouter au panier
