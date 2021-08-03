@@ -7,6 +7,7 @@ import Signup from './components/auth/Signup';
 import authService from './components/auth/auth-service.js';
 import cartService from './components/cart/cart-service';
 import Login from './components/auth/Login';
+import ResetPassword from './components/auth/ResetPassword';
 import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
@@ -18,7 +19,6 @@ import DetailsOrder from './components/orders/DetailsOrder';
 import ConfirmedOrder from './components/orders/ConfirmedOrder';
 import Footer from './components/Footer';
 import Services from './components/Services';
-
 
 class App extends Component {
 
@@ -96,6 +96,12 @@ class App extends Component {
           }
           <Route exact path="/profile" render={(props) => (
             <Profile user={this.state.user} updateUser={this.updateUser} />
+          )} />
+
+          {/////////////////////*RESET PASSWORD *////////////////////////
+          }
+          <Route exact path="/reset-password" render={(props) => (
+            <ResetPassword user={this.state.user} updateUser={this.updateUser} />
           )} />
 
           {/////////////////////*SERVICES *////////////////////////

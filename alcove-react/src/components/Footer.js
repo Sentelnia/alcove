@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'react-external-link';
-import MediaQuery from "react-responsive";
+// import MediaQuery from "react-responsive";
 import "./Footer.css";
 import facebook from '../images/facebook.svg'
 import instagram from '../images/instagram.svg'

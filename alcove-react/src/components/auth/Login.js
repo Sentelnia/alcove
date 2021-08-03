@@ -25,8 +25,7 @@ class Login extends React.Component {
       })
       .catch(err => {
         this.setState({ error: err.response.data.message })
-      })
-      ;
+      });
   }
 
   handleChange = (event) => {
@@ -45,7 +44,7 @@ class Login extends React.Component {
           <p>
             <label>
               <em>Email</em>
-              <input type="email" name="email" value={this.state.username} onChange={this.handleChange} />
+              <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
             </label>
           </p>
 
@@ -56,7 +55,7 @@ class Login extends React.Component {
             </label>
           </p>
           <Link to="/reset-password">Mot de passe oublié?</Link> {/* https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7*/}
-          <input type="submit" value="Je me connecte" />
+          <button className="btn">Je me connecte</button>
         </form>
 
         {this.state.error && (
