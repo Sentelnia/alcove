@@ -72,6 +72,16 @@ ordersRoutes.put('/orders/:id', (req, res, next) => {
     
     order.save()
     .then(() => {
+      
+      transporter.sendMail({
+        from: 'alcove@hotmail.com', 
+        to: order.addDelivery.email,
+        subject: `Votre commande n°${order.orderNumber} - ${order.status}`,
+        text:  `Bonjour, Le status de votre commande a été mis à jour: ${order.status}`        
+      })
+      .then(() => console.log('E-mail de confirmation envoyé'))
+      .catch(err => next(err))
+
       res.status(200).json(order);
     })
     .catch(err => {
@@ -81,21 +91,6 @@ ordersRoutes.put('/orders/:id', (req, res, next) => {
   .catch(err => {
     res.status(400).json({ message: err.message });
   })
-});
-
-//////////////////////////////// SEND E-MAIL CONFIRMATION ///////////////////////////////
-ordersRoutes.post('/email-confirmation', (req, res, next) => {
-
-  let { emailSender, emailReceiver, subject, content } = req.body;
-
-  transporter.sendMail({
-    from: emailSender, // sender address
-    to: emailReceiver, // list of receivers
-    subject: subject, // Subject line
-    text: content
-  })
-  .then(() => res.status(200).json({ message: 'E-mail de confirmation envoyé' }))
-  .catch(err => next(err))  
 });
 
 module.exports = ordersRoutes;
