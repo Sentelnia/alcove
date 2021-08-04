@@ -6,11 +6,48 @@
 }
 
 .detailsPdt img{
-  width: 75vw;
+  width: 70vw;
   object-fit: contain;
-  margin: 3em 0 ;
+  margin: 2em 0 
 }
 
 .qty input{
-  border: none
+  border: none;
+  width: 2em;
+  text-align: center;
 }
+
+.qty{
+  width: 12em;
+  display:flex;
+  justify-content: space-around;
+  margin-bottom: 2em;
+}
+
+.qtyBox{
+  box-shadow: 10px 10px 10px rgba(0, 0, 0,0.1);
+}
+
+.price span{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.price{
+  text-align: center;
+}
+
+.btnup,
+.btndown{
+  color:#256786;
+  border: 1px solid rgb(235, 235, 235);
+  padding: 0.25em 0.5em;
+  box-shadow:none
+}
+
+.btnup:active,
+.btndown:active{
+  color:white;
+  background-color: #256786;
+}
+

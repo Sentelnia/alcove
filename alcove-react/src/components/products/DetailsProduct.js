@@ -81,29 +81,8 @@ class DetailsProduct extends React.Component {
         <h3>{this.state.name}</h3>
         <img src={this.state.imageUrl || "https://via.placeholder.com/375x250"} alt="product_pict" />
         
-        {/* {Affichage quantité seulement pour USER si pas déja dans le panier} */}
-        {this.props.user.role !== "ADMIN" && !this.isAlreadyInCart(this.props.match.params.id) && (
-          <div className='qty'>
-            <label>Quantitée</label>
-            <button
-              className="btn"
-              disabled={(this.state.quantity === 1 || this.state.quantity === 0) && true}
-              onClick={e => this.decreaseQty(e)}>-</button>
-            <input
-              type="text"
-              name="quantity"
-              value={this.state.quantity}
-              onFocus={this.handleFocus}
-              onChange={e => this.handleChangeProductQuantity(e)} />
-            <button
-              className="btn"
-              disabled={this.state.quantity === 99 && true}
-              onClick={e => this.increaseQty(e)}>+</button>
-          </div>
-        )}
-        <div>
+        <div className='price'>
           <span>{this.state.unitPrice * this.state.quantity} €</span>
-          <Link to="/">Retour aux produits</Link>
           {/* {Affichage du btn en fn du role} */}
           {this.props.user.role === "USER" && !this.isAlreadyInCart(this.props.match.params.id) ?
             (<button
@@ -119,6 +98,29 @@ class DetailsProduct extends React.Component {
                 onClick={(e) => this.deleteProductFromDB(e, this.props.match.params.id)}>Supprimer</button>
             </>)}
         </div>
+        {/* {Affichage quantité seulement pour USER si pas déja dans le panier} */}
+        {this.props.user.role !== "ADMIN" && !this.isAlreadyInCart(this.props.match.params.id) && (
+          <div className='qty'>
+            <label>Quantitée</label>
+            <div className='qtyBox'>
+            <button
+              className="btn btnup"
+              disabled={(this.state.quantity === 1 || this.state.quantity === 0) && true}
+              onClick={e => this.decreaseQty(e)}>-</button>
+            <input
+              type="text"
+              name="quantity"
+              value={this.state.quantity}
+              onFocus={this.handleFocus}
+              onChange={e => this.handleChangeProductQuantity(e)} />
+            <button
+              className="btn btndown"
+              disabled={this.state.quantity === 99 && true}
+              onClick={e => this.increaseQty(e)}>+</button>
+            </div>
+          </div>
+        )}
+        <Link to="/">Retour aux produits</Link>
         <div className="info-container">
           <h2>Description</h2>
           <p>{this.state.description}</p>

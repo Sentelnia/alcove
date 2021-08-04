@@ -102,7 +102,7 @@ class Product extends React.Component {
                     />
                     {/*Les cartes cadeaux*/}
                     {product.category === "CARTE" ? (
-                      <p>Offrez un moment de détente </p>
+                      <p>Offrez un moment de soin à vos proches</p>
                     ) : (
                       <>
                         <h4>{product.name}</h4>

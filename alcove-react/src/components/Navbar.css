@@ -9,7 +9,7 @@
     justify-content: space-between;
     padding: 5px;
     box-shadow: 0 5px 10px #b6b7b8;
-    height: 4em;
+    height: 4.5em;
     position: fixed;
     top: 0;
     width: 100%;
@@ -31,8 +31,8 @@
   }
 
   .icon {
-    width: 3.5em;
-    margin-left: 1em
+    width: 5em;
+    margin:0.5em 0 0 1.5em
   }
 
   .navbar-container {

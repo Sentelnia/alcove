@@ -1,6 +1,6 @@
 import React from "react";
 // import burger from "../images/menu_burger.png"
-import icon from "../images/logo_alcove.svg";
+import icon from "../images/logo_alcove.png";
 import avatar from "../images/profil.png";
 import cart from "../images/shopping-bag.svg";
 // import { Link } from "react-router-dom";
