@@ -1,0 +1,95 @@
+.cartBox{
+  margin-top: 7em;
+}
+
+.cartBox h2{
+  text-align: center;
+}
+
+.productCart{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width:100%
+}
+
+.cart-container{
+  display: flex;
+  align-items: center;
+  width:85vw;
+  justify-content: center;
+}
+
+.cart-container img{
+  width: 5em;
+  margin-right: 2em
+}
+
+.cart-product{
+  display:flex;
+  flex-direction: column;
+}
+
+.cart-product a{
+  text-decoration: none;
+  color:#256786;
+  font-size:0.7em
+}
+
+.qtyCart{
+  width: 4.4em;
+  margin-bottom: 0.5em
+}
+
+.btndelcart{
+  box-shadow: none;
+  margin-left: 0.5em;
+  border:none;
+  color: #256786;
+}
+
+.cart-recap-container{
+  text-align: center;
+}
+
+.cart-recap-detail p{
+  text-align: end;
+  margin: 0 1em;
+  width: 100%;
+} 
+
+.cart-recap-total{
+  display:flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin: 0 1em;
+  justify-content: space-around;
+}
+
+.cartBox h3{
+  margin-top: 0;
+}
+
+.delivery-option{
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+  margin-top:1.5em
+}
+
+.checkbox input{
+  width: 2em
+}
+
+.checkbox label{
+  margin: 2em
+}
+
+.checkbox{
+  display:flex;
+  margin-bottom:1em
+}
+
+.checkbox p{
+  color: #cfa5a1;
+}

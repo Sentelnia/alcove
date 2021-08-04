@@ -5,7 +5,8 @@
 }
 
 .signup form,
-.dashboard form{
+.dashboard form,
+.infoUser form{
   margin-top: 2em;
   display:flex;
   flex-direction: column;
@@ -18,7 +19,8 @@
 
 
 .signup input,
-.dashboard input{ 
+.dashboard input,
+.infoUser input{ 
   border:none;
   padding:0.4em 0.6em;
   width: 80vw;
@@ -29,7 +31,8 @@
 }
 
 .signup label,
-.dashboard label{
+.dashboard label,
+.infoUser label{
   display:flex;
   flex-direction: column;
   color:#cfa5a1;
@@ -37,7 +40,8 @@
 }
 
 .signup .btn,
-.dashboard .btn{
+.dashboard .btn,
+.infoUser .btn{
   width: 20em;
   border: 1px solid rgb(235, 235, 235);
   font-weight: bold;

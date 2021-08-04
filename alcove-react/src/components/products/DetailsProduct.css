@@ -22,7 +22,7 @@
   text-align:center
 }
 
-.qty input{
+.qtyBox input{
   border: none;
   width: 2em;
   text-align: center;
@@ -68,6 +68,7 @@
   width: 100vw;
   text-align: end;
   padding-right: 2em;
+  font-size: 0.8em
 }
 
 section{
