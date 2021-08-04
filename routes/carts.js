@@ -4,6 +4,8 @@ const cartsRoutes = express.Router();
 const Product = require('../models/Product.model')
 const Order = require('../models/Order.model')
 
+const transporter = require('../mailer')
+
 //////////////////////////////// ADD PRODUCT THE CART ///////////////////////////////
 cartsRoutes.put('/cart/add', (req, res, next) => {
   const { productId, quantity } = req.body
@@ -61,7 +63,7 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
   const { addBilling, addDelivery, deliveryMode, deliveryCost, orderNumber } = req.body
   const userId = req.user.id
   const items = req.session.cart;
-
+  
   Order.create({
     userId,
     orderNumber,
@@ -73,6 +75,16 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
   })
     .then(newOrder => {
       req.session.cart = [];      //On vide le panier suite à la passation de la commande
+
+      transporter.sendMail({
+        from: 'alcove@hotmail.com',             // sender address
+        to: addDelivery.email,                  // list of receivers
+        subject: 'En attente de validation',    // Subject line
+        text: 'Merci pour votre commande'        
+      })
+      .then(() => console.log('E-mail de confirmation envoyé'))
+      .catch(err => next(err))  
+      
       res.status(201).json(newOrder)
     })
     .catch(err => res.status(400).json({ message: err.message }))

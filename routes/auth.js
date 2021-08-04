@@ -120,7 +120,7 @@ authRoutes.get('/verify/:token', (req, res, next) => {
     .then(foundUser => {
       foundUser.isValid = true;
       foundUser.save()
-        .then((foundUser) => res.redirect('http://localhost:3000/login'))
+        .then(() => res.redirect('http://localhost:3000/login'))
         .catch(err => next(err))
     })
     .catch(err => {
@@ -251,7 +251,7 @@ authRoutes.put('/user/update-password', (req, res, next) => {
 authRoutes.put('/user/reset-password', (req, res, next) => {
   const { email } = req.body;
 
-  console.log('email',email)
+  console.log('email', email)
   if (!email) {
     res.status(400).json({ message: 'Merci de saisir une adresse E-mail' });
     return;
@@ -267,9 +267,9 @@ authRoutes.put('/user/reset-password', (req, res, next) => {
   User.findOne({ email })
     .then(foundUser => {
       if (!foundUser) {
-        res.status(400).json({ message: 'Adresse E-mail non reconnue.' });  
+        res.status(400).json({ message: 'Adresse E-mail non reconnue.' });
       }
-      
+
       // foundUser.resetPasswordToken = generate_token(32);
       // foundUser.resetPasswordExpires = Date.now() + 360000;
     })

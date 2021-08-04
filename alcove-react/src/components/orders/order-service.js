@@ -26,15 +26,4 @@ export default {
     .then(response => {
       return response.data})
   },
-
-  sendEmailConfirmation(emailReceiver, orderNumber,status, content){
-    return this.service.post('/email-confirmation',{
-      emailSender: 'lalcove@hotmail.fr',
-      emailReceiver:emailReceiver,
-      subject:`Votre commande n°${orderNumber} - ${status}`,
-      content: `Bonjour, ${content}`
-    })
-    .then()
-    .catch(err => console.log('err:', err))
-  }
 };
