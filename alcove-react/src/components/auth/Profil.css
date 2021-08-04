@@ -1,0 +1,67 @@
+.dashboard{
+  margin-top: 7em;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard h2{
+  text-align: center;
+}
+
+
+.dashboard .logout{
+  width: 10em
+}
+
+.dashboard .logout,
+.dashboard .btnedit,
+.btneditpass,
+.btndel{
+  border: 1px solid rgb(235, 235, 235);
+  font-weight: bold;
+  font-size: 0.8em;
+  padding: 1em 0em;
+  color: #256786;
+}
+
+.dashboard .btnedit,
+.btneditpass,
+.btndel{
+  margin: 1.5em 0
+}
+
+
+.dashboard .logout:active,
+.dashboard .btnedit:active,
+.btneditpass:active,
+.btndel:active{
+  color:white;
+  background-color: #256786;
+}
+
+.dashboard hr{
+  margin: 1.5em;
+  width: 45%;
+  text-align: center;
+}
+
+.dashboard label{
+ margin: 0.5em
+}
+
+.dashboard h3{
+  width: 90vw;
+  text-align: start;
+  margin-left:1em
+}
+
+.msg{
+  text-align: center;
+  padding: 0 2em ;
+  font-size: 0.8em
+}
+
+.editpass{
+  margin-bottom: 1.2em
+}
