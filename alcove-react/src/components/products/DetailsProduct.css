@@ -12,6 +12,16 @@
   margin: 2em 0 
 }
 
+.detailsPdt h3{
+  width: 100vw ;
+  text-align: center;
+}
+
+.already{
+  width: 100vw;
+  text-align:center
+}
+
 .qty input{
   border: none;
   width: 2em;
@@ -51,4 +61,6 @@
   color:white;
   background-color: #256786;
 }
+
+
 
