@@ -88,7 +88,7 @@ class DetailsProduct extends React.Component {
             (<button
               className="btn"
               onClick={e => this.addToCart(e, this.props.match.params.id)}>Ajouter au panier</button>):
-              (<p>Produit déjà dans le panier</p>)}
+              (<p className='already'>Produit déjà dans le panier</p>)}
 
           {this.props.user.role === "ADMIN" &&
             (<>
