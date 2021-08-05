@@ -13,17 +13,13 @@ class Order extends React.Component {
   }
   
   componentDidMount() {
-    this.getAllOrders();
-  }
-
-  getAllOrders = () =>{
     orderService.getOrders()
-    .then((allOrders) => {
-      this.setState({
-        orders: allOrders
+      .then((allOrders) => {
+        this.setState({
+          orders: allOrders
+        })
       })
-    })
-    .catch(err => console.log('err getOrders:', err))
+      .catch(err => console.log('err getOrders:', err))
   }
 
   //fonction utilitaire

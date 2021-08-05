@@ -3,12 +3,12 @@ import axios from 'axios';
 
 export default {
   service: axios.create({
-    baseURL: `${process.env.REACT_APP_APIURL || ""} /api`,
-    // baseURL: `http://localhost:5000/api`,
+    baseURL: `${process.env.REACT_APP_APIURL || ""}/api`,
     withCredentials: true
   }),
 
   getOrders() {
+    console.log('process.env:',process.env)
     return this.service.get('/orders')
     .then(response => {
       console.log('response:',response.data)
