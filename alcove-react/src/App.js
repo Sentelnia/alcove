@@ -4,6 +4,7 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 
 import Signup from './components/auth/Signup';
+import Verify from './components/auth/Verify';
 import authService from './components/auth/auth-service.js';
 import cartService from './components/cart/cart-service';
 import Login from './components/auth/Login';
@@ -85,6 +86,10 @@ class App extends Component {
           }
           <Route exact path="/signup" render={(props) => (
             <Signup {...props} user={this.state.user} updateUser={this.updateUser} />
+          )} />
+
+          <Route exact path="/verify/:id" render={(props) => (
+            <Verify {...props} user={this.state.user} updateUser={this.updateUser} />
           )} />
 
           {/////////////////////* LOGIN *////////////////////////

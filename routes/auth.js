@@ -93,7 +93,7 @@ authRoutes.post('/users', (req, res, next) => {
                 from: process.env.EMAIL_ADRESS,
                 to: email,
                 subject: "Validation de votre adresse E-mail",
-                html: `Bienvenue, cliquez sur le lien suivant pour valider votre adresse E-Mail <a href=http://localhost:5000/api/verify/${token}> Valider </a>`
+                html: `Bienvenue, cliquez sur le lien suivant pour valider votre adresse E-Mail <a href=${process.env.NOM_DOMAINE}/verify/${token}> Valider </a>`
               })
                 .then()
                 .catch(err => next(err))
@@ -119,12 +119,13 @@ authRoutes.get('/verify/:token', (req, res, next) => {
   User.findOne({ token })
     .then(foundUser => {
       foundUser.isValid = true;
+      foundUser.token = undefined;
       foundUser.save()
-        .then(() => res.redirect('http://localhost:3000/login'))
+        .then(() => res.status(200).json({message:'isValid = true en base'}))
         .catch(err => next(err))
     })
     .catch(err => {
-      res.status(500).json({ message: "Token non reconnue." });
+      res.status(400).json({ message: "Lien de validation d'adresse E-mail non valide" });
     });
 })
 
@@ -270,7 +271,7 @@ authRoutes.put('/user/forgot-password', (req, res, next) => {
     .then(foundUser => {
       console.log('foundUser put req', foundUser)
       foundUser.resetPasswordToken = generate_token(32);
-      foundUser.resetPasswordExpires = Date.now() + 60000;
+      foundUser.resetPasswordExpires = Date.now() + 360000; //Token valide 1h
 
       foundUser.save()
         .then(
@@ -280,7 +281,7 @@ authRoutes.put('/user/forgot-password', (req, res, next) => {
             subject: "Lien récupération mot de passe oublié",
             html: `Bonjour, nous avons reçu une demande de reset de votre mot de passe. 
                  Le lien suivant est valide 1H, cliquez pour accèder à votre compte
-                 <a href=http://localhost:3000/reset-password/${foundUser.resetPasswordToken}>Accèder à mon compte</a>
+                 <a href=${process.env.NOM_DOMAINE}/reset-password/${foundUser.resetPasswordToken}>Accèder à mon compte</a>
                  Si vous n'êtes pas à l'origine de cette demande, merci d'ignorer cet E-mail.`
           })
             .then(() => res.status(200).json({ message: 'Un E-mail vous a été envoyé. Vous allez être redirigé.' }))
