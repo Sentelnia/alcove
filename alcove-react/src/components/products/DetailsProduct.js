@@ -97,7 +97,7 @@ class DetailsProduct extends React.Component {
           {this.props.user.role === "USER" &&
           !this.isAlreadyInCart(this.props.match.params.id) ? (
             <button
-              className="btn"
+              className="btn btnaddcart"
               onClick={(e) => this.addToCart(e, this.props.match.params.id)}
             >
               Ajouter au panier

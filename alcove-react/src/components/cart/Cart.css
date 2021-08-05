@@ -2,6 +2,10 @@
   margin-top: 7em;
 }
 
+.empty{
+  margin-left: 1em
+}
+
 .cartBox h2{
   text-align: center;
 }
@@ -10,7 +14,8 @@
   display:flex;
   flex-direction: column;
   align-items: center;
-  width:100%
+  width:100%;
+  
 }
 
 .cart-container{
@@ -73,8 +78,7 @@
 .delivery-option{
   display:flex;
   flex-direction: column;
-  margin-bottom: 1.5em;
-  margin-top:1.5em
+  margin:1.5em 0;
 }
 
 .checkbox input{
@@ -82,14 +86,24 @@
 }
 
 .checkbox label{
-  margin: 2em
+  margin: 2em 1.5em
 }
 
 .checkbox{
   display:flex;
-  margin-bottom:1em
+  margin-bottom:1em;
+  margin-left: 2em
 }
 
 .checkbox p{
   color: #cfa5a1;
+}
+.resumeOrder{
+  margin: 1.5em 0;
+  padding-left: 3.5em;
+  text-align: end;
+}
+
+.btnvalidcart{
+  margin-bottom:2em
 }

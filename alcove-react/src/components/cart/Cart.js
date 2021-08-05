@@ -391,10 +391,10 @@ class Cart extends React.Component {
         {/* {Gestion de l'affichage si utilisateur connecté} */}
         {this.props.user ? (
           <div className="cartBox">
-            <h2>Mon panier</h2>
+            <h2>MON PANIER</h2>
             {/* {Gestion de l'affichage si panier vide} */}
             {this.sumItemsCart() === 0 ? (
-              <p>Panier vide</p>
+              <p className='empty'>Panier vide</p>
             ) : (
               <div className="productCart">
                 {this.props.cart.map((item) => (
@@ -495,12 +495,11 @@ class Cart extends React.Component {
                 {this.state.deliveryMode === "" ? (
                   <>
                   <p>Selectionner mode de livraison</p>
-                  <hr/>
+                  
                   </>
                 ) : (
                   this.state.deliveryMode === "Livraison à domicile" && (
                     <>
-                    <hr/>
                       <h3>ADRESSE DE LIVRAISON</h3>
                       <div className="infoUser">
                       <form>
@@ -618,6 +617,8 @@ class Cart extends React.Component {
                         /> */}
 
                         <div className='checkbox'>
+                        <p>Adresse de facturation identique à l'adresse de
+                            livraison</p>
                           <label>
                             <input
                               type="checkbox"
@@ -626,8 +627,6 @@ class Cart extends React.Component {
                               checked={this.state.addBillingSameAsDelivery}
                             />
                           </label>
-                          <p>Adresse de facturation identique à adresse de
-                            livraison</p>
                         </div>
                       </form>
                       </div>
@@ -736,8 +735,9 @@ class Cart extends React.Component {
                       </div>
                     </>
                   )}
-
-                <h1>Ma commande</h1>
+                <hr/>
+                <h3>MA COMMANDE</h3>
+                <div className='resumeOrder'>
                 <p>{this.sumItemsCart()} Articles</p>
                 <p>
                   Sous-total:<span> {this.sumCart()} €</span>
@@ -749,9 +749,9 @@ class Cart extends React.Component {
                   Total à payer TVA incluse:
                   <span> {this.sumCart() + this.state.deliveryCost}</span> €
                 </p>
-
+                </div>
                 <button
-                  className="btn"
+                  className="btn btnvalidcart"
                   disabled={this.isReadyToValidate()}
                   onClick={(e) => this.cartToOrder(e)}
                 >

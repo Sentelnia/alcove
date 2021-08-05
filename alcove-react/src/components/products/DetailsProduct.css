@@ -46,6 +46,9 @@
 
 .price{
   text-align: center;
+  display:flex;
+  flex-direction: column;
+  margin-bottom: 2em;
 }
 
 .btnup,
@@ -84,6 +87,11 @@ section{
   width: 100vw;
   margin:3em 0;
 }
+
+.btnaddcart{
+  margin-top:1em
+}
+
 
 
 

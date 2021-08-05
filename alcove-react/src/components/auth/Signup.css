@@ -41,7 +41,9 @@
 
 .signup .btn,
 .dashboard .btn,
-.infoUser .btn{
+.infoUser .btn,
+.price .btn,
+.btnvalidcart{
   width: 20em;
   border: 1px solid rgb(235, 235, 235);
   font-weight: bold;
@@ -49,7 +51,9 @@
   padding: 1em 0em;
 }
 
-.btnsignup:active{
+.btnsignup:active,
+.btnaddcart:active,
+.btnvalidcart:active{
   color:white;
   background-color: #256786;
 }
@@ -59,7 +63,9 @@
   color: #dfbcb8;
 }
 
-.btnsignup{
+.btnsignup,
+.btnaddcart,
+.btnvalidcart{
   color: #256786;
 }
 

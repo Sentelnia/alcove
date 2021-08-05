@@ -72,9 +72,9 @@ h3{
 /* BUTTON */
 
 .btn-container button {
-  padding: 1em 1em;
-  margin: 0 0.2em 1em;
-  width: 11em;
+  padding: 1em 0.5em;
+  margin: 0 0.6em 1em;
+  width: 10em;
   border: 1px solid rgb(235, 235, 235);
   font-size: 0.8em
 }
