@@ -63,7 +63,7 @@ class Login extends React.Component {
           <p className="error">{this.state.error}</p>
         )}
   
-        <Link to="/reset-password">Mot de passe oublié?</Link> {/* https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7*/}
+        <Link to="/forgot-password">Mot de passe oublié?</Link> {/* https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7*/}
         
       </div>
     );

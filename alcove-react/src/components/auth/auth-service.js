@@ -49,6 +49,15 @@ export default {
       })
   },
 
+  verify(token){
+    console.log('token',token)
+    return this.service.get(`/verify/${token}`)
+    .then(response => {
+      console.log('response',response)
+      return response.data
+    })
+  },
+
   updatePassword(currentPassword, newPassword) {
     return this.service.put('/user/update-password', {
       currentPassword: currentPassword,
@@ -59,8 +68,27 @@ export default {
       })
   },
 
-  resetPassword(email){
-    return this.service.put('/user/reset-password',{email:email})
-    .then()
-  }
+  forgotPassword(email) {
+    return this.service.put('/user/forgot-password', { email })
+      .then(response => {
+        return response.data
+      })
+  },
+
+  resetPassword(token) {
+    return this.service.get(`/user/reset-password/${token}`)
+      .then(response => {
+        return response.data
+      })
+  },
+
+  updateForgottenPassword(email, newPassword) {
+    return this.service.put('/user/update-forgotten-password', {
+      email: email,
+      newPassword: newPassword
+    })
+      .then(response => {
+        return response.data
+      })
+  },
 };

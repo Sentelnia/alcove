@@ -45,8 +45,13 @@ const userSchema = new Schema({
     enum: ['USER', 'ADMIN'],
     default: 'USER',
   },
-  token:String,
-  isValid:{type:Boolean, default: false}
+  token: String,
+  isValid: {
+    type: Boolean,
+    default: false
+  },
+  resetPasswordToken:String,
+  resetPasswordExpires:Date,
 },
   {
     timestamps: true
