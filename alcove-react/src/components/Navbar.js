@@ -69,7 +69,7 @@ class Navbar extends React.Component {
                 <img className="avatar" src={avatar} alt="avatar" />
               </Link>
             ) : (
-              <Link to="/signup">
+              <Link to="/login">
                 <img className="avatar" src={avatar} alt="avatar" />
               </Link>
             )}

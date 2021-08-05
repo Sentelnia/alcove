@@ -6,7 +6,36 @@ import authService from "./auth-service.js";
 class ResetPassword extends React.Component {
   state = {
     email: '',
-    msg: ''
+    password: '',
+    msg: '',
+    redirect: false,
+    error: true
+  }
+  componentDidMount() {
+
+    authService.resetPassword(this.props.match.params.id)
+      .then((foundUser) => {
+        //Verif requete contenant le Token a retourné un User
+        if (!foundUser.email) {
+          this.setState({
+            msg: foundUser.message,
+            error: false
+          });
+          return
+        }
+
+        this.setState({
+          email: foundUser.email
+        });
+
+      })
+      .catch(err => {
+        console.log('err', err)
+        this.setState({
+          msg: err.response.data.message,
+          error: false
+        })
+      });
   }
 
   handleChange = (event) => {
@@ -16,31 +45,45 @@ class ResetPassword extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    
-    authService.resetPassword(this.state.email)
-      .then(response => {
-        this.setState({ msg: '' });
+
+    authService.updateForgottenPassword(this.state.email, this.state.password)
+      .then((response) => {
+        this.setState({
+          msg: response.message,
+          error: false
+        });
+        //Redirection après 3s
+        setTimeout(() => {
+          this.setState({
+            redirect: true
+          })
+        }, 3000);
       })
       .catch(err => {
-        this.setState({  msg: err.response.data.message  })
+        this.setState({ msg: err.response.data.message })
       });
   }
 
-
   render() {
 
-    if (this.props.user._id) return <Redirect to="/" />
+    if (this.state.redirect) return <Redirect to='/login' />
 
     return (
       <>
-        <h1>Mot de passe oublié?</h1>
-        <form onSubmit={(e)=> this.handleSubmit(e)}>
-          <label>
-            Email
-            <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
-          </label>
-          <button className="btn">Valider</button>
-        </form>
+        {this.state.error && (
+          <>
+            <form onSubmit={(e) => this.handleSubmit(e)}>
+
+              <p>Email: {this.state.email}</p>
+
+              <label>
+                Mot de passe:
+                <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+              </label>
+              <button className="btn">Réinitialiser mon mot de passe</button>
+            </form>
+          </>
+        )}
 
         {this.state.msg && (
           <p className="msg">{this.state.msg}</p>

@@ -9,6 +9,7 @@ const passport = require('passport');
 const transporter = require('../mailer');
 
 /* Documentations:
+https://safwan-du16.medium.com/email-verification-with-node-js-and-nodemailer-3a6363b31060
 https://alto-palo.com/blogs/nodejs-authentication-with-passportjs-passport-local-mongoose/
 https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
 https://stackoverflow.com/questions/46044678/passport-local-mongoose-changepassword-function
@@ -88,11 +89,10 @@ authRoutes.post('/users', (req, res, next) => {
               req.session.currentUser = aNewUser
 
               //Envoi email pour confirmer l'adresse
-              //https://safwan-du16.medium.com/email-verification-with-node-js-and-nodemailer-3a6363b31060
               transporter.sendMail({
-                from: 'lalcove@hotmail.fr', // sender address
-                to: email, // list of receivers
-                subject: "Validation de votre adresse E-mail", // Subject line
+                from: process.env.EMAIL_ADRESS,
+                to: email,
+                subject: "Validation de votre adresse E-mail",
                 html: `Bienvenue, cliquez sur le lien suivant pour valider votre adresse E-Mail <a href=http://localhost:5000/api/verify/${token}> Valider </a>`
               })
                 .then()
@@ -243,15 +243,14 @@ authRoutes.put('/user/update-password', (req, res, next) => {
       });
     })
     .catch(error => {
-      res.json(error)
+      res.status(400).json(error)
     });
 });
 
-//////////////////////////////////// RESET PWD /////////////////////////////////////////////
-authRoutes.put('/user/reset-password', (req, res, next) => {
+//////////////////////////////////// FORGOT PWD /////////////////////////////////////////////
+authRoutes.put('/user/forgot-password', (req, res, next) => {
   const { email } = req.body;
 
-  console.log('email', email)
   if (!email) {
     res.status(400).json({ message: 'Merci de saisir une adresse E-mail' });
     return;
@@ -264,17 +263,103 @@ authRoutes.put('/user/reset-password', (req, res, next) => {
     return;
   }
 
-  User.findOne({ email })
+  User.findOne({
+    email: email,
+    isValid: true
+  })
     .then(foundUser => {
-      if (!foundUser) {
-        res.status(400).json({ message: 'Adresse E-mail non reconnue.' });
-      }
+      console.log('foundUser put req', foundUser)
+      foundUser.resetPasswordToken = generate_token(32);
+      foundUser.resetPasswordExpires = Date.now() + 60000;
 
-      // foundUser.resetPasswordToken = generate_token(32);
-      // foundUser.resetPasswordExpires = Date.now() + 360000;
+      foundUser.save()
+        .then(
+          transporter.sendMail({
+            from: process.env.EMAIL_ADRESS,
+            to: email,
+            subject: "Lien récupération mot de passe oublié",
+            html: `Bonjour, nous avons reçu une demande de reset de votre mot de passe. 
+                 Le lien suivant est valide 1H, cliquez pour accèder à votre compte
+                 <a href=http://localhost:3000/reset-password/${foundUser.resetPasswordToken}>Accèder à mon compte</a>
+                 Si vous n'êtes pas à l'origine de cette demande, merci d'ignorer cet E-mail.`
+          })
+            .then(() => res.status(200).json({ message: 'Un E-mail vous a été envoyé. Vous allez être redirigé.' }))
+            .catch(err => {
+              res.status(400).json({ message: "Une erreur lors de l'envoi du mail de récupération s'est produite." });
+            })
+        )
+        .catch(err => {
+          res.status(400).json({ message: "Une erreur lors de la sauvegarde dans la base de donnée s'est produite." });
+        });
     })
     .catch(err => {
-      res.status(400).json({ message: "Adresse E-mail non reconnue." });
+      res.status(400).json({ message: "Adresse E-mail non trouvée." });
+    });
+});
+
+//////////////////////////////////// RESET PWD /////////////////////////////////////////////
+authRoutes.get('/user/reset-password/:resetPasswordToken', (req, res, next) => {
+  const resetPasswordToken = req.params.resetPasswordToken;
+
+  User.findOne({ resetPasswordToken })
+    .then(foundUser => {
+
+      let dateNow = Date.now()
+      let datePasswordExpires = Date.parse(foundUser.resetPasswordExpires)
+
+      if (dateNow > datePasswordExpires) {
+        res.status(200).json({ message: 'La validité de ce lien a expiré' })
+        return
+      }
+      res.status(200).json(foundUser)
+    })
+    .catch(err => {
+      res.status(400).json({ message: "Ce lien n'est pas valide." });
+    });
+});
+
+//////////////////////////////// UPDATE FORGOTTEN USER PWD ////////////////////////////////////////
+authRoutes.put('/user/update-forgotten-password', (req, res, next) => {
+
+  const { email, newPassword } = req.body;
+  console.log('newPassword', newPassword, 'email', email)
+
+  // Check currentPassword and newPassword are not empty
+  if (!newPassword) {
+    res.status(400).json({ message: 'Merci de saisir votre nouveau mot de passe' });
+    return;
+  }
+
+  const regexPassword = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+  if (!regexPassword.test(newPassword)) {
+    res.status(403).json({ message: 'Le mot de passe doit contenir au moins 6 charactères, un chiffre et une minuscule et une majuscule' });
+    return;
+  }
+
+  User.findOne({ email })
+    .then(foundUser => {
+      console.log('foundUser put update', foundUser)
+
+      const salt = bcrypt.genSaltSync(10);
+      const hashPass = bcrypt.hashSync(newPassword, salt);
+      foundUser.password = hashPass;
+
+      //RAZ dans DB
+      foundUser.resetPasswordToken = undefined;
+      foundUser.resetPasswordExpires = undefined;
+
+      foundUser.save()
+        .then(() => {
+          res.status(200).json({ message: "Mot de passe modifié. Vous allez être redirigé." });
+        })
+        .catch(err => {
+          console.log('err save:', err)
+          res.status(400).json({ message: "Une erreur lors de la réinitialisation du mot de passe s'est produite." });
+        });
+    })
+    .catch(error => {
+      res.status(400).json(error)
     });
 });
 

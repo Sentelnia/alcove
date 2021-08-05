@@ -7,6 +7,7 @@ import Signup from './components/auth/Signup';
 import authService from './components/auth/auth-service.js';
 import cartService from './components/cart/cart-service';
 import Login from './components/auth/Login';
+import ForgotPassword from './components/auth/ForgotPassword';
 import ResetPassword from './components/auth/ResetPassword';
 import Profile from './components/auth/Profile';
 import Navbar from './components/Navbar';
@@ -98,10 +99,16 @@ class App extends Component {
             <Profile user={this.state.user} updateUser={this.updateUser} />
           )} />
 
+          {/////////////////////*FORGOT PASSWORD *////////////////////////
+          }
+          <Route exact path="/forgot-password" render={(props) => (
+            <ForgotPassword {...props} user={this.state.user} updateUser={this.updateUser} />
+          )} />
+
           {/////////////////////*RESET PASSWORD *////////////////////////
           }
-          <Route exact path="/reset-password" render={(props) => (
-            <ResetPassword user={this.state.user} updateUser={this.updateUser} />
+          <Route exact path="/reset-password/:id" render={(props) => (
+            <ResetPassword {...props} user={this.state.user} updateUser={this.updateUser} />
           )} />
 
           {/////////////////////*SERVICES *////////////////////////

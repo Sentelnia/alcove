@@ -59,8 +59,28 @@ export default {
       })
   },
 
-  resetPassword(email){
-    return this.service.put('/user/reset-password',{email:email})
-    .then()
-  }
+  forgotPassword(email) {
+    return this.service.put('/user/forgot-password', { email })
+      .then(response => {
+        return response.data
+      })
+  },
+
+  resetPassword(id) {
+    return this.service.get(`/user/reset-password/${id}`)
+      .then(response => {
+        return response.data
+      })
+  },
+
+  updateForgottenPassword(email, newPassword) {
+    return this.service.put('/user/update-forgotten-password', {
+      email: email,
+      newPassword: newPassword
+    })
+      .then(response => {
+        console.log('response update forgotten pwd:',response)
+        return response.data
+      })
+  },
 };
