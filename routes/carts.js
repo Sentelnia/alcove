@@ -87,14 +87,10 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
         Nous vous tiendrons au courant de son évolution.
         Merci`
       })
-        .then(() => {
-          console.log('nouvelle commande OK:', newOrder)
-          res.status(201).json(newOrder)
-        })
-        .catch(err => {
-          console.log('err',err)
-          res.status(400).json({ message: "Une erreur lors de l'envoi du mail de confirmation s'est produite." });
-        })      
+      .then(() => console.log('E-mail de confirmation envoyé'))
+      .catch(err => next(err))  
+
+      res.status(201).json(newOrder)
     })
     .catch(err => res.status(400).json({ message: err.message }))
 });
