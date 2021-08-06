@@ -1,6 +1,6 @@
 import React from "react";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+// import PhoneInput from "react-phone-input-2";
+// import "react-phone-input-2/lib/style.css";
 
 import authService from "./auth-service.js";
 import { Redirect } from "react-router-dom";
@@ -50,12 +50,17 @@ class Profile extends React.Component {
     let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ
     const { name, value } = event.target;
 
-    if (name !== "zip") {
+    if (name !== "zip" && name !== "telephone") {
       this.setState({ [name]: value });
       return;
     }
 
     if (name === "zip" && regEx.test(event.target.value) && value.length < 6) {
+      this.setState({ [name]: value });
+      return;
+    }
+
+    if (name === "telephone" && regEx.test(event.target.value) && value.length < 11) {
       this.setState({ [name]: value });
       return;
     }
@@ -159,15 +164,15 @@ class Profile extends React.Component {
             <label>
               <em>Téléphone</em>
               <input
-                type="tel"
+                type="number"                
                 name="telephone"
                 value={this.state.telephone}
                 onChange={this.handleChange}
               />
             </label>
 
-            {/* 
-            <PhoneInput
+            
+            {/* <PhoneInput
               country={'fr'}
               onlyCountries={['fr']}
               value={this.state.telephone}
@@ -198,7 +203,7 @@ class Profile extends React.Component {
             <label>
               <em>Code postal</em>
               <input
-                type="text"
+                type="number"
                 name="zip"
                 value={this.state.zip}
                 onChange={this.handleChange}

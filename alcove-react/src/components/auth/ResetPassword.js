@@ -74,7 +74,10 @@ class ResetPassword extends React.Component {
           <>
             <form onSubmit={(e) => this.handleSubmit(e)}>
 
-              <p>Email: {this.state.email}</p>
+              <p>
+              Bonjour,
+              vous avez demandé la réinitialisation du mot de passe associé à l'adresse E-mail: {this.state.email}
+              </p>
 
               <label>
                 Mot de passe:
@@ -86,7 +89,7 @@ class ResetPassword extends React.Component {
         )}
 
         {this.state.msg && (
-          <p className="msg">{this.state.msg}</p>
+          <p className="error">{this.state.msg}</p>
         )}
       </>
     )

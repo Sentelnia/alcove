@@ -8,10 +8,8 @@ export default {
   }),
 
   getOrders() {
-    console.log('process.env:',process.env)
     return this.service.get('/orders')
     .then(response => {
-      console.log('response:',response.data)
       return response.data})
   },
 

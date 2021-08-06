@@ -10,6 +10,7 @@ export default {
   login(email, password) {
     return this.service.post('/sessions', { email, password })
       .then(response => {
+        console.log('response',response)
         return response.data
       })
   },

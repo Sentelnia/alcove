@@ -29,14 +29,14 @@ cartsRoutes.put('/cart/add', (req, res, next) => {
 cartsRoutes.put('/cart/updateQty', (req, res, next) => {
   const { productId, quantity } = req.body
   console.log('cart ', req.session.cart)
-  
+
   req.session.cart = req.session.cart
-  .map(obj => {
-    if (obj.product._id === productId) {
-      obj.quantity = Number(quantity)
-    }
-    return obj;
-  })
+    .map(obj => {
+      if (obj.product._id === productId) {
+        obj.quantity = Number(quantity)
+      }
+      return obj;
+    })
 
   res.status(200).json({ cart: req.session.cart })
 });
@@ -63,7 +63,7 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
   const { addBilling, addDelivery, deliveryMode, deliveryCost, orderNumber } = req.body
   const userId = req.user.id
   const items = req.session.cart;
-  
+
   Order.create({
     userId,
     orderNumber,
@@ -77,15 +77,20 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
       req.session.cart = [];      //On vide le panier suite à la passation de la commande
 
       transporter.sendMail({
-        from: 'alcove@hotmail.com',             // sender address
-        to: addDelivery.email,                  // list of receivers
-        subject: 'En attente de validation',    // Subject line
-        text: 'Merci pour votre commande'        
+        from: 'alcove@hotmail.com',
+        to: addDelivery.email,
+        subject: `Votre commande n°${orderNumber}`,    // Subject line
+        text: `
+        Bonjour ${req.user.firstName},
+        Votre commande n°${orderNumber} nous a bien été transmise.
+        Statut: En attente de validation
+        Nous vous tiendrons au courant de son évolution.
+        Merci`
       })
-      .then(() => console.log('E-mail de confirmation envoyé'))
-      .catch(err => next(err))  
-      
-      res.status(201).json(newOrder)
+        .then(() => res.status(201).json(newOrder))
+        .catch(err => {
+          res.status(400).json({ message: "Une erreur lors de l'envoi du mail de confirmation s'est produite." });
+        })      
     })
     .catch(err => res.status(400).json({ message: err.message }))
 });

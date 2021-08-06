@@ -46,20 +46,20 @@ class ForgotPassword extends React.Component {
       <>
         {this.state.error &&
           (
-            <>
-              <h1>Mot de passe oublié?</h1>
+            <div className='login'>
+              <h3>Mot de passe oublié?</h3>
               <form onSubmit={(e) => this.handleSubmit(e)}>
                 <label>
-                  Email
+                  Votre Email:
                   <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
                 </label>
                 <button className="btn">Valider</button>
               </form>
-            </>
+            </div>
           )}
 
         {this.state.msg && (
-          <p className="msg">{this.state.msg}</p>
+          <p className="error">{this.state.msg}</p>
         )}
       </>
 
