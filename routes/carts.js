@@ -79,7 +79,7 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
       transporter.sendMail({
         from: 'alcove@hotmail.com',
         to: addDelivery.email,
-        subject: `Votre commande n°${orderNumber}`,    // Subject line
+        subject: `Votre commande n°${orderNumber}`,
         text: `
         Bonjour ${req.user.firstName},
         Votre commande n°${orderNumber} nous a bien été transmise.
@@ -87,8 +87,12 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
         Nous vous tiendrons au courant de son évolution.
         Merci`
       })
-        .then(() => res.status(201).json(newOrder))
+        .then(() => {
+          console.log('nouvelle commande OK:', newOrder)
+          res.status(201).json(newOrder)
+        })
         .catch(err => {
+          console.log('err',err)
           res.status(400).json({ message: "Une erreur lors de l'envoi du mail de confirmation s'est produite." });
         })      
     })
