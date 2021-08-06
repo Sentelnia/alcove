@@ -77,20 +77,20 @@ cartsRoutes.post('/cart/checkout', (req, res, next) => {
       req.session.cart = [];      //On vide le panier suite à la passation de la commande
 
       transporter.sendMail({
-        from: 'alcove@hotmail.com',
-        to: addDelivery.email,
-        subject: `Votre commande n°${orderNumber}`,
+        from: process.env.EMAIL_ADRESS,
+        to: newOrder.addDelivery.email,
+        subject: `Votre commande n°${newOrder.orderNumber}`,
         text: `
         Bonjour ${req.user.firstName},
-        Votre commande n°${orderNumber} nous a bien été transmise.
+        Votre commande n°${newOrder.orderNumber} nous a bien été transmise.
         Statut: En attente de validation
         Nous vous tiendrons au courant de son évolution.
         Merci`
       })
-      .then(() => console.log('E-mail de confirmation envoyé'))
-      .catch(err => next(err))  
-
-      res.status(201).json(newOrder)
+        .then(() => res.status(201).json(newOrder))
+        .catch(err => {
+          res.status(400).json({ message: "Une erreur lors de l'envoi du mail de confirmation s'est produite." });
+        })
     })
     .catch(err => res.status(400).json({ message: err.message }))
 });

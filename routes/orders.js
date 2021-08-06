@@ -75,7 +75,7 @@ ordersRoutes.put('/orders/:id', (req, res, next) => {
         .then(() => {
 
           transporter.sendMail({
-            from: 'alcove@hotmail.com',
+            from: process.env.EMAIL_ADRESS,
             to: order.addDelivery.email,
             subject: `Votre commande n°${order.orderNumber}`,
             text: `
