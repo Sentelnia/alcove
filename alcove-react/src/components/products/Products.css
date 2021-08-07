@@ -15,6 +15,9 @@
   font-weight: bold;
 }
 
+.productStore{
+  width: 100vw
+}
 
 hr{
   margin-bottom:2em;
@@ -144,6 +147,10 @@ h3{
     width: 18em;
     object-fit: contain;
     border-radius: 3px;
+  }
+
+  .productStore{
+    width: 85vw
   }
   
 }
