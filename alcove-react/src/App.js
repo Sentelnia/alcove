@@ -50,8 +50,7 @@ class App extends Component {
         this.setState({ cart: response.cart })
       })
       .catch(err => {
-        console.log(err)
-        // next(err) // Demander ce que ça fait...
+        console.log('err',err)
       })
   }
 
@@ -66,7 +65,7 @@ class App extends Component {
   };
 
   updateCart = (data) => {
-    console.log('data:', data)
+    // console.log('data:', data)
     this.setState({ cart: data.cart });
   };  
 

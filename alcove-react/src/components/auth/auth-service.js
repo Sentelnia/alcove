@@ -10,7 +10,6 @@ export default {
   login(email, password) {
     return this.service.post('/sessions', { email, password })
       .then(response => {
-        console.log('response',response)
         return response.data
       })
   },
@@ -50,10 +49,8 @@ export default {
   },
 
   verify(token){
-    console.log('token',token)
     return this.service.get(`/verify/${token}`)
     .then(response => {
-      console.log('response',response)
       return response.data
     })
   },

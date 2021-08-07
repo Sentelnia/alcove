@@ -28,7 +28,7 @@ cartsRoutes.put('/cart/add', (req, res, next) => {
 //////////////////////////////// EDIT QTY OF PRODUCT ALREADY IN THE CART ////////////////////////
 cartsRoutes.put('/cart/updateQty', (req, res, next) => {
   const { productId, quantity } = req.body
-  console.log('cart ', req.session.cart)
+  // console.log('cart ', req.session.cart)
 
   req.session.cart = req.session.cart
     .map(obj => {
