@@ -23,7 +23,7 @@ class Cart extends React.Component {
 
     deliveryMode: "",
     deliveryCost: 0,
-    addBillingSameAsDelivery: true,
+    addBillingSameAsDelivery: false,
 
     addBilling: {
       // billingCivility: this.props.user.civility || '',

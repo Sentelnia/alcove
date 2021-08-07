@@ -1,0 +1,34 @@
+.services{
+  margin-top :6em
+}
+.services h3{
+  text-align: center;
+}
+
+.services h4{
+  margin-left:1em
+}
+
+.services img{
+  width :100vw
+}
+
+.priceDetail{
+  display:flex;
+  flex-direction: column;
+  width: 10em
+}
+
+.serviceDetails{
+  margin: 1em 0;
+  padding:0.3em 1.5em;
+  height: 100%;
+  justify-content: space-between;
+  text-align: end;
+}
+
+.cartFid{
+  font-size: 0.7em;
+  text-align: center;
+  margin:2em
+}
