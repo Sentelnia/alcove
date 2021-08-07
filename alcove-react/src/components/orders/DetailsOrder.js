@@ -34,7 +34,6 @@ class DetailsOrder extends React.Component {
       .then(response => this.setState(response))
       .catch(err => {
         console.log(err)
-        next(err)
       });
   }
 
@@ -49,7 +48,6 @@ class DetailsOrder extends React.Component {
     })
     .catch(err => {
       console.log(err)
-      next(err)
     });
   }
 

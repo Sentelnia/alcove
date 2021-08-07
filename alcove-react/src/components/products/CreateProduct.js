@@ -29,7 +29,6 @@ class CreateProduct extends React.Component {
       })
       .catch(err => {
         console.log('error:', err)
-        next(err)
       })
   }
 
