@@ -1,48 +1,60 @@
-import React from 'react';
+import React from "react";
 
-
-import orderService from './order-service.js';
+import orderService from "./order-service.js";
 // import { Redirect } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
+import './Order.css'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 class Order extends React.Component {
-  state= {
-    orders: []
-  }
-  
+  state = {
+    orders: [],
+  };
+
   componentDidMount() {
-    orderService.getOrders()
+    orderService
+      .getOrders()
       .then((allOrders) => {
         this.setState({
-          orders: allOrders
-        })
+          orders: allOrders,
+        });
       })
-      .catch(err => console.log('err getOrders:', err))
+      .catch((err) => console.log("err getOrders:", err));
   }
 
   //fonction utilitaire
-  formatDate(myDate){
-    let formatDate = myDate.split("T")[0] // => AAAA-MM-JJ
-    return formatDate.slice(8,10) + '.' + formatDate.slice(5,7) + '.' + formatDate.slice(0,4);    
+  formatDate(myDate) {
+    let formatDate = myDate.split("T")[0]; // => AAAA-MM-JJ
+    return (
+      formatDate.slice(8, 10) +
+      "." +
+      formatDate.slice(5, 7) +
+      "." +
+      formatDate.slice(0, 4)
+    );
   }
 
   render() {
     return (
-      <div className='orderList'>
-        <h2>Mes achats</h2>
-        {this.state.orders.map(order => {
+      <div className="orderList">
+        {this.state.orders.map((order) => {
           return (
-            <div className='order' key={order._id}>
-              <p>Commande web n°{order.orderNumber}</p>
-              <span>{this.formatDate(order.orderDate)}</span> - <span>{order.status}</span>
-              <Link to={`details-order/${order._id}`}>Voir les détails de la commande</Link>
-            </div>
-          )
+            <article className="order" key={order._id}>
+              <p>
+                Commande web n°{order.orderNumber}{" "}
+                <span>{this.formatDate(order.orderDate)}</span> -{" "}
+                <span>{order.status}</span>
+              </p>
+
+              <Link to={`details-order/${order._id}`}>
+                Détails
+              </Link>
+            </article>
+            
+          );
         })}
       </div>
-    )
+    );
   }
 }
 export default Order;

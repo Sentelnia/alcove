@@ -1,0 +1,10 @@
+.order{
+  margin-top: 1.2em;
+  height: 6em;
+  font-size: 0.7em;
+}
+
+.order a{
+  text-decoration: none;
+  color:#256786;
+}

@@ -48,12 +48,16 @@ article p{
   width: 60%
 }
 
-.articleBox{
+.articleBox,
+.orderList{
   display:flex;
   flex-direction: column;
   margin-top: 1em;
-  height: 10em;
   justify-content: space-evenly;
+}
+
+.articlesBox{
+  height: 10em
 }
 
 .servicesShort a{
