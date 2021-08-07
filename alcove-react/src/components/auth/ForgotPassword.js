@@ -43,7 +43,7 @@ class ForgotPassword extends React.Component {
     if (this.state.redirect) return <Redirect to='/' />
 
     return (
-      <>
+      <div className='forgot'>
         {this.state.error &&
           (
             <div className='login'>
@@ -53,7 +53,7 @@ class ForgotPassword extends React.Component {
                   Votre Email:
                   <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
                 </label>
-                <button className="btn">Valider</button>
+                <button className="btn btnsignup">Valider</button>
               </form>
             </div>
           )}
@@ -61,7 +61,7 @@ class ForgotPassword extends React.Component {
         {this.state.msg && (
           <p className="error">{this.state.msg}</p>
         )}
-      </>
+      </div>
 
     )
   }

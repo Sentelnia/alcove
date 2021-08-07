@@ -120,7 +120,10 @@
     justify-content: space-between;
     padding: 5px;
     box-shadow: 0 5px 10px #b6b7b8;
-    height: 6em
+    height: 6em;
+    position: fixed;
+    top: 0;
+    width: 100vw;
   }
 
   .burgerImg,

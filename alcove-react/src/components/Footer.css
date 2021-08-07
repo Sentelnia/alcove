@@ -61,4 +61,10 @@ footer{
   border-radius: 8px;
  }
 
- 
+
+ @media (min-width: 1225px) {
+  .map{
+    width: 30vw;
+    height: 30vh;
+  }
+ }
