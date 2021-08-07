@@ -66,7 +66,7 @@ class Product extends React.Component {
   }
 
   render() {
-    console.log("props product:", this.props);
+    // console.log("props product:", this.props);
     
     return (
       <div className='productStore'>

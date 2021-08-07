@@ -27,7 +27,10 @@ class CreateProduct extends React.Component {
         this.props.history.push('/')
         console.log('produit créé')
       })
-      .catch(err => console.log('error:', err))
+      .catch(err => {
+        console.log('error:', err)
+        next(err)
+      })
   }
 
   handleUpload = (event) => {

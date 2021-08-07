@@ -7,7 +7,7 @@ import "./Homepage.css";
 
 class Homepage extends React.Component {
   render() {
-    console.log("props HP", this.props);
+    // console.log("props HP", this.props);
     return (
       <div className="homepage">
         <h1>L'Alcôve</h1>

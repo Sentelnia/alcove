@@ -34,6 +34,7 @@ class DetailsOrder extends React.Component {
       .then(response => this.setState(response))
       .catch(err => {
         console.log(err)
+        next(err)
       });
   }
 
@@ -48,6 +49,7 @@ class DetailsOrder extends React.Component {
     })
     .catch(err => {
       console.log(err)
+      next(err)
     });
   }
 
@@ -71,14 +73,26 @@ class DetailsOrder extends React.Component {
     )
   }
 
+  //fonction utilitaire
+  formatDate(myDate) {
+    let formatDate = myDate.split("T")[0]; // => AAAA-MM-JJ
+    return (
+      formatDate.slice(8, 10) +
+      "." +
+      formatDate.slice(5, 7) +
+      "." +
+      formatDate.slice(0, 4)
+    );
+  }
+
   render() {
-    console.log('state detail order:', this.state)
+    // console.log('state detail order:', this.state)
     return (
       <>
         <Link to="/profile">Retour à mon profil</Link>
         <div className='orderDetails'>
           <h2>Commande n° {this.state.orderNumber}</h2>
-          <span>{this.state.orderDate.split("T")[0]} - </span>
+          <span>{this.formatDate(this.state.orderDate)} - </span>
           {/* Affichage select inout pour ADMIN*/}
           {this.props.user.role === "ADMIN" ?  
           (<>

@@ -30,7 +30,6 @@ class ResetPassword extends React.Component {
 
       })
       .catch(err => {
-        console.log('err', err)
         this.setState({
           msg: err.response.data.message,
           error: false

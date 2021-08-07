@@ -24,7 +24,8 @@ class Profile extends React.Component {
     currentPassword: "",
     newPassword: "",
 
-    msg: "",
+    msgPwd: "",
+    msgEdit: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -79,10 +80,10 @@ class Profile extends React.Component {
     authService
       .edit(this.state)
       .then((response) => {
-        this.setState({ msg: "" });
+        this.setState({ msgEdit: "Votre profil à été mis à jour avec succès" });
         this.props.updateUser(this.state);
       })
-      .catch((err) => this.setState({ msg: err.response.data.message }));
+      .catch((err) => this.setState({ msgEdit: err.response.data.message }));
   };
 
   handleSubmitUpdatePassword = (event) => {
@@ -91,12 +92,12 @@ class Profile extends React.Component {
       .updatePassword(this.state.currentPassword, this.state.newPassword)
       .then(() => {
         this.setState({
-          msg: "Mot de passe modifié avec succès",
+          msgPwd: "Mot de passe modifié avec succès",
           currentPassword: "",
           newPassword: "",
         });
       })
-      .catch((err) => this.setState({ msg: err.response.data.message }));
+      .catch((err) => this.setState({ msgPwd: err.response.data.message }));
   };
 
   deleteAccount = (event) => {
@@ -106,7 +107,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    console.log("props profile:", this.props);
+    // console.log("props profile:", this.props);
     if (this.props.user === false) return <Redirect to="/login" />;
 
     return (
@@ -222,6 +223,9 @@ class Profile extends React.Component {
 
             <button className="btn btnedit">Editer mes infos perso</button>
           </form>
+
+          {this.state.msgEdit && <p className="msg">{this.state.msgEdit}</p>}
+
         </div>
         <hr />
         <div className="editpass">
@@ -250,7 +254,7 @@ class Profile extends React.Component {
             <button className="btn btneditpass">Modifier mon mot de passe</button>
           </form>
           
-          {this.state.msg && <p className="msg">{this.state.msg}</p>}
+          {this.state.msgPwd && <p className="msg">{this.state.msgPwd}</p>}
           
           
         </div>

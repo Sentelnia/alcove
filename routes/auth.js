@@ -226,7 +226,7 @@ authRoutes.put('/user/update-password', (req, res, next) => {
       let pwdFromDb = foundUser.password;
 
       bcrypt.compare(currentPassword, pwdFromDb, function (err, isMatch) {
-        console.log('bcrypt compare:', currentPassword, pwdFromDb, err, isMatch)
+        // console.log('bcrypt compare:', currentPassword, pwdFromDb, err, isMatch)
 
         if (!isMatch) {
           // Unauthorized
@@ -329,7 +329,7 @@ authRoutes.get('/user/reset-password/:resetPasswordToken', (req, res, next) => {
 authRoutes.put('/user/update-forgotten-password', (req, res, next) => {
 
   const { email, newPassword } = req.body;
-  console.log('newPassword', newPassword, 'email', email)
+  // console.log('newPassword', newPassword, 'email', email)
 
   // Check currentPassword and newPassword are not empty
   if (!newPassword) {
@@ -346,7 +346,7 @@ authRoutes.put('/user/update-forgotten-password', (req, res, next) => {
 
   User.findOne({ email })
     .then(foundUser => {
-      console.log('foundUser put update', foundUser)
+      // console.log('foundUser put update', foundUser)
 
       const salt = bcrypt.genSaltSync(10);
       const hashPass = bcrypt.hashSync(newPassword, salt);
