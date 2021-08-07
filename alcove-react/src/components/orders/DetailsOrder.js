@@ -90,7 +90,7 @@ class DetailsOrder extends React.Component {
       <div className="orderDetails">
         <h3>Commande n° {this.state.orderNumber}</h3>
         <div className="status">
-          <span>{this.state.orderDate.split("T")[0]} - </span>
+          <span>{this.formatDate(this.state.orderDate)} - </span>
           {/* Affichage select inout pour ADMIN*/}
           {this.props.user.role === "ADMIN" ? (
             <>

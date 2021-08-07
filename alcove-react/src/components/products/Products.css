@@ -123,3 +123,27 @@ h3{
   padding-bottom:0;
   margin-bottom:0
 }
+
+@media (min-width: 1225px) {
+
+  ::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+  }
+  
+  ::-webkit-scrollbar {
+    height: 1vh;
+    background-color: #F5F5F5;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #3d4852;
+    border-radius: 3px;
+  }
+
+  .product-card img{
+    width: 18em;
+    object-fit: contain;
+    border-radius: 3px;
+  }
+  
+}

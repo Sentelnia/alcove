@@ -1,3 +1,4 @@
+
 .homepage{
   margin: 5em 1.5em 0;
   display:flex;
@@ -78,4 +79,41 @@ article p{
   margin-bottom:2.5em
 }
 
+.servicesShort article{
+  margin: 0.5em 0
+}
+
+@media (min-width: 1225px) {
+
+  .homepage{
+    margin-top: 2em
+  }
+  .intro{
+    text-align: center;
+    margin: 1em 5em
+  }
+
+  .homepage hr{
+    width: 25vw
+  }
+
+  .imgIntro{
+    width: 50vw
+  }
+
+  article{
+    font-size: 1em;
+    width: 50vw;
+    margin:0;
+    padding:0;
+    justify-content: space-evenly;
+  }
+
+ .servicesShort a{
+   font-size: 1em
+ }
+
+
+
+}
 

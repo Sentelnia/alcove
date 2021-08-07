@@ -11,7 +11,7 @@ class Homepage extends React.Component {
     return (
       <div className="homepage">
         <h1>L'Alcôve</h1>
-        <p>
+        <p className='intro'>
           L’Alcôve est un espace dédié à la beauté de votre regard et de vos
           ongles, un véritable cocon où l'esthétique côtoie la sérénité.{" "}
         </p>
