@@ -84,4 +84,17 @@
 }
 
 
+@media (min-width: 1225px) {
 
+.signup{
+  margin-top: 9em
+}
+
+.signup input,
+.dashboard input,
+.infoUser input,
+.forgot input{ 
+  width: 25vw
+}
+
+}

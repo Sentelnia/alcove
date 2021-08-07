@@ -67,4 +67,11 @@
 }
 
 
-
+@media (min-width: 1225px) {
+  .login{
+    margin-top: 9em
+  }
+  .login input{
+    width: 25vw
+  }
+}

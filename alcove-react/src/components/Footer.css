@@ -64,7 +64,17 @@ footer{
 
  @media (min-width: 1225px) {
   .map{
-    width: 30vw;
-    height: 30vh;
+    width: 30em;
+    height: 14em;
+  }
+  .footer-box{
+    font-size: 1.1em;
+  }
+  .contact-container{
+    width: 50vw;
+  }
+  .link-container{
+    margin-top: 2em;
+    width: 20vw
   }
  }

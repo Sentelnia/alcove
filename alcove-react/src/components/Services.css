@@ -2,6 +2,7 @@
   margin-top :6em
 }
 .services h3{
+  margin:2em 0;
   text-align: center;
 }
 
@@ -30,5 +31,5 @@
 .cartFid{
   font-size: 0.7em;
   text-align: center;
-  margin:2em
+  margin:2em 
 }
