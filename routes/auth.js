@@ -99,7 +99,7 @@ authRoutes.post('/users', (req, res, next) => {
                 <a href=${process.env.NOM_DOMAINE}/verify/${token}> Valider </a></br>
                 Merci`
               })
-              .then(() => res.status(200).json({ message: 'Un E-mail pour valider votre adresse vous a été envoyé. Vous allez être redirigé.' }))
+              .then(() => res.status(200).json({ message: 'Un E-mail pour valider votre adresse vous a été envoyé.' }))
               .catch(err => {
                 res.status(400).json({ message: "Une erreur lors de l'envoi du mail de validation s'est produite." });
               })
@@ -290,7 +290,7 @@ authRoutes.put('/user/forgot-password', (req, res, next) => {
             <a href=${process.env.NOM_DOMAINE}/reset-password/${foundUser.resetPasswordToken}>Accèder à mon compte</a></br>
             Si vous n'êtes pas à l'origine de cette demande, merci d'ignorer cet E-mail.`
           })
-            .then(() => res.status(200).json({ message: 'Un E-mail vous a été envoyé. Vous allez être redirigé.' }))
+            .then(() => res.status(200).json({ message: 'Un E-mail vous a été envoyé.' }))
             .catch(err => {
               res.status(400).json({ message: "Une erreur lors de l'envoi du mail de récupération s'est produite." });
             })
@@ -358,7 +358,7 @@ authRoutes.put('/user/update-forgotten-password', (req, res, next) => {
 
       foundUser.save()
         .then(() => {
-          res.status(200).json({ message: "Mot de passe modifié. Vous allez être redirigé." });
+          res.status(200).json({ message: "Mot de passe modifié avec succès." });
         })
         .catch(err => {
           console.log('err save:', err)

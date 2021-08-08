@@ -8,7 +8,7 @@ class ResetPassword extends React.Component {
     email: '',
     password: '',
     msg: '',
-    redirect: false,
+    // redirect: false,
     error: true
   }
   componentDidMount() {
@@ -52,11 +52,11 @@ class ResetPassword extends React.Component {
           error: false
         });
         //Redirection après 3s
-        setTimeout(() => {
-          this.setState({
-            redirect: true
-          })
-        }, 3000);
+        // setTimeout(() => {
+        //   this.setState({
+        //     redirect: true
+        //   })
+        // }, 3000);
       })
       .catch(err => {
         this.setState({ msg: err.response.data.message })
@@ -65,7 +65,7 @@ class ResetPassword extends React.Component {
 
   render() {
 
-    if (this.state.redirect) return <Redirect to='/login' />
+   // if (this.state.redirect) return <Redirect to='/login' />
 
     return (
       <>
