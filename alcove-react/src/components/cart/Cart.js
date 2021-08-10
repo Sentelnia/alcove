@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import cartService from "./cart-service";
 import orderService from "../orders/order-service";
+import Paypal from "./Paypal";
 import { Link } from "react-router-dom";
 // import PhoneInput from "react-phone-input-2";
 // import "react-phone-input-2/lib/style.css";
@@ -34,6 +35,7 @@ class Cart extends React.Component {
       billingZip: this.props.user?.zip || "",
       billingCity: this.props.user?.city || "",
     },
+
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -76,7 +78,7 @@ class Cart extends React.Component {
   };
 
   cartToOrder = (event) => {
-    console.log("event:", event);
+
     orderService
       .getOrders()
       .then((response) => {
@@ -507,7 +509,6 @@ class Cart extends React.Component {
                 {this.state.deliveryMode === "" ? (
                   <>
                     <p>Selectionner mode de livraison</p>
-
                   </>
                 ) : (
                   this.state.deliveryMode === "Livraison à domicile" && (
@@ -762,13 +763,20 @@ class Cart extends React.Component {
                     <span> {this.sumCart() + this.state.deliveryCost}</span> €
                   </p>
                 </div>
-                <button
+                {/* <button
                   className="btn btnvalidcart"
                   disabled={this.isReadyToValidate()}
                   onClick={(e) => this.cartToOrder(e)}
                 >
-                  Valider et payer via Paypal
-                </button>
+                  Valider ma commande
+                </button> */}
+                {!this.isReadyToValidate() && ( //isReadyToValidate initialement paramétrée pour disabled btn = true => valeur booléan à inverser
+                  <>
+                    <hr />
+                    <h3>OPTION DE PAIEMENT</h3>
+                    <Paypal amount={this.sumCart() + this.state.deliveryCost} cartToOrder={this.cartToOrder} />
+                  </>
+                )}
               </div>
             )}
           </div>
