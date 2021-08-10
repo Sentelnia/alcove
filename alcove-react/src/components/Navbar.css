@@ -13,6 +13,7 @@
     position: fixed;
     top: 0;
     width: 100vw;
+    z-index: 200; /*Pour que la CB Paypal passe sous la nav*/
   }
 
   .cart,
