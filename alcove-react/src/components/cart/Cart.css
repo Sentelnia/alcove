@@ -73,7 +73,8 @@
 
 .cartBox h3{
   margin-top: 0;
-  width: 90vw
+  width: 90vw;
+  text-align: center;
 }
 
 .delivery-option{
