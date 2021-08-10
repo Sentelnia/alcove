@@ -69,8 +69,17 @@
 .resetPass{
   margin-top: 8em
 }
-.resetPass p {
-  text-align: center;
+.resetPass p{
+  text-align: justify;
+  margin:1em 
+}
+
+.btnreset {
+  margin-top: 2em
+}
+
+.resetPass .error{
+  text-align:center
 }
 
 @media (min-width: 1225px) {

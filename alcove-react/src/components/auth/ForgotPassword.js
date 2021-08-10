@@ -1,13 +1,13 @@
 import React from "react";
 import { Redirect } from 'react-router-dom';
-
+import './Signup.css'
 import authService from "./auth-service.js";
 
 class ForgotPassword extends React.Component {
   state = {
     email: '',
     msg: '',
-    // redirect: false,
+    redirect: false,
     error: true
   }
 
@@ -26,11 +26,11 @@ class ForgotPassword extends React.Component {
           error: false
         });
         //Redirection après 3s
-        // setTimeout(() => {
-        //   this.setState({
-        //     redirect: true
-        //   })
-        // }, 3000);
+        setTimeout(() => {
+          this.setState({
+            redirect: true
+          })
+        }, 3000);
       })
       .catch(err => {
         this.setState({ msg: err.response.data.message })
@@ -40,20 +40,20 @@ class ForgotPassword extends React.Component {
   render() {
 
     if (this.props.user._id) return <Redirect to="/" />
-    // if (this.state.redirect) return <Redirect to='/' />
+    if (this.state.redirect) return <Redirect to='/' />
 
     return (
       <div className='forgot'>
         {this.state.error &&
           (
-            <div className='login'>
+            <div>
               <h3>Mot de passe oublié?</h3>
               <form onSubmit={(e) => this.handleSubmit(e)}>
                 <label>
                   Votre Email:
                   <input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
                 </label>
-                <button className="btn btnsignup">Valider</button>
+                <button className="btn btnforgot">Valider</button>
               </form>
             </div>
           )}

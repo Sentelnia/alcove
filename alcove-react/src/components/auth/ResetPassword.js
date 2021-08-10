@@ -1,6 +1,7 @@
 import React from "react";
 
 import authService from "./auth-service.js";
+import './Profil.css'
 
 class ResetPassword extends React.Component {
   state = {
@@ -67,9 +68,9 @@ class ResetPassword extends React.Component {
    // if (this.state.redirect) return <Redirect to='/login' />
 
     return (
-      <>
+      <div className='resetPass'>
         {this.state.error && (
-          <div className='resetPass'>
+          <div >
             <form onSubmit={(e) => this.handleSubmit(e)}>
 
               <p>
@@ -89,7 +90,7 @@ class ResetPassword extends React.Component {
         {this.state.msg && (
           <p className="error">{this.state.msg}</p>
         )}
-      </>
+      </div>
     )
   }
 }
