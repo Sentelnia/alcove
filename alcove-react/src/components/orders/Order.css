@@ -37,7 +37,8 @@
 
 .productDetails{
   font-size: 0.7em;
-  height: 6em
+  height: 6em;
+ 
 }
 
 .productDetails p{
@@ -46,7 +47,8 @@
 
 .totalOrderDetails{
   text-align: end;
-  margin: 2em 2em
+  margin: 2em 2em;
+  font-size: 0.95em
 }
 
 .deliveryOtions{
@@ -54,8 +56,14 @@
   margin-bottom: 2em
 }
 
-.deliveryAdress {
-  margin-bottom: 2em
+.deliveryAdress,
+.billingAdress {
+  margin-bottom: 2em;
+  font-size: 0.85em
+}
+
+.status{
+  margin-bottom:2em
 }
 
 @media (min-width: 1225px) {

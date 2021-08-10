@@ -110,7 +110,6 @@ class DetailsOrder extends React.Component {
             <span>{this.state.status}</span>
           )}
 
-          <p>{this.sumItemsOrder()} Articles</p>
         </div>
         {this.state.items.map((item) => (
           <article className="productDetails" key={item._id}>
@@ -121,12 +120,17 @@ class DetailsOrder extends React.Component {
           </article>
         ))}
         <div className="totalOrderDetails">
-          <p>
+          
+          {this.state.deliveryMode === "Livraison à domicile"  && (
+            <>
+            <p>
             Sous-total:<span> {this.sumOrder()} €</span>
           </p>
-          <p>
+            <p>
             Frais de livraison:<span> {this.state.deliveryCost}</span> €
           </p>
+          </>
+          )}
           <p>
             Total TVA incluse:
             <span> {this.sumOrder() + this.state.deliveryCost}</span> €
