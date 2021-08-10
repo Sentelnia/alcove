@@ -46,6 +46,10 @@ class Profile extends React.Component {
       });
     }
   }
+  
+  componentDidMount(){
+    window.scrollTo(0,0)
+  }
 
   handleChange = (event) => {
     let regEx = /^[0-9]*$/; //autorise chiffre de 0 à 9 + RAZ

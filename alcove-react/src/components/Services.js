@@ -6,6 +6,10 @@ import wonder from '../images/wonder.jpeg'
 //le commentaire qui suit est pour enlever les petites lignes jaunes sur mon vs code car c'est très desagréable !
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
+
+  componentDidMount(){
+    window.scrollTo(0,0)
+  }
   render() {
     return (
       <div className="services">

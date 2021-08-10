@@ -37,6 +37,9 @@ class Cart extends React.Component {
     },
 
   };
+  componentDidMount(){
+    window.scrollTo(0,0)
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.user !== prevProps.user) {

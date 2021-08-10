@@ -61,6 +61,7 @@ class DetailsProduct extends React.Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0,0)
     productsService
       .getProduct(this.props.match.params.id)
       .then((response) => this.setState(response))
