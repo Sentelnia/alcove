@@ -67,6 +67,7 @@
 }
 
 @media (min-width: 1225px) {
-
-  
+  .dashboard h3{
+    text-align: center;
+  }
 }
