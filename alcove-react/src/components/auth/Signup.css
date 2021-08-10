@@ -7,7 +7,8 @@
 .signup form,
 .dashboard form,
 .infoUser form,
-.forgot form{
+.forgot form,
+.resetPass form{
   margin-top: 2em;
   display:flex;
   flex-direction: column;
@@ -22,7 +23,8 @@
 .signup input,
 .dashboard input,
 .infoUser input,
-.forgot input{ 
+.forgot input,
+.resetPass input{ 
   border:none;
   padding:0.4em 0.6em;
   width: 80vw;
@@ -35,7 +37,8 @@
 .signup label,
 .dashboard label,
 .infoUser label,
-.forgot label{
+.forgot label,
+.resetPass label{
   display:flex;
   flex-direction: column;
   color:#cfa5a1;
@@ -47,7 +50,8 @@
 .infoUser .btn,
 .price .btn,
 .btnvalidcart,
-.btnforgot{
+.btnforgot,
+.btnreset{
   width: 20em;
   border: 1px solid rgb(235, 235, 235);
   font-weight: bold;
@@ -58,7 +62,8 @@
 .btnsignup:active,
 .btnaddcart:active,
 .btnvalidcart:active,
-.btnforgot:active{
+.btnforgot:active,
+.btnreset:active{
   color:white;
   background-color: #256786;
 }
@@ -71,7 +76,8 @@
 .btnsignup,
 .btnaddcart,
 .btnvalidcart,
-.btnforgot{
+.btnforgot,
+.btnreset{
   color: #256786;
 }
 
@@ -83,6 +89,9 @@
   color:white;
 }
 
+.forgot{
+  margin-top: 8em
+}
 
 @media (min-width: 1225px) {
 

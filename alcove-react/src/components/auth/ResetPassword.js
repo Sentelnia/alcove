@@ -69,7 +69,7 @@ class ResetPassword extends React.Component {
     return (
       <>
         {this.state.error && (
-          <>
+          <div className='resetPass'>
             <form onSubmit={(e) => this.handleSubmit(e)}>
 
               <p>
@@ -81,9 +81,9 @@ class ResetPassword extends React.Component {
                 Mot de passe:
                 <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
               </label>
-              <button className="btn">Réinitialiser mon mot de passe</button>
+              <button className="btn btnreset">Réinitialiser mon mot de passe</button>
             </form>
-          </>
+          </div>
         )}
 
         {this.state.msg && (
