@@ -94,7 +94,7 @@ class DetailsProduct extends React.Component {
         <div className="price">
           <span>{this.state.unitPrice * this.state.quantity} €</span>
           {/* {Affichage du btn en fn du role} */}
-          {this.props.user.role === "USER" &&
+          {this.props.user.role !== "ADMIN" &&
           !this.isAlreadyInCart(this.props.match.params.id) ? (
             <button
               className="btn btnaddcart"

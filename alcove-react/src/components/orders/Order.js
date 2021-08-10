@@ -36,24 +36,35 @@ class Order extends React.Component {
 
   render() {
     return (
-      <div className="orderList">
-        {this.state.orders.map((order) => {
-          return (
-            <article className="order" key={order._id}>
+      <>
+        {this.state.orders.length === 0 && (
+          <>
+            <article className="order">
               <p>
-                Commande web n°{order.orderNumber}{" "}
-                <span>{this.formatDate(order.orderDate)}</span> -{" "}
-                <span>{order.status}</span>
+               Vous n'avez pas encore effectué d'achat.
               </p>
-
-              <Link to={`details-order/${order._id}`}>
-                Détails
-              </Link>
             </article>
-            
-          );
-        })}
-      </div>
+          </>
+        )}
+        <div className="orderList">
+          {this.state.orders.map((order) => {
+            return (
+              <article className="order" key={order._id}>
+                <p>
+                  Commande web n°{order.orderNumber}{" "}
+                  <span>{this.formatDate(order.orderDate)}</span> -{" "}
+                  <span>{order.status}</span>
+                </p>
+
+                <Link to={`details-order/${order._id}`}>
+                  Détails
+                </Link>
+              </article>
+
+            );
+          })}
+        </div>
+      </>
     );
   }
 }
