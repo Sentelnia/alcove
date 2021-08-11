@@ -88,29 +88,44 @@ class DetailsOrder extends React.Component {
     console.log("state detail order:", this.state);
     return (
       <div className="orderDetails">
-        <h3>Commande n° {this.state.orderNumber}</h3>
-        <div className="status">
-          <span>{this.formatDate(this.state.orderDate)} - </span>
-          {/* Affichage select inout pour ADMIN*/}
-          {this.props.user.role === "ADMIN" ? (
-            <>
-              <select
-                name="status"
-                value={this.state.status}
-                onChange={(e) => this.handleChangeStatus(e)}
-              >
-                <option value="En attente de validation">
-                  En attente de validation
-                </option>
-                <option value="Validée">Validée</option>
-                <option value="Expédiée">Expédiée</option>
-              </select>
-            </>
-          ) : (
-            <span>{this.state.status}</span>
-          )}
 
-        </div>
+        <table id="table-status" class="table-status">
+          <tr>
+            <th colspan="2">Commande n° {this.state.orderNumber}</th>
+          </tr>
+          <tr>
+            <td class="title">Date:</td>
+            <td class="info">{this.formatDate(this.state.orderDate)}</td>
+          </tr>
+          <tr>
+            <td class="title">Statut:</td>
+            <td class="info">
+              {/* Affichage select input pour ADMIN*/}
+              {this.props.user.role === "ADMIN" ? (
+                <>
+                  <select
+                    name="status"
+                    value={this.state.status}
+                    onChange={(e) => this.handleChangeStatus(e)}
+                  >
+                    <option value="En attente de validation">
+                      En attente de validation
+                    </option>
+                    <option value="Validée">Validée</option>
+                    <option value="Expédiée">Expédiée</option>
+                  </select>
+                </>
+              ) : (
+                <>{this.state.status}</>
+              )}
+            </td>
+          </tr>
+          <tr>
+            <td class="title">Livraison:</td>
+            <td class="info">{this.state.deliveryMode}</td>
+          </tr>
+        </table>
+
         {this.state.items.map((item) => (
           <article className="productDetails" key={item._id}>
             <p>{item.product.name}</p>
@@ -119,32 +134,34 @@ class DetailsOrder extends React.Component {
             <span>Total: {item.quantity * item.product.unitPrice} €</span>
           </article>
         ))}
-        <div className="totalOrderDetails">
-          
-          {this.state.deliveryMode === "Livraison à domicile"  && (
+
+        <table id="table-total" class="table-total">
+          {this.state.deliveryMode === "Livraison à domicile" && (
             <>
-            <p>
-            Sous-total:<span> {this.sumOrder()} €</span>
-          </p>
-            <p>
-            Frais de livraison:<span> {this.state.deliveryCost}</span> €
-          </p>
-          </>
+              <tr>
+                <td class="title">Sous-total:</td>
+                <td class="info">{this.sumOrder()} €</td>
+              </tr>
+              <tr>
+                <td class="title">Frais de livraison:</td>
+                <td class="info">{this.state.deliveryCost} €</td>
+              </tr>
+            </>
           )}
-          <p>
-            Total TVA incluse:
-            <span> {this.sumOrder() + this.state.deliveryCost}</span> €
-          </p>
-        </div>
-          <div className='deliveryOtions'>
+          <tr>
+            <td class="title total">Total TVA incluse:</td>
+            <td class="info total">{this.sumOrder() + this.state.deliveryCost} €</td>
+          </tr>
+        </table>
+
         {/* Affichage en fonction du mode de livraison */}
-        {this.state.deliveryMode === "Livraison à domicile" ? (
-          <>
-            <div className="deliveryAdress">
-              <h3>Adresse de livraison</h3>
+        {this.state.deliveryMode === "Livraison à domicile" && (
+
+          <div className='deliveryOtions'>
+            <div className="adress">
+              <h5>Adresse de livraison</h5>
               <p>
-                {this.state.addDelivery.firstName}{" "}
-                {this.state.addDelivery.lastName}
+                {this.state.addDelivery.firstName} {this.state.addDelivery.lastName}
               </p>
               <p>
                 {this.state.addDelivery.street} {this.state.addDelivery.supp}
@@ -152,11 +169,10 @@ class DetailsOrder extends React.Component {
               <p>
                 {this.state.addDelivery.zip} {this.state.addDelivery.city}
               </p>
-              
             </div>
-            <hr/>
-            <div className="billingAdress">
-              <h3>Adresse de facturation</h3>
+
+            <div className="adress">
+              <h5>Adresse de facturation</h5>
               <p>
                 {this.state.addBilling.firstName}{" "}
                 {this.state.addBilling.lastName}
@@ -168,11 +184,9 @@ class DetailsOrder extends React.Component {
                 {this.state.addBilling.zip} {this.state.addBilling.city}
               </p>
             </div>
-          </>
-        ) : (
-          <h4>Retrait en boutique</h4>
+          </div>
+
         )}
-        </div>
       </div>
     );
   }

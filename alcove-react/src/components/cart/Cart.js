@@ -144,7 +144,7 @@ class Cart extends React.Component {
     // Gestion changement de mode de livraison
     if (name === "deliveryMode" && value === "Livraison à domicile") {
       this.setState({
-        deliveryCost: 3.95,
+        deliveryCost: 3,
         addDelivery: {
           // deliveryCivility: this.props.user?.civility || '',
           deliveryFirstName: this.props.user?.firstName || "",

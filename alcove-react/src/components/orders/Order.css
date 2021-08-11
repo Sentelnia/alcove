@@ -30,10 +30,9 @@
   margin-top: 7em
 }
 
-.orderDetails h3,
-.status{
+/* .orderDetails h3{
   text-align:center
-}
+} */
 
 .productDetails{
   font-size: 0.7em;
@@ -46,25 +45,61 @@
 }
 
 .totalOrderDetails{
-  text-align: end;
-  margin: 2em 2em;
-  font-size: 0.95em
+  /* text-align: end; */
+  margin-top: 1.2em;
+  margin-right: 1.8em;
+  font-size: 1.2em
 }
 
 .deliveryOtions{
-  text-align: center;
-  margin-bottom: 2em
+  /* margin-bottom: 2em; */
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid rgb(235, 235, 235);
+  box-shadow: 0px 3px 100px rgb(37 103 134 / 10%);
+  border-radius: 2px;
+  padding: 0.8em 0;
 }
 
-.deliveryAdress,
-.billingAdress {
-  margin-bottom: 2em;
-  font-size: 0.85em
+.adress {
+  margin-bottom: 1.2em;
+}
+.adress h5{
+  font-size: 0.7em
 }
 
-.status{
-  margin-bottom:2em
+.adress p{
+  margin:0;
+  font-size: 0.7em
 }
+
+.table-status{
+  margin-left: auto; margin-right: auto;
+  margin-bottom:1.2em;
+}
+
+.table-status th{
+  font-size: 1.17em;
+  text-align: left;
+}
+
+.table-total{
+  margin: 1.2em 2em 1.2em auto;
+  font-size: 1.2em
+}
+
+.title{
+  font-size: 0.7em;
+}
+.info{
+  font-size: 0.7em;
+  padding-left: 15px;
+  text-align: right;
+}
+.total{
+  font-weight: 700;
+}
+
 
 @media (min-width: 1225px) {
   .order{
