@@ -411,7 +411,7 @@ class Cart extends React.Component {
             <h2>MON PANIER</h2>
             {/* {Gestion de l'affichage si panier vide} */}
             {this.sumItemsCart() === 0 ? (
-              <p className='empty'>Panier vide</p>
+              <p className='empty'>Votre panier est vide!</p>
             ) : (
               <div className="productCart">
                 {this.props.cart.map((item) => (

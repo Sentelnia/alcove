@@ -5,7 +5,7 @@ const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 class Paypal extends React.Component {
   createOrder(data, actions) {
-    console.log('data createOrder:',data)
+    console.log('data createOrder:', data)
     return actions.order.create({
       purchase_units: [
         {
@@ -24,10 +24,12 @@ class Paypal extends React.Component {
 
   render() {
     return (
-      <PayPalButton
-        createOrder={(data, actions) => this.createOrder(data, actions)}
-        onApprove={(data, actions) => this.onApprove(data, actions)}
-      />
+      <div className="paypal-container">
+        <PayPalButton
+          createOrder={(data, actions) => this.createOrder(data, actions)}
+          onApprove={(data, actions) => this.onApprove(data, actions)}
+        />
+      </div>
     );
   }
 }

@@ -3,7 +3,7 @@
 }
 
 .empty{
-  margin-left: 1em
+  text-align: center;
 }
 
 .cartBox h2{
@@ -108,4 +108,8 @@
 
 .btnvalidcart{
   margin-bottom:2em
+}
+
+.paypal-container{
+  margin-top: 1em;
 }

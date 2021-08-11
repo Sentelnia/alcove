@@ -7,7 +7,6 @@ class ForgotPassword extends React.Component {
   state = {
     email: '',
     msg: '',
-    redirect: false,
     error: true
   }
 
@@ -25,12 +24,6 @@ class ForgotPassword extends React.Component {
           msg: response.message,
           error: false
         });
-        //Redirection après 3s
-        setTimeout(() => {
-          this.setState({
-            redirect: true
-          })
-        }, 3000);
       })
       .catch(err => {
         this.setState({ msg: err.response.data.message })
@@ -40,7 +33,6 @@ class ForgotPassword extends React.Component {
   render() {
 
     if (this.props.user._id) return <Redirect to="/" />
-    if (this.state.redirect) return <Redirect to='/' />
 
     return (
       <div className='forgot'>

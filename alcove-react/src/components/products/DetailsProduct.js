@@ -54,7 +54,6 @@ class DetailsProduct extends React.Component {
       .addToCart(id, this.state.quantity)
       .then((response) => {
         this.props.updateCart(response);
-        console.log("produit ajouté au panier");
         this.props.history.push("/"); // Redirection vers home
       })
       .catch((err) => console.log("error delete product:", err));
@@ -127,7 +126,7 @@ class DetailsProduct extends React.Component {
         {this.props.user.role !== "ADMIN" &&
           !this.isAlreadyInCart(this.props.match.params.id) && (
             <div className="qty">
-              <label>Quantitée</label>
+              <label>Quantité</label>
               <div className="qtyBox">
                 <button
                   className="btn btnup"
