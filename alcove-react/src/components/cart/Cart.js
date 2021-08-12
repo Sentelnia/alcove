@@ -37,8 +37,8 @@ class Cart extends React.Component {
     },
 
   };
-  componentDidMount(){
-    window.scrollTo(0,0)
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -470,17 +470,20 @@ class Cart extends React.Component {
                 ))}
 
                 <hr />
-
                 <div className="cart-recap-container">
+                  <span className="cart-recap-title">Total: </span><span>{this.sumItemsCart()} Article(s) - {this.sumCart()} €</span>
+                </div>
+
+                {/* <div className="cart-recap-container">
                   <div className="cart-recap-detail">
-                    <p>{this.sumItemsCart()} Articles</p>
+                    <p>{this.sumItemsCart()} Article(s)</p>
                   </div>
                   <div className="cart-recap-total">
                     <p>Total</p>
                     <p>{this.sumCart()} €</p>
                     <p>Hors frais de livraison</p>
                   </div>
-                </div>
+                </div> */}
 
                 <hr />
 
@@ -753,7 +756,7 @@ class Cart extends React.Component {
                   )}
                 <hr />
                 <h3>MA COMMANDE</h3>
-                <div className='resumeOrder'>
+                {/* <div className='resumeOrder'>
                   <p>{this.sumItemsCart()} Articles</p>
                   <p>
                     Sous-total:<span> {this.sumCart()} €</span>
@@ -765,7 +768,30 @@ class Cart extends React.Component {
                     Total à payer TVA incluse:
                     <span> {this.sumCart() + this.state.deliveryCost}</span> €
                   </p>
-                </div>
+                </div> */}
+
+                <table id="table-resume" class="table-resume">
+                  <tr>
+                    <td class="title">Article(s):</td>
+                    <td class="info">{this.sumItemsCart()}</td>
+                  </tr>
+                  {this.state.deliveryMode === "Livraison à domicile" && (
+                    <>
+                      <tr>
+                        <td class="title">Sous-total:</td>
+                        <td class="info">{this.sumCart()} €</td>
+                      </tr>
+                      <tr>
+                        <td class="title">Frais de livraison:</td>
+                        <td class="info">{this.state.deliveryCost} €</td>
+                      </tr>
+                    </>
+                  )}
+                  <tr>
+                    <td class="title total">Total TVA incluse:</td>
+                    <td class="info total">{this.sumCart() + this.state.deliveryCost} €</td>
+                  </tr>
+                </table>
                 {/* <button
                   className="btn btnvalidcart"
                   disabled={this.isReadyToValidate()}

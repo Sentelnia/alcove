@@ -54,21 +54,14 @@
 }
 
 .cart-recap-container{
-  text-align: center;
+  margin-bottom: 1.4em;
+  width: 230px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.cart-recap-detail p{
-  text-align: end;
-  margin: 0 1em;
-  width: 100%;
-} 
-
-.cart-recap-total{
-  display:flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin: 0 1em;
-  justify-content: space-around;
+.cart-recap-title{
+  font-weight: 700;
 }
 
 .cartBox h3{
@@ -106,10 +99,16 @@
   text-align: end;
 }
 
+.table-resume{
+  margin: 1.5em 0;
+  font-size: 1.2em;
+  width:200px;  /*fit with paypal div*/
+}
+
 .btnvalidcart{
   margin-bottom:2em
 }
 
 .paypal-container{
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
