@@ -30,6 +30,7 @@ As it is part of "L'Alcôve's" business strategy, we took the challenge to creat
 - Password reset email with Nodemailer
 - Checkout with Paypal
 - Follow-up of the order by e-mail
+- Profil Admin for the back office
 
 ## Give it a try:
 
