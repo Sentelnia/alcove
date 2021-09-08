@@ -471,7 +471,7 @@ class Cart extends React.Component {
 
                 <hr />
                 <div className="cart-recap-container">
-                  <span className="cart-recap-title">Total: </span><span>{this.sumItemsCart()} Article(s) - {this.sumCart()} €</span>
+                  <span className="cart-recap-title">Total:</span> <span> {this.sumItemsCart()} Article(s) - {this.sumCart()} €</span>
                 </div>
 
                 {/* <div className="cart-recap-container">

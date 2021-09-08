@@ -12,6 +12,11 @@ body {
 
 
 
-h2{
-  font-size: 1.6em ;
+@media (min-width: 1225px) {
+  body{
+    font-size: 1.1em
+  }
 }
+
+  
+

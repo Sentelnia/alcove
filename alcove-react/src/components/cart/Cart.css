@@ -112,3 +112,31 @@
 .paypal-container{
   margin-top: 1.5em;
 }
+
+@media (min-width: 1225px) {
+  .cart-container{
+    font-size: 1.1em;
+    margin-bottom: 2em;
+  }
+  .cart-container img{
+    width: 9em
+  }
+  
+  .cartBox{
+    font-size: 1.1em;
+  }
+
+  .cart-recap-container{
+    width: 80vw;
+    justify-content: center;
+  }
+  .cart-recap-title{
+    margin-right: 1em;
+  }
+
+  .table-resume{
+    font-size: 1.3em;
+    width: 25vw
+  }
+
+  }

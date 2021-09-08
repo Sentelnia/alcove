@@ -33,3 +33,27 @@
   text-align: center;
   margin:2em 
 }
+
+@media (min-width: 1225px) {
+  .services h3{
+    font-size: 2em
+  }
+
+  .services h4{
+    font-size:1.5em
+  }
+
+  .servicesCategory{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+  }
+
+  .services p, .services span{
+    font-size: 1.1em;
+  }
+
+  .cartFid{
+    font-size: 1em;
+  }
+}

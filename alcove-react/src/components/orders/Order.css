@@ -102,7 +102,36 @@
 
 
 @media (min-width: 1225px) {
+  .orderList{
+    align-items: center;
+    font-size: 1.2em;
+  }
   .order{
-    text-align: center;
+    width: 70vw
+  }
+
+  .orderDetails{
+    margin-top: 9em;
+    font-size: 1.2em;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .table-status{
+    margin-bottom: 2em;
+  }
+
+  .productDetails{
+    width: 75vw
+  }
+
+  .table-total{
+    margin-right: 12vw
+  }
+
+  .deliveryOtions{
+    width :75vw;
+    font-size: 1.2em
   }
 }

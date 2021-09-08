@@ -85,5 +85,7 @@
 @media (min-width: 1225px) {
   .dashboard h3{
     text-align: center;
+    font-size: 1.5em
   }
+  
 }

@@ -86,7 +86,8 @@ article p{
 @media (min-width: 1225px) {
 
   .homepage{
-    margin-top: 8em
+    margin-top: 8em;
+    font-size: 1.1em;
   }
   .intro{
     text-align: center;
