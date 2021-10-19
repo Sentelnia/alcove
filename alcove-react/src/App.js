@@ -73,7 +73,7 @@ class App extends Component {
     // console.log('API URL',process.env.REACT_APP_APIURL)
     return (
       <div className='App'>
-        <Navbar user={this.state.user} />
+        <Navbar user={this.state.user} cart={this.state.cart}/>
         <Switch>
           {/////////////////////* HOMEPAGE *////////////////////////
           }

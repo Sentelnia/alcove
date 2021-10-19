@@ -111,6 +111,19 @@
   
 }
 
+/*****************PRODUIT DANS LE PANIER*********/
+
+.cardUp{
+  position: absolute;
+  width: 1.3em;
+  height: 1.3em;
+  background-color: rgb(48, 67, 236);
+  border-radius: 100%;
+  top:20%;
+  left:90%;
+}
+
+
 /* DESKTOP */
 
 @media (min-width: 1225px) {

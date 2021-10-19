@@ -77,9 +77,10 @@ class Navbar extends React.Component {
           <li>
             <Link to="/cart">
               <img className="cart" src={cart} alt="cart" />
+              {this.props.cart.length > 0 && 
+          <div className="cardUp"></div>}
             </Link>
           </li>
-
           {/* {this.props.user ? <Link to="/cart"><img src={cart} alt="cart" /></Link> : <Link to="/signup"><img src={cart} alt="cart" /></Link>} */}
         </ul>
       </nav>
