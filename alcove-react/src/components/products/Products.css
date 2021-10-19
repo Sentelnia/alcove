@@ -68,6 +68,14 @@ h3{
   width: 50%;
   object-fit: contain;
   border-radius: 3px;
+
+}
+
+.imgCarte{
+  box-shadow:
+  0 12.5px 23px rgba(0, 0, 0, 0.070),
+  0 22.3px 30.9px rgba(0, 0, 0, 0.080),
+  0 41.8px 46.4px rgba(0, 0, 0, 0.090)
 }
 
 

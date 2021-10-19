@@ -4,8 +4,6 @@ import productsService from "./products-service";
 import cartService from "../cart/cart-service";
 import "./Products.css";
 
-
-
 class Product extends React.Component {
   state = {
     products: [],
@@ -67,10 +65,10 @@ class Product extends React.Component {
 
   render() {
     // console.log("props product:", this.props);
-    
+
     return (
-      <div className='productStore'>
-        <hr className='hrFirst'/>
+      <div className="productStore">
+        <hr className="hrFirst" />
         <h2>NOS PRODUITS</h2>
         {/* {Affichage lien vers création produit seulement pour admin} */}
         {this.props.user.role === "ADMIN" && (
@@ -79,27 +77,40 @@ class Product extends React.Component {
         {/* {Affichage des catégories} */}
         {this.state.categories.map((category) => (
           <div className="product-category" key={category}>
-            {category === "CARTE" && <h3>NOS CARTES CADEAUX</h3> }
+            {category === "CARTE" && <h3>NOS CARTES CADEAUX</h3>}
             {category === "LASH" && <h3>NOS SOINS DES CILS</h3>}
             {category === "NAIL" && <h3>NOS SOINS DES ONGLES</h3>}
             {category === "BASIC" && <h3>NOS BASIQUES</h3>}
 
             <ul className="carousel-items">
-          
-            {/* {Affichage des produits de chaque catégorie} */}
-            {this.state.products
-              .filter((product) => product.category === category)
-              .map((product) => (
-                
-                <li className="product-card" key={product._id}>
-                  
-                    <img
-                      src={
-                        product.imageUrl ||
-                        "https://via.placeholder.com/320x250"
-                      }
-                      alt="product-pic"
-                    />
+              {/* {Affichage des produits de chaque catégorie} */}
+              {this.state.products
+                .filter((product) => product.category === category)
+                .map((product) => (
+                  <li className="product-card" key={product._id}>
+                    {product.category === "CARTE" ? (
+                      <Link to={`/details-product/${product._id}`}>
+                        <img
+                          className="imgCarte"
+                          src={
+                            product.imageUrl ||
+                            "https://via.placeholder.com/320x250"
+                          }
+                          alt="product-pic"
+                        />
+                      </Link>
+                    ) : (
+                      <Link to={`/details-product/${product._id}`}>
+                        <img
+                          src={
+                            product.imageUrl ||
+                            "https://via.placeholder.com/320x250"
+                          }
+                          alt="product-pic"
+                        />
+                      </Link>
+                    )}
+
                     {/*Les cartes cadeaux*/}
                     {product.category === "CARTE" ? (
                       <p>Offrez un moment de soin à vos proches</p>
@@ -110,13 +121,12 @@ class Product extends React.Component {
                       </>
                     )}
                     <div className="btn-container">
-                      <button className='details'>
-                      <Link to={`/details-product/${product._id}`}>
-                        Détails
-                      </Link>
+                      <button className="details">
+                        <Link to={`/details-product/${product._id}`}>
+                          Détails
+                        </Link>
                       </button>
-                      
-                    
+
                       {/* {Affichage edit et delete seulement pour admin} */}
                       {this.props.user.role === "ADMIN" ? (
                         <>
@@ -137,28 +147,26 @@ class Product extends React.Component {
                           {/* {Masquer btn ajouter au panier si déjà dans le panier} */}
                           {this.isAlreadyInCart(product._id) ? (
                             <p>Produit déjà dans le panier</p>
-                          ) : (<>
-                            <button
-                              className="btn btncart"
-                              onClick={(e) => this.addToCart(e, product._id)}
-                            >
-                              Ajouter au panier
-                            </button>
-                            <p className='hidden'>Produit déjà dans le panier</p>
+                          ) : (
+                            <>
+                              <button
+                                className="btn btncart"
+                                onClick={(e) => this.addToCart(e, product._id)}
+                              >
+                                Ajouter au panier
+                              </button>
+                              <p className="hidden">
+                                Produit déjà dans le panier
+                              </p>
                             </>
                           )}
                         </>
                       )}
-                  
                     </div>
-                  
-                  
-                </li>
-                
-              ))}
-            
+                  </li>
+                ))}
             </ul>
-            <hr/>
+            <hr />
           </div>
         ))}
       </div>
