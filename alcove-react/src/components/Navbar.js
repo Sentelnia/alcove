@@ -9,6 +9,17 @@ import { HashLink as Link } from "react-router-hash-link";
 import "./Navbar.css";
 
 class Navbar extends React.Component {
+
+  sumItemsCart() {
+    //Somme de tous les articles du panier
+    return Number(
+      this.props.cart
+        .map((obj) => obj.quantity) // Retourne un tableau du nombres commandés [1, 3, 1]
+        .reduce((a, b) => a + b, 0) // Retourne la somme totale
+    );
+  }
+
+
   render() {
     return (
       <nav className="navbar">
@@ -74,11 +85,11 @@ class Navbar extends React.Component {
               </Link>
             )}
           </li>
-          <li>
+          <li className="iconeCart">
             <Link to="/cart">
               <img className="cart" src={cart} alt="cart" />
               {this.props.cart.length > 0 && 
-          <div className="cardUp"></div>}
+          <div className="cartUp">{this.sumItemsCart()}</div>}
             </Link>
           </li>
           {/* {this.props.user ? <Link to="/cart"><img src={cart} alt="cart" /></Link> : <Link to="/signup"><img src={cart} alt="cart" /></Link>} */}

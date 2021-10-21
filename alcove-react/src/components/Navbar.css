@@ -113,14 +113,22 @@
 
 /*****************PRODUIT DANS LE PANIER*********/
 
-.cardUp{
+.iconeCart{
+  position :relative
+}
+
+.cartUp{
   position: absolute;
-  width: 1.3em;
-  height: 1.3em;
-  background-color: rgb(48, 67, 236);
+  width: 70%;
+  height: 61%;
+  background-color: #256786;
   border-radius: 100%;
-  top:20%;
-  left:90%;
+  top: -15%;
+  left:35%;
+  border: 0.2px solid black;
+  color: white;
+  text-align: center;
+  font-weight: bold;
 }
 
 
@@ -184,7 +192,9 @@
   padding-right: 3em
 }
 
-
+.cartUp{
+  font-size: 1.5em;
+}
 
 }
 
